@@ -1,0 +1,3888 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Rafqa Production — Creative Digital Studio, Web Dev, Undangan Digital & Album Photobooth</title>
+  <meta name="description" content="Rafqa Production menyediakan layanan pembuatan Website Custom (Coffeeshop, Portofolio, UMKM), Undangan Digital Interaktif, dan Album Photobooth QR Kualitas Asli." />
+  
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&family=Playfair+Display:wght@700;800&family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- QRCode.js & JSZip & FileSaver -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            editorial: ['Playfair Display', 'serif'],
+            grotesk: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            cream: {
+              50: '#FAF6EE',
+              100: '#F4EDE0',
+              200: '#E8DEC8',
+              300: '#D8C7A8',
+            },
+            cocoa: {
+              500: '#8C6239',
+              600: '#6E4A28',
+              700: '#54351A',
+              800: '#3B230E',
+              900: '#241305',
+            },
+            tangerine: {
+              300: '#FDBA74',
+              400: '#FB923C',
+              500: '#F97316',
+              600: '#EA580C',
+            },
+            obsidian: {
+              900: '#1A1614',
+              950: '#120F0D',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FAF6EE;
+      color: #1A1614;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-grotesk {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* Subtle Graph Grid Background */
+    .bg-graph-paper {
+      background-color: #FAF6EE;
+      background-image: 
+        linear-gradient(to right, rgba(84, 53, 26, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(84, 53, 26, 0.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+
+    /* Neo-Brutalist Tactile Cards & Buttons */
+    .neo-card {
+      background: #FDFBF7;
+      border: 2px solid #1A1614;
+      box-shadow: 6px 6px 0px #1A1614;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+    }
+    .neo-card:hover {
+      transform: translate(-3px, -4px);
+      box-shadow: 10px 10px 0px #1A1614;
+    }
+
+    .neo-card-cocoa {
+      background: #F4EDE0;
+      border: 2px solid #1A1614;
+      box-shadow: 6px 6px 0px #3B230E;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+    }
+    .neo-card-cocoa:hover {
+      transform: translate(-3px, -4px);
+      box-shadow: 10px 10px 0px #3B230E;
+    }
+
+    .neo-btn-orange {
+      background: #F97316;
+      color: #1A1614;
+      border: 2px solid #1A1614;
+      box-shadow: 4px 4px 0px #1A1614;
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .neo-btn-orange:hover {
+      background: #FB923C;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px #1A1614;
+    }
+    .neo-btn-orange:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #1A1614;
+    }
+
+    .neo-btn-dark {
+      background: #241305;
+      color: #FAF6EE;
+      border: 2px solid #1A1614;
+      box-shadow: 4px 4px 0px #F97316;
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .neo-btn-dark:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px #F97316;
+    }
+    .neo-btn-dark:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #F97316;
+    }
+
+    .neo-btn-wa {
+      background: #25D366;
+      color: #1A1614;
+      border: 2px solid #1A1614;
+      box-shadow: 4px 4px 0px #1A1614;
+      transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .neo-btn-wa:hover {
+      background: #2ee472;
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px #1A1614;
+    }
+    .neo-btn-wa:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #1A1614;
+    }
+
+    /* Outlined Hollow Display Text */
+    .text-outline-dark {
+      color: #FAF6EE;
+      text-shadow:
+        -1.5px -1.5px 0 #1A1614,
+         1.5px -1.5px 0 #1A1614,
+        -1.5px  1.5px 0 #1A1614,
+         1.5px  1.5px 0 #1A1614,
+         4px    4px   0 #F97316;
+    }
+    @media (min-width: 640px) {
+      .text-outline-dark {
+        text-shadow:
+          -2px -2px 0 #1A1614,
+           2px -2px 0 #1A1614,
+          -2px  2px 0 #1A1614,
+           2px  2px 0 #1A1614,
+           5px  5px   0 #F97316;
+      }
+    }
+
+    /* Organic Liquid Morphing Blobs */
+    @keyframes morphBlob {
+      0%, 100% {
+        border-radius: 62% 38% 46% 54% / 60% 44% 56% 40%;
+        transform: rotate(0deg) scale(1);
+      }
+      33% {
+        border-radius: 42% 58% 65% 35% / 45% 62% 38% 55%;
+        transform: rotate(8deg) scale(1.06);
+      }
+      66% {
+        border-radius: 55% 45% 35% 65% / 52% 38% 62% 48%;
+        transform: rotate(-6deg) scale(0.96);
+      }
+    }
+    .animate-morph {
+      animation: morphBlob 8s ease-in-out infinite;
+    }
+    .animate-morph-slow {
+      animation: morphBlob 12s ease-in-out infinite reverse;
+    }
+
+    /* Floating Sticker Motion */
+    @keyframes floatBob {
+      0%, 100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+      50% { transform: translateY(-10px) rotate(calc(var(--rot, 0deg) + 3deg)); }
+    }
+    .animate-sticker {
+      animation: floatBob 4s ease-in-out infinite;
+    }
+    .animate-sticker-delayed {
+      animation: floatBob 4.8s ease-in-out 1s infinite;
+    }
+
+    /* Infinite Creative Marquee Ticker */
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: flex;
+      width: max-content;
+      animation: marqueeScroll 24s linear infinite;
+    }
+    .animate-marquee:hover {
+      animation-play-state: paused;
+    }
+
+    /* Staggered Card Pop-In */
+    @keyframes popIn {
+      0% { opacity: 0; transform: translateY(24px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .animate-pop-in {
+      animation: popIn 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* Custom Masonry Grid */
+    .masonry-grid {
+      column-count: 2;
+      column-gap: 0.9rem;
+    }
+    @media (min-width: 640px) {
+      .masonry-grid {
+        column-count: 3;
+        column-gap: 1.25rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .masonry-grid {
+        column-count: 4;
+        column-gap: 1.4rem;
+      }
+    }
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 0.9rem;
+    }
+    @media (min-width: 640px) {
+      .masonry-item {
+        margin-bottom: 1.25rem;
+      }
+    }
+
+    /* Smooth Keyframes */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Scroll Reveal */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Surface Utility Classes */
+    .surface-paper {
+      background: #FDFBF7;
+    }
+    .surface-espresso {
+      background: #241305;
+    }
+
+    /* Camera Filter CSS Presets */
+    .filter-original { filter: none; }
+    .filter-warm-film { filter: sepia(0.22) contrast(1.06) brightness(1.03) saturate(1.15); }
+    .filter-noir { filter: grayscale(1) contrast(1.18) brightness(0.98); }
+    .filter-vintage-cream { filter: sepia(0.32) saturate(0.85) contrast(0.96) brightness(1.05); }
+    .filter-golden { filter: contrast(1.08) saturate(1.25) hue-rotate(-6deg); }
+
+    /* Photobooth Frame Overlays */
+    .frame-classic-cream {
+      padding: 10px 10px 30px 10px;
+      background: #FAF6EE;
+      border: 2px solid #1A1614;
+    }
+    .frame-espresso-gold {
+      padding: 10px 10px 30px 10px;
+      background: #241305;
+      border: 2px solid #F97316;
+    }
+    .frame-editorial-strip {
+      padding: 12px 12px 34px 12px;
+      background: linear-gradient(180deg, #F4EDE0 0%, #E8DEC8 100%);
+      border: 2px solid #54351A;
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* === INTERACTIVE QR CARD SLIDING CAROUSEL & PATTERN BACKGROUNDS === */
+    .qr-carousel-viewport {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 8px 16px 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .qr-carousel-viewport::-webkit-scrollbar {
+      display: none;
+    }
+    .qr-slide-item {
+      flex: 0 0 256px;
+      scroll-snap-align: center;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .qr-slide-item:not(.is-active) {
+      transform: scale(0.93);
+      opacity: 0.72;
+    }
+    .qr-slide-item.is-active {
+      transform: scale(1);
+      opacity: 1;
+      box-shadow: 0 14px 28px -8px rgba(26, 22, 20, 0.22);
+    }
+
+    /* Pattern CSS untuk Preview Kartu QR */
+    .qr-pat-polkadot {
+      background-color: #FFFDF7;
+      background-image: radial-gradient(#F97316 2.2px, transparent 2.2px), radial-gradient(#FDBA74 2.2px, #FFFDF7 2.2px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+    }
+    .qr-pat-stripe {
+      background-color: #F4EDE0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        #F4EDE0,
+        #F4EDE0 12px,
+        #E8DEC8 12px,
+        #E8DEC8 24px
+      );
+    }
+    .qr-pat-floral {
+      background-color: #FDF4F5;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.16) 0 12px, transparent 13px),
+        radial-gradient(circle at 80% 30%, rgba(251, 146, 60, 0.16) 0 14px, transparent 15px),
+        radial-gradient(circle at 75% 80%, rgba(244, 114, 182, 0.15) 0 16px, transparent 17px);
+    }
+
+    /* Parallax Smooth Layer */
+    .parallax-layer {
+      will-change: transform;
+      transition: transform 0.12s ease-out;
+    }
+
+    /* === RAFQA ANALOG PRESET SELECTOR === */
+    .rfq-preset-panel {
+      background: #fffdf9;
+      border: 2px solid #1A1614;
+      box-shadow: 4px 4px 0px #1A1614;
+      border-radius: 16px;
+      padding: 12px;
+    }
+    .rfq-cat-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+    .rfq-cat-tabs::-webkit-scrollbar { display: none; }
+    .rfq-cat-btn {
+      white-space: nowrap;
+      border: 1.5px solid #1A1614;
+      background: #F4EDE0;
+      color: #3B230E;
+      padding: 4px 11px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .rfq-cat-btn.active {
+      background: #1A1614;
+      color: #FAF6EE;
+      border-color: #1A1614;
+    }
+    .rfq-preset-strip {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      padding: 4px 2px 6px;
+    }
+    .rfq-p-card {
+      flex: 0 0 104px;
+      background: #fff;
+      border: 2px solid #E8DEC8;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease;
+      text-align: left;
+    }
+    .rfq-p-card:hover { transform: translateY(-2px); }
+    .rfq-p-card.active {
+      border-color: #F97316;
+      box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
+    }
+    .rfq-p-thumb {
+      height: 44px;
+      padding: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .rfq-p-badge {
+      background: rgba(20, 16, 14, 0.72);
+      color: #fff;
+      font-size: 8.5px;
+      font-weight: 700;
+      padding: 2px 5px;
+      border-radius: 5px;
+    }
+    .rfq-p-name {
+      padding: 6px 7px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1A1614;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .rfq-intensity-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed #D8C7A8;
+      font-size: 11.5px;
+      color: #3B230E;
+    }
+    .rfq-intensity-row input[type="range"] {
+      flex: 1;
+      accent-color: #F97316;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-graph-paper selection:bg-tangerine-400 selection:text-obsidian-950">
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed top-4 right-4 left-4 sm:left-auto sm:w-96 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- TOP NAVIGATION BAR -->
+  <header id="main-navbar" class="sticky top-0 z-40 bg-cream-50/90 backdrop-blur-md border-b-2 border-obsidian-900/15 transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 py-3 flex items-center justify-between">
+      <!-- Brand Logo Badge dari Folder Assets -->
+      <button onclick="navigateTo('landing')" class="flex items-center gap-3 text-left group focus:outline-none">
+        <div class="w-10 h-10 rounded-xl bg-cream-50 border-2 border-obsidian-900 shadow-[3px_3px_0px_#1A1614] flex items-center justify-center overflow-hidden -rotate-3 group-hover:rotate-0 group-hover:scale-105 transition-all">
+          <img src="./assets/logorafqa.jpeg" alt="Logo Rafqa Production" 
+            onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+            class="w-full h-full object-contain p-1" />
+          <span class="hidden w-full h-full bg-tangerine-500 flex items-center justify-center text-obsidian-950 font-grotesk font-extrabold text-base">RP</span>
+        </div>
+        <div>
+          <span class="font-grotesk font-bold text-lg sm:text-xl tracking-tight text-obsidian-950 block leading-none">
+            Rafqa<span class="text-tangerine-600">Production</span>
+          </span>
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-cocoa-700 hidden sm:block">
+            Creative Digital Studio
+          </span>
+        </div>
+      </button>
+
+      <!-- Centered Clean Nav Links -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-mono font-bold tracking-wider uppercase text-cocoa-800">
+        <a href="#layanan" onclick="handleAnchorNav(event, 'layanan')" class="hover:text-tangerine-600 transition-colors">
+          Layanan & Produk
+        </a>
+        <a href="#cara-kerja" onclick="handleAnchorNav(event, 'cara-kerja')" class="hover:text-tangerine-600 transition-colors">
+          Cara Pesan
+        </a>
+        <a href="#portofolio" onclick="handleAnchorNav(event, 'portofolio')" class="hover:text-tangerine-600 transition-colors">
+          Showcase
+        </a>
+        <a href="#kontak" onclick="handleAnchorNav(event, 'kontak')" class="hover:text-tangerine-600 transition-colors">
+          Kontak
+        </a>
+      </nav>
+
+      <!-- Pill CTA Button -->
+      <div class="flex items-center gap-2">
+        <a href="#layanan" onclick="handleAnchorNav(event, 'layanan')" class="neo-btn-orange inline-flex items-center gap-2 text-xs sm:text-sm font-mono font-bold uppercase tracking-wide px-4 sm:px-5 py-2.5 rounded-full">
+          <span>Pesan Layanan</span>
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT ROUTER -->
+  <main id="app-root" class="flex-1 flex flex-col"></main>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 1: LANDING PAGE — RAFQA PRODUCTION MULTI-PRODUCT STUDIO          -->
+  <!-- ===================================================================== -->
+  <template id="tpl-landing">
+    <div class="animate-fade-in">
+      <!-- HERO SECTION -->
+      <section id="hero-section" class="relative overflow-hidden pt-8 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6">
+        <!-- Soft Morphing Ambient Blobs with Parallax -->
+        <div data-parallax="0.18" class="parallax-layer pointer-events-none absolute -top-20 -left-20 w-80 h-80 bg-tangerine-300/35 animate-morph -z-10"></div>
+        <div data-parallax="-0.14" class="parallax-layer pointer-events-none absolute -bottom-24 right-10 w-72 h-72 bg-cocoa-300/35 animate-morph-slow -z-10"></div>
+
+        <!-- Floating Geometric Parallax Accents -->
+        <div data-parallax="0.28" class="parallax-layer hidden md:flex items-center justify-center w-11 h-11 rounded-2xl bg-tangerine-400 border-2 border-obsidian-900 shadow-[3px_3px_0px_#1A1614] text-obsidian-950 font-grotesk font-extrabold text-sm absolute top-14 left-[48%] rotate-12 pointer-events-none">
+          ✦
+        </div>
+        <div data-parallax="-0.22" class="parallax-layer hidden lg:flex items-center justify-center px-3 py-1 rounded-full bg-cream-50 border-2 border-obsidian-900 shadow-[3px_3px_0px_#F97316] font-mono text-[10px] font-bold text-obsidian-950 absolute bottom-14 left-[44%] -rotate-6 pointer-events-none">
+          CREATIVE.ID
+        </div>
+
+        <div class="max-w-6xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6 lg:gap-10 items-center">
+            
+            <!-- Left Typography & Pill Copy (7 Cols on md+) -->
+            <div data-parallax="-0.06" class="parallax-layer md:col-span-7 text-left">
+              <!-- Top Status Pill -->
+              <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-cream-50 border-2 border-obsidian-900 shadow-[3px_3px_0px_#1A1614] text-[11px] font-mono font-bold uppercase tracking-wider text-obsidian-950 mb-5">
+                <span class="w-2.5 h-2.5 rounded-full bg-tangerine-500 animate-ping"></span>
+                <span>Web Dev • Undangan Digital • QR Photobooth</span>
+              </div>
+
+              <p class="font-mono text-xs sm:text-sm font-bold uppercase tracking-[0.18em] text-cocoa-700 mb-2.5">
+                Satu Studio Kreatif + Solusi Digital Lengkap.
+              </p>
+
+              <!-- Bold Stacked Display Headline -->
+              <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-[68px] tracking-tight leading-[1.03]">
+                <span class="block text-obsidian-950">Wujudkan Ide</span>
+                <span class="block text-tangerine-500">Digital & Momen</span>
+                <span class="block text-outline-dark">Lebih Berkesan.</span>
+              </h1>
+
+              <!-- Concise Value Proposition -->
+              <p class="text-sm sm:text-base text-cocoa-800 max-w-xl mt-5 leading-relaxed">
+                Dari pembuatan <strong class="text-obsidian-950">Website Custom</strong> (Coffeeshop, Portofolio, UMKM), <strong class="text-obsidian-950">Undangan Digital</strong> interaktif, hingga <strong class="text-obsidian-950">Album Photobooth QR</strong> beresolusi penuh untuk acara spesial Anda.
+              </p>
+
+              <!-- Quick Action Row -->
+              <div class="mt-7 flex flex-wrap items-center gap-3.5">
+                <a href="#layanan" onclick="handleAnchorNav(event, 'layanan')" class="neo-btn-orange inline-flex items-center gap-2.5 font-display font-bold text-sm sm:text-base px-6 py-3.5 sm:px-7 sm:py-4 rounded-2xl">
+                  <span>Pilih Layanan Kami</span>
+                  <i data-lucide="arrow-down-right" class="w-5 h-5"></i>
+                </a>
+                <button onclick="orderViaWhatsApp('Konsultasi Project Digital', 'Halo Rafqa Production, saya ingin konsultasi terkait pembuatan website / undangan digital / photobooth.')" class="neo-btn-wa inline-flex items-center gap-2 px-5 py-3.5 sm:py-4 rounded-2xl text-xs sm:text-sm font-mono font-bold uppercase">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  <span>Chat WhatsApp</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right Interactive Floating Showcase Stack (5 Cols on md+) -->
+            <div data-parallax="0.1" class="parallax-layer md:col-span-5 relative flex items-center justify-center md:justify-end py-4">
+              <!-- Liquid Morphing Warm Orange Backdrop Shape -->
+              <div class="absolute -top-4 right-0 w-64 h-64 sm:w-76 sm:h-76 bg-tangerine-300/70 animate-morph -z-10"></div>
+
+              <!-- Main Tilted Creative Studio Card -->
+              <div id="hero-tilt-card" class="neo-card w-72 sm:w-80 rounded-3xl p-4 -rotate-2 relative z-10 bg-cream-50">
+                <!-- Window Top Header -->
+                <div class="flex items-center justify-between px-1 pb-3 text-[11px] font-mono font-bold text-cocoa-700 border-b border-cream-200 mb-3">
+                  <span class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400 border border-obsidian-900"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400 border border-obsidian-900"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 border border-obsidian-900"></span>
+                    <span class="ml-1">RAFQA.STUDIO</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded-md bg-tangerine-400 border border-obsidian-900 text-obsidian-950 text-[10px]">3 PRODUK</span>
+                </div>
+
+                <!-- Interactive Mini Product Switcher inside Hero Card -->
+                <div class="space-y-2.5">
+                  <div onclick="navigateTo('create')" class="p-3 rounded-2xl bg-cream-100 hover:bg-tangerine-300/50 border-2 border-obsidian-900 cursor-pointer transition-all flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-xl bg-tangerine-500 border border-obsidian-900 flex items-center justify-center text-obsidian-950">
+                        <i data-lucide="camera" class="w-4 h-4"></i>
+                      </div>
+                      <div>
+                        <p class="font-display font-extrabold text-xs text-obsidian-950">Album Photobooth QR</p>
+                        <p class="text-[11px] text-cocoa-800">Pesan instan & cetak QR</p>
+                      </div>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-obsidian-950 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                  </div>
+
+                  <div onclick="orderViaWhatsApp('Undangan Digital')" class="p-3 rounded-2xl bg-cream-100 hover:bg-tangerine-300/50 border-2 border-obsidian-900 cursor-pointer transition-all flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-xl bg-cocoa-800 border border-obsidian-900 flex items-center justify-center text-cream-50">
+                        <i data-lucide="mail-open" class="w-4 h-4"></i>
+                      </div>
+                      <div>
+                        <p class="font-display font-extrabold text-xs text-obsidian-950">Undangan Digital</p>
+                        <p class="text-[11px] text-cocoa-800">RSVP, Maps & Galeri Tamu</p>
+                      </div>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-obsidian-950 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                  </div>
+
+                  <div onclick="orderViaWhatsApp('Custom Website Development')" class="p-3 rounded-2xl bg-cream-100 hover:bg-tangerine-300/50 border-2 border-obsidian-900 cursor-pointer transition-all flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                      <div class="w-9 h-9 rounded-xl bg-obsidian-950 border border-obsidian-900 flex items-center justify-center text-tangerine-400">
+                        <i data-lucide="code-2" class="w-4 h-4"></i>
+                      </div>
+                      <div>
+                        <p class="font-display font-extrabold text-xs text-obsidian-950">Custom Website Dev</p>
+                        <p class="text-[11px] text-cocoa-800">Coffeeshop, Portofolio, Bisnis</p>
+                      </div>
+                    </div>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4 text-obsidian-950 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+                  </div>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="pt-3 mt-3 border-t border-cream-200 flex items-center justify-between px-1">
+                  <span class="font-mono text-[10px] font-bold text-cocoa-700">FAST & CUSTOMIZABLE</span>
+                  <span class="font-grotesk font-extrabold text-xs text-tangerine-600">RAFQA PRODUCTION</span>
+                </div>
+
+                <!-- Floating Sticker 1: Bottom-Left Cocoa Circle -->
+                <div style="--rot: -8deg;" class="animate-sticker absolute -left-6 sm:-left-9 -bottom-6 w-20 h-20 rounded-full bg-cocoa-800 text-cream-50 border-2 border-obsidian-900 shadow-[4px_4px_0px_#1A1614] flex flex-col items-center justify-center text-center p-2 z-20">
+                  <span class="font-mono font-bold text-[10px] leading-tight">WEB &<br>INVITATION</span>
+                </div>
+
+                <!-- Floating Sticker 2: Top-Right Tangerine Circle -->
+                <div style="--rot: 6deg;" class="animate-sticker-delayed absolute -right-5 sm:-right-7 -top-6 w-20 h-20 rounded-full bg-tangerine-400 text-obsidian-950 border-2 border-obsidian-900 shadow-[4px_4px_0px_#1A1614] flex flex-col items-center justify-center text-center p-2 z-20">
+                  <span class="font-grotesk font-extrabold text-xs leading-none">100%</span>
+                  <span class="font-mono text-[9px] font-bold mt-1">CUSTOM<br>DESIGN</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- CREATIVE RUNNING MARQUEE TICKER -->
+      <div class="bg-obsidian-950 text-cream-50 border-y-2 border-obsidian-900 py-3.5 overflow-hidden select-none">
+        <div class="animate-marquee flex items-center gap-8 font-mono text-xs sm:text-sm font-bold uppercase tracking-widest">
+          <span class="flex items-center gap-3 text-tangerine-400"><i data-lucide="sparkles" class="w-4 h-4"></i> ALBUM PHOTOBOOTH QR</span>
+          <span>✦</span>
+          <span class="flex items-center gap-3"><i data-lucide="heart" class="w-4 h-4 text-tangerine-400"></i> UNDANGAN DIGITAL INTERAKTIF</span>
+          <span>✦</span>
+          <span class="flex items-center gap-3 text-tangerine-300"><i data-lucide="coffee" class="w-4 h-4"></i> WEBSITE COFFEESHOP & F&B</span>
+          <span>✦</span>
+          <span class="flex items-center gap-3"><i data-lucide="briefcase" class="w-4 h-4 text-tangerine-400"></i> WEBSITE PORTOFOLIO & BRAND</span>
+          <span>✦</span>
+          <span class="flex items-center gap-3 text-tangerine-400"><i data-lucide="sparkles" class="w-4 h-4"></i> ALBUM PHOTOBOOTH QR</span>
+          <span>✦</span>
+          <span class="flex items-center gap-3"><i data-lucide="heart" class="w-4 h-4 text-tangerine-400"></i> UNDANGAN DIGITAL INTERAKTIF</span>
+          <span>✦</span>
+          <span class="flex items-center gap-3 text-tangerine-300"><i data-lucide="coffee" class="w-4 h-4"></i> WEBSITE COFFEESHOP & F&B</span>
+          <span>✦</span>
+          <span class="flex items-center gap-3"><i data-lucide="briefcase" class="w-4 h-4 text-tangerine-400"></i> WEBSITE PORTOFOLIO & BRAND</span>
+          <span>✦</span>
+        </div>
+      </div>
+
+      <!-- SECTION: KATALOG PRODUK & LAYANAN RAFQA PRODUCTION -->
+      <section id="layanan" class="py-14 sm:py-20 px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto">
+          <div class="flex flex-col md:flex-row md:items-end justify-between mb-9 gap-3 reveal-on-scroll">
+            <div>
+              <span class="inline-block px-3 py-0.5 rounded-full bg-tangerine-400 border-2 border-obsidian-900 font-mono text-[10px] font-bold uppercase tracking-wider text-obsidian-950 mb-2">
+                Katalog Produk & Jasa
+              </span>
+              <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-obsidian-950 tracking-tight">
+                Layanan <span class="text-tangerine-600">Rafqa Production</span>
+              </h2>
+            </div>
+            <p class="text-xs text-cocoa-800 max-w-sm leading-relaxed">
+              Pilih layanan sesuai kebutuhan acara atau bisnis Anda. Album photobooth diproses instan, sedangkan layanan custom langsung via WhatsApp.
+            </p>
+          </div>
+
+          <!-- 3 COMPACT PRODUCT CARDS -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch reveal-on-scroll">
+            
+            <!-- PRODUK 1: ALBUM PHOTOBOOTH QR -->
+            <div class="neo-card rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden bg-cream-50">
+              <div class="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-tangerine-300/35 pointer-events-none"></div>
+              
+              <div>
+                <div class="flex items-center justify-between mb-3.5">
+                  <div class="w-10 h-10 rounded-xl bg-tangerine-500 border-2 border-obsidian-900 shadow-[2px_2px_0px_#1A1614] flex items-center justify-center text-obsidian-950">
+                    <i data-lucide="camera" class="w-5 h-5"></i>
+                  </div>
+                  <span class="px-2.5 py-0.5 rounded-full bg-obsidian-950 text-tangerine-300 font-mono text-[9px] font-bold uppercase">
+                    Instan
+                  </span>
+                </div>
+
+                <h3 class="font-display font-extrabold text-lg text-obsidian-950">
+                  Album Photobooth QR
+                </h3>
+                <p class="text-xs text-cocoa-800 mt-1.5 leading-relaxed">
+                  Galeri kolaborasi foto & video tamu berbasis QR dengan bingkai photobooth, filter kamera, dan resolusi asli.
+                </p>
+
+                <!-- Compact Feature Checklist -->
+                <ul class="mt-3.5 space-y-1.5 text-xs text-obsidian-950 font-medium border-t border-cream-200 pt-3">
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-tangerine-600 shrink-0"></i>
+                    <span>Kartu QR Meja Tamu (PNG)</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-tangerine-600 shrink-0"></i>
+                    <span>Bingkai & Filter Estetik</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-tangerine-600 shrink-0"></i>
+                    <span>Live Slideshow & Unduh ZIP</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-5 pt-3.5 border-t border-cream-200">
+                <div class="flex items-baseline justify-between mb-3">
+                  <span class="text-[11px] font-mono font-bold uppercase text-cocoa-700">Paket Acara</span>
+                  <span class="font-grotesk font-extrabold text-lg text-obsidian-950">Rp 99.000</span>
+                </div>
+                <div class="space-y-2">
+                  <button onclick="navigateTo('create')" class="neo-btn-orange w-full inline-flex items-center justify-center gap-1.5 font-display font-extrabold text-xs py-2.5 px-4 rounded-xl">
+                    <span>Buat & Pesan Album</span>
+                    <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                  </button>
+                  <button onclick="navigateTo('gallery', 'resepsi-nadia-fajar')" class="w-full py-2 px-3 rounded-xl bg-cream-100 hover:bg-cream-200 border border-obsidian-900/25 text-[11px] font-mono font-bold text-cocoa-900 transition-colors">
+                    Lihat Demo Galeri
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- PRODUK 2: UNDANGAN DIGITAL INTERAKTIF -->
+            <div class="neo-card-cocoa rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden">
+              <div class="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-cocoa-300/35 pointer-events-none"></div>
+
+              <div>
+                <div class="flex items-center justify-between mb-3.5">
+                  <div class="w-10 h-10 rounded-xl bg-cocoa-800 border-2 border-obsidian-900 shadow-[2px_2px_0px_#1A1614] flex items-center justify-center text-cream-50">
+                    <i data-lucide="mail-open" class="w-5 h-5"></i>
+                  </div>
+                  <span class="px-2.5 py-0.5 rounded-full bg-cream-50 border border-obsidian-900 text-obsidian-950 font-mono text-[9px] font-bold uppercase">
+                    Custom Tema
+                  </span>
+                </div>
+
+                <h3 class="font-display font-extrabold text-lg text-obsidian-950">
+                  Undangan Digital
+                </h3>
+                <p class="text-xs text-cocoa-800 mt-1.5 leading-relaxed">
+                  Undangan web interaktif untuk pernikahan, lamaran, & acara spesial dengan animasi elegan dan RSVP.
+                </p>
+
+                <!-- Compact Feature Checklist -->
+                <ul class="mt-3.5 space-y-1.5 text-xs text-obsidian-950 font-medium border-t border-cocoa-300/60 pt-3">
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-cocoa-800 shrink-0"></i>
+                    <span>Unlimited Nama Tamu</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-cocoa-800 shrink-0"></i>
+                    <span>RSVP, Ucapan & Google Maps</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-cocoa-800 shrink-0"></i>
+                    <span>Bisa Bundling Photobooth QR</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-5 pt-3.5 border-t border-cocoa-300/60">
+                <div class="flex items-baseline justify-between mb-3">
+                  <span class="text-[11px] font-mono font-bold uppercase text-cocoa-700">Mulai Dari</span>
+                  <span class="font-grotesk font-extrabold text-lg text-obsidian-950">Rp 120.000</span>
+                </div>
+                <button onclick="orderViaWhatsApp('Undangan Digital', 'Halo Rafqa Production, saya tertarik memesan *Undangan Digital*. Boleh info katalog tema dan detailnya?')" class="neo-btn-wa w-full inline-flex items-center justify-center gap-1.5 font-display font-extrabold text-xs py-2.5 px-4 rounded-xl">
+                  <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                  <span>Pesan via WhatsApp</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- PRODUK 3: CUSTOM WEB DEVELOPMENT -->
+            <div class="neo-card rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden bg-cream-50">
+              <div class="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-tangerine-300/30 pointer-events-none"></div>
+
+              <div>
+                <div class="flex items-center justify-between mb-3.5">
+                  <div class="w-10 h-10 rounded-xl bg-obsidian-950 border-2 border-obsidian-900 shadow-[2px_2px_0px_#F97316] flex items-center justify-center text-tangerine-400">
+                    <i data-lucide="laptop-2" class="w-5 h-5"></i>
+                  </div>
+                  <span class="px-2.5 py-0.5 rounded-full bg-tangerine-300 border border-obsidian-900 text-obsidian-950 font-mono text-[9px] font-bold uppercase">
+                    Web Dev
+                  </span>
+                </div>
+
+                <h3 class="font-display font-extrabold text-lg text-obsidian-950">
+                  Jasa Pembuatan Website
+                </h3>
+                <p class="text-xs text-cocoa-800 mt-1.5 leading-relaxed">
+                  Website profesional dan responsif untuk coffeeshop, portofolio kreatif, company profile, maupun UMKM.
+                </p>
+
+                <!-- Compact Feature Checklist -->
+                <ul class="mt-3.5 space-y-1.5 text-xs text-obsidian-950 font-medium border-t border-cream-200 pt-3">
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-tangerine-600 shrink-0"></i>
+                    <span>Web Coffeeshop & Katalog Menu</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-tangerine-600 shrink-0"></i>
+                    <span>Web Portofolio & Personal Brand</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i data-lucide="check" class="w-3.5 h-3.5 text-tangerine-600 shrink-0"></i>
+                    <span>Desain Custom & Mobile Friendly</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="mt-5 pt-3.5 border-t border-cream-200">
+                <div class="flex items-baseline justify-between mb-3">
+                  <span class="text-[11px] font-mono font-bold uppercase text-cocoa-700">Estimasi</span>
+                  <span class="font-grotesk font-extrabold text-base text-obsidian-950">Custom Quote</span>
+                </div>
+                <button onclick="orderViaWhatsApp('Jasa Pembuatan Website', 'Halo Rafqa Production, saya ingin membuat *Website* (Coffeeshop / Portofolio / Bisnis). Boleh diskusi konsep dan estimasi biayanya?')" class="neo-btn-wa w-full inline-flex items-center justify-center gap-1.5 font-display font-extrabold text-xs py-2.5 px-4 rounded-xl">
+                  <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                  <span>Konsultasi via WhatsApp</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: CARA KERJA & ALUR PEMESANAN -->
+      <section id="cara-kerja" class="py-16 sm:py-24 px-4 sm:px-6 bg-cocoa-900 text-cream-50 border-y-2 border-obsidian-900 relative overflow-hidden">
+        <div data-parallax="-0.15" class="parallax-layer pointer-events-none absolute -right-20 -bottom-20 w-80 h-80 bg-tangerine-500/15 animate-morph -z-0"></div>
+        <div data-parallax="0.12" class="parallax-layer pointer-events-none absolute -left-16 top-10 w-56 h-56 bg-cream-50/5 rounded-full -z-0"></div>
+
+        <div class="max-w-6xl mx-auto relative z-10">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4 reveal-on-scroll">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full bg-tangerine-500 text-obsidian-950 font-mono text-[11px] font-bold uppercase tracking-wider mb-3">
+                Alur Mudah & Transparan
+              </span>
+              <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-cream-50 tracking-tight">
+                Cara Kerja <span class="text-tangerine-400">Rafqa Production</span>
+              </h2>
+            </div>
+            <p class="text-xs sm:text-sm text-cream-200/80 max-w-sm leading-relaxed">
+              Proses pengerjaan cepat dan terstruktur baik untuk produk instan maupun custom project.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-7 reveal-on-scroll">
+            <!-- Step 1 -->
+            <div class="rounded-3xl bg-cream-50 text-obsidian-950 p-6 sm:p-7 border-2 border-obsidian-900 shadow-[6px_6px_0px_#F97316] hover:-translate-y-1.5 transition-transform">
+              <div class="flex items-center justify-between mb-5">
+                <span class="w-11 h-11 rounded-2xl bg-tangerine-500 border-2 border-obsidian-900 font-grotesk font-extrabold text-lg flex items-center justify-center">
+                  01
+                </span>
+                <i data-lucide="mouse-pointer-click" class="w-6 h-6 text-cocoa-700"></i>
+              </div>
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-obsidian-950">
+                Pilih Produk / Konsultasi
+              </h3>
+              <p class="text-xs sm:text-sm text-cocoa-800 mt-2 leading-relaxed">
+                Untuk <strong>Album Photobooth</strong> langsung isi form acara. Untuk <strong>Website / Undangan Digital</strong> klik tombol WhatsApp untuk diskusi konsep.
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="rounded-3xl bg-cream-100 text-obsidian-950 p-6 sm:p-7 border-2 border-obsidian-900 shadow-[6px_6px_0px_#FDBA74] hover:-translate-y-1.5 transition-transform">
+              <div class="flex items-center justify-between mb-5">
+                <span class="w-11 h-11 rounded-2xl bg-cocoa-800 text-cream-50 border-2 border-obsidian-900 font-grotesk font-extrabold text-lg flex items-center justify-center">
+                  02
+                </span>
+                <i data-lucide="qr-code" class="w-6 h-6 text-tangerine-600"></i>
+              </div>
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-obsidian-950">
+                Pembayaran & Aktivasi
+              </h3>
+              <p class="text-xs sm:text-sm text-cocoa-800 mt-2 leading-relaxed">
+                Selesaikan pembayaran melalui QRIS atau transfer bank yang tersedia, lalu konfirmasi bukti bayar agar pesanan segera aktif.
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="rounded-3xl bg-cream-50 text-obsidian-950 p-6 sm:p-7 border-2 border-obsidian-900 shadow-[6px_6px_0px_#F97316] hover:-translate-y-1.5 transition-transform">
+              <div class="flex items-center justify-between mb-5">
+                <span class="w-11 h-11 rounded-2xl bg-tangerine-400 border-2 border-obsidian-900 font-grotesk font-extrabold text-lg flex items-center justify-center">
+                  03
+                </span>
+                <i data-lucide="rocket" class="w-6 h-6 text-cocoa-700"></i>
+              </div>
+              <h3 class="font-display font-extrabold text-lg sm:text-xl text-obsidian-950">
+                Siap Digunakan & Publikasi
+              </h3>
+              <p class="text-xs sm:text-sm text-cocoa-800 mt-2 leading-relaxed">
+                Kartu QR Photobooth siap dicetak, undangan siap disebar, atau website bisnis Anda resmi mengudara dengan dukungan penuh dari kami.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: SHOWCASE & USE CASE INSPIRASI -->
+      <section id="portofolio" class="py-16 sm:py-24 px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center max-w-2xl mx-auto mb-12 reveal-on-scroll">
+            <span class="inline-block px-3.5 py-1 rounded-full bg-cream-200 border border-obsidian-900 font-mono text-[11px] font-bold uppercase tracking-wider text-cocoa-900">
+              Showcase Karya
+            </span>
+            <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-obsidian-950 mt-3">
+              Dibuat dengan Sentuhan Kreatif
+            </h2>
+            <p class="text-xs sm:text-sm text-cocoa-800 mt-2">
+              Contoh implementasi project digital yang dapat kami bangun untuk brand dan acara Anda.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-on-scroll">
+            <!-- Showcase 1 -->
+            <div class="neo-card rounded-3xl overflow-hidden flex flex-col">
+              <div class="h-44 bg-cocoa-800 relative overflow-hidden border-b-2 border-obsidian-900">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Website Coffeeshop" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" />
+                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-cream-50 border border-obsidian-900 font-mono text-[10px] font-bold uppercase text-obsidian-950">
+                  Web Coffeeshop
+                </span>
+              </div>
+              <div class="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-display font-extrabold text-lg text-obsidian-950">Katalog Menu & Reservasi Cafe</h3>
+                  <p class="text-xs text-cocoa-800 mt-1.5 leading-relaxed">
+                    Tampilan menu interaktif, integrasi lokasi cabang, cerita biji kopi, dan tombol order cepat.
+                  </p>
+                </div>
+                <button onclick="orderViaWhatsApp('Website Coffeeshop', 'Halo Rafqa Production, saya tertarik membuat website untuk *Coffeeshop / Cafe* saya.')" class="mt-4 text-xs font-mono font-bold text-tangerine-600 hover:text-obsidian-950 inline-flex items-center gap-1">
+                  <span>Pesan Konsep Serupa</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Showcase 2 -->
+            <div class="neo-card-cocoa rounded-3xl overflow-hidden flex flex-col">
+              <div class="h-44 bg-obsidian-950 relative overflow-hidden border-b-2 border-obsidian-900">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Undangan & Photobooth" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" />
+                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-tangerine-400 border border-obsidian-900 font-mono text-[10px] font-bold uppercase text-obsidian-950">
+                  Wedding Suite
+                </span>
+              </div>
+              <div class="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-display font-extrabold text-lg text-obsidian-950">Undangan Digital + QR Photobooth</h3>
+                  <p class="text-xs text-cocoa-800 mt-1.5 leading-relaxed">
+                    Paket lengkap mulai dari sebar undangan digital hingga pengumpulan foto tamu saat hari-H.
+                  </p>
+                </div>
+                <button onclick="orderViaWhatsApp('Bundling Undangan Digital & Photobooth', 'Halo Rafqa Production, saya tertarik paket *Undangan Digital + Album Photobooth*.')" class="mt-4 text-xs font-mono font-bold text-cocoa-900 hover:text-tangerine-600 inline-flex items-center gap-1">
+                  <span>Tanya Paket Bundling</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Showcase 3 -->
+            <div class="neo-card rounded-3xl overflow-hidden flex flex-col">
+              <div class="h-44 bg-cocoa-900 relative overflow-hidden border-b-2 border-obsidian-900">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Website Portofolio" class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500" />
+                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-cream-50 border border-obsidian-900 font-mono text-[10px] font-bold uppercase text-obsidian-950">
+                  Portofolio & Brand
+                </span>
+              </div>
+              <div class="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="font-display font-extrabold text-lg text-obsidian-950">Website Portofolio & Personal Brand</h3>
+                  <p class="text-xs text-cocoa-800 mt-1.5 leading-relaxed">
+                    Tampilkan karya fotografi, desain, arsitektur, atau profil perusahaan Anda dengan animasi berkelas.
+                  </p>
+                </div>
+                <button onclick="orderViaWhatsApp('Website Portofolio', 'Halo Rafqa Production, saya ingin membuat *Website Portofolio*.')" class="mt-4 text-xs font-mono font-bold text-tangerine-600 hover:text-obsidian-950 inline-flex items-center gap-1">
+                  <span>Diskusi via WhatsApp</span>
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: TESTIMONI KLIEN RAFQA PRODUCTION -->
+      <section id="testimoni" class="py-16 sm:py-20 px-4 sm:px-6 bg-cream-100/80 border-y-2 border-obsidian-900/15">
+        <div class="max-w-6xl mx-auto">
+          <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 reveal-on-scroll">
+            <div>
+              <span class="inline-block px-3.5 py-1 rounded-full bg-tangerine-400 border-2 border-obsidian-900 font-mono text-[10px] font-bold uppercase tracking-wider text-obsidian-950 mb-2">
+                Cerita & Review Klien
+              </span>
+              <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-obsidian-950 tracking-tight">
+                Dipercaya Acara & <span class="text-tangerine-600">Brand Lokal</span>
+              </h2>
+            </div>
+            <p class="text-xs sm:text-sm text-cocoa-800 max-w-sm leading-relaxed">
+              Pengalaman nyata para pengantin, penyelenggara acara, dan pemilik bisnis yang berkolaborasi dengan Rafqa Production.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 reveal-on-scroll">
+            <!-- Testimoni 1: Album Photobooth QR -->
+            <div class="neo-card rounded-3xl p-6 flex flex-col justify-between bg-cream-50">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-1 text-tangerine-500">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                  </div>
+                  <span class="px-2.5 py-0.5 rounded-full bg-tangerine-300/60 border border-obsidian-900 font-mono text-[9px] font-bold uppercase text-obsidian-950">
+                    Album Photobooth
+                  </span>
+                </div>
+                <p class="text-xs sm:text-sm text-cocoa-900 leading-relaxed italic">
+                  "Kartu QR di meja tamu gampang banget di-scan! Tamu-tamu antusias foto pakai filter analognya, dan semua file asli langsung terkumpul rapi tanpa pecah."
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-cream-200 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-tangerine-500 border-2 border-obsidian-900 flex items-center justify-center font-grotesk font-extrabold text-sm text-obsidian-950">
+                  DF
+                </div>
+                <div>
+                  <p class="font-display font-extrabold text-xs sm:text-sm text-obsidian-950">Dinda & Fajar</p>
+                  <p class="text-[11px] font-mono text-cocoa-700">Resepsi Pernikahan • Bandung</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimoni 2: Website Coffeeshop -->
+            <div class="neo-card-cocoa rounded-3xl p-6 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-1 text-tangerine-600">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                  </div>
+                  <span class="px-2.5 py-0.5 rounded-full bg-cream-50 border border-obsidian-900 font-mono text-[9px] font-bold uppercase text-obsidian-950">
+                    Web Coffeeshop
+                  </span>
+                </div>
+                <p class="text-xs sm:text-sm text-cocoa-900 leading-relaxed italic">
+                  "Website coffeeshop kami dibikin super estetik dan ringan dibuka dari HP. Menu seasonal & reservasi meja sekarang jauh lebih profesional."
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-cocoa-300/60 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-cocoa-800 border-2 border-obsidian-900 flex items-center justify-center font-grotesk font-extrabold text-sm text-cream-50">
+                  AR
+                </div>
+                <div>
+                  <p class="font-display font-extrabold text-xs sm:text-sm text-obsidian-950">Arif Rahman</p>
+                  <p class="text-[11px] font-mono text-cocoa-700">Owner Seduh Senja Coffee</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimoni 3: Undangan Digital -->
+            <div class="neo-card rounded-3xl p-6 flex flex-col justify-between bg-cream-50">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-1 text-tangerine-500">
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                  </div>
+                  <span class="px-2.5 py-0.5 rounded-full bg-obsidian-950 font-mono text-[9px] font-bold uppercase text-tangerine-300">
+                    Undangan Digital
+                  </span>
+                </div>
+                <p class="text-xs sm:text-sm text-cocoa-900 leading-relaxed italic">
+                  "Ambil paket bundling Undangan Digital + QR Photobooth di Rafqa Production. Desainnya senada, pengerjaan cepat, dan adminnya sangat responsif."
+                </p>
+              </div>
+              <div class="mt-5 pt-4 border-t border-cream-200 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-obsidian-950 border-2 border-obsidian-900 flex items-center justify-center font-grotesk font-extrabold text-sm text-tangerine-400">
+                  NM
+                </div>
+                <div>
+                  <p class="font-display font-extrabold text-xs sm:text-sm text-obsidian-950">Nadia & Malik</p>
+                  <p class="text-[11px] font-mono text-cocoa-700">Engagement & Wedding • Jakarta</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOFT-SELLING CTA BANNER -->
+      <section class="pb-20 pt-4 px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto reveal-on-scroll">
+          <div class="rounded-[32px] bg-tangerine-400 border-2 border-obsidian-900 shadow-[8px_8px_0px_#1A1614] p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+            <div class="pointer-events-none absolute -right-10 -top-10 w-44 h-44 rounded-full bg-cream-50/40 animate-morph"></div>
+            
+            <div class="relative z-10 text-center md:text-left max-w-lg">
+              <span class="font-mono text-xs font-bold uppercase tracking-widest text-cocoa-900">Mulai Kolaborasi</span>
+              <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-obsidian-950 mt-1 leading-tight">
+                Siap Memulai Project atau Acara Anda?
+              </h2>
+              <p class="text-xs sm:text-sm text-cocoa-900 mt-2">
+                Buat Album Photobooth sekarang atau diskusikan kebutuhan Website & Undangan Digital Anda bersama Rafqa Production.
+              </p>
+            </div>
+
+            <div class="relative z-10 flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto">
+              <button onclick="navigateTo('create')" class="neo-btn-dark w-full sm:w-auto inline-flex items-center justify-center gap-2 font-display font-bold text-sm px-6 py-4 rounded-2xl">
+                <i data-lucide="camera" class="w-4 h-4 text-tangerine-400"></i>
+                <span>Buat Album Photobooth</span>
+              </button>
+              <button onclick="orderViaWhatsApp('Konsultasi Umum')" class="neo-btn-wa w-full sm:w-auto inline-flex items-center justify-center gap-2 font-display font-bold text-sm px-6 py-4 rounded-2xl">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>Chat WhatsApp</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER: KONTAK & HAK CIPTA RAFQA PRODUCTION -->
+      <footer id="kontak" class="bg-obsidian-950 text-cream-100 border-t-2 border-obsidian-900 py-12 px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-8 border-b border-cocoa-800">
+            <div class="space-y-2.5">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-cream-50 border-2 border-cream-50 flex items-center justify-center overflow-hidden">
+                  <img src="./assets/logorafqa.jpeg" alt="Logo Rafqa Production" 
+                    onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');"
+                    class="w-full h-full object-contain p-1" />
+                  <span class="hidden w-full h-full bg-tangerine-500 flex items-center justify-center text-obsidian-950 font-grotesk font-extrabold text-sm">RP</span>
+                </div>
+                <span class="font-grotesk font-bold text-xl text-cream-50">Rafqa<span class="text-tangerine-400">Production</span></span>
+              </div>
+              <p class="text-xs text-cream-300/80 max-w-sm leading-relaxed">
+                Creative Digital Studio: Jasa Pembuatan Website Custom, Undangan Digital Interaktif, dan Platform Album Photobooth QR.
+              </p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 text-xs sm:text-sm font-mono text-cream-200">
+              <a href="mailto:halo@rafqaproduction.id" class="inline-flex items-center gap-2 hover:text-tangerine-400 transition-colors">
+                <i data-lucide="mail" class="w-4 h-4 text-tangerine-400"></i>
+                <span>halo@rafqaproduction.id</span>
+              </a>
+              <button onclick="orderViaWhatsApp('Tanya Layanan Rafqa Production')" class="inline-flex items-center gap-2 hover:text-tangerine-400 transition-colors text-left">
+                <i data-lucide="phone" class="w-4 h-4 text-tangerine-400"></i>
+                <span>+62 812-8800-7237</span>
+              </button>
+              <span class="inline-flex items-center gap-2">
+                <i data-lucide="map-pin" class="w-4 h-4 text-tangerine-400"></i>
+                <span>Indonesia</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-cream-300/70 text-center sm:text-left">
+            <p>&copy; 2026 <strong class="text-cream-50">Rafqa Production</strong>. Seluruh Hak Cipta Dilindungi.</p>
+            <p class="font-mono text-[11px] text-tangerine-300/80">Web Dev • Digital Invitation • QR Photobooth</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </template>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 2: CREATE EVENT PAGE (/create)                                   -->
+  <!-- ===================================================================== -->
+  <template id="tpl-create">
+    <div class="max-w-2xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 animate-fade-in">
+      <button onclick="navigateTo('landing')" class="inline-flex items-center gap-1.5 text-sm font-mono font-bold text-cocoa-800 hover:text-obsidian-950 mb-6 transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        KEMBALI KE RAFQA PRODUCTION
+      </button>
+
+      <div class="neo-card rounded-3xl p-6 sm:p-8">
+        <div class="mb-6 pb-5 border-b-2 border-cream-200">
+          <span class="inline-block px-3 py-1 rounded-full bg-tangerine-300 border border-obsidian-900 text-[11px] font-mono font-bold uppercase text-obsidian-950">Album Photobooth QR</span>
+          <h1 class="font-display font-extrabold text-2xl sm:text-3xl text-obsidian-950 mt-2">Buat Ruang Album Acara</h1>
+          <p class="text-xs sm:text-sm text-cocoa-800 mt-1">Lengkapi detail singkat di bawah untuk mendapatkan tautan & kartu QR photobooth tamu Anda.</p>
+        </div>
+
+        <form id="create-event-form" onsubmit="handleCreateEvent(event)" class="space-y-5">
+          <div>
+            <label class="block text-sm font-bold text-obsidian-950 mb-1.5">Judul Acara <span class="text-tangerine-600">*</span></label>
+            <input type="text" id="inp-title" required placeholder="Contoh: Pernikahan Dinda & Wildan" oninput="autoGenerateSlug(this.value)"
+              class="w-full px-4 py-3 rounded-xl bg-white border-2 border-obsidian-900 focus:border-tangerine-500 outline-none text-sm sm:text-base transition-all" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-obsidian-950 mb-1.5">Tautan Album <span class="text-tangerine-600">*</span></label>
+            <div class="flex items-center rounded-xl border-2 border-obsidian-900 bg-cream-100 overflow-hidden focus-within:border-tangerine-500">
+              <span class="px-3.5 py-3 text-xs sm:text-sm font-mono font-bold text-cocoa-800 border-r-2 border-obsidian-900 select-none">rafqa.id/e/</span>
+              <input type="text" id="inp-slug" required pattern="[a-z0-9-]+" placeholder="pernikahan-dinda-wildan" oninput="validateSlugInput(this)"
+                class="w-full px-3.5 py-3 bg-white outline-none text-sm sm:text-base font-semibold text-obsidian-950" />
+            </div>
+            <p id="slug-feedback" class="text-xs text-cocoa-700 mt-1.5">Huruf kecil, angka, dan tanda hubung (-).</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-bold text-obsidian-950 mb-1.5">Tanggal Acara <span class="text-tangerine-600">*</span></label>
+              <input type="date" id="inp-date" required
+                class="w-full px-4 py-3 rounded-xl bg-white border-2 border-obsidian-900 focus:border-tangerine-500 outline-none text-sm sm:text-base" />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-obsidian-950 mb-1.5">PIN Tamu <span class="text-xs font-normal text-cocoa-600">(Opsional)</span></label>
+              <input type="text" id="inp-pin" inputmode="numeric" maxlength="6" pattern="[0-9]{4,6}" placeholder="4-6 digit angka"
+                class="w-full px-4 py-3 rounded-xl bg-white border-2 border-obsidian-900 focus:border-tangerine-500 outline-none text-sm sm:text-base" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-obsidian-950 mb-1.5">Pesan Sambutan</label>
+            <textarea id="inp-welcome" rows="2" placeholder="Terima kasih telah hadir. Silakan abadikan dan bagikan momen terbaik di sini..."
+              class="w-full px-4 py-3 rounded-xl bg-white border-2 border-obsidian-900 focus:border-tangerine-500 outline-none text-sm sm:text-base"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-bold text-obsidian-950 mb-1.5">Foto Sampul <span class="text-xs font-normal text-cocoa-600">(Opsional)</span></label>
+            <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-obsidian-900 hover:border-tangerine-600 rounded-2xl cursor-pointer bg-cream-100/70 hover:bg-cream-100 transition-colors overflow-hidden relative">
+              <div id="cover-preview-placeholder" class="flex flex-col items-center justify-center p-4 text-center">
+                <i data-lucide="image-plus" class="w-6 h-6 text-tangerine-600 mb-1"></i>
+                <p class="text-xs sm:text-sm font-bold text-obsidian-950">Pilih foto sampul horizontal</p>
+              </div>
+              <img id="cover-preview-img" class="hidden w-full h-full object-cover" alt="Preview Sampul" />
+              <input type="file" id="inp-cover" accept="image/*" class="hidden" onchange="previewCoverImage(event)" />
+            </label>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="neo-btn-orange w-full inline-flex items-center justify-center gap-2 font-display font-extrabold text-sm sm:text-base py-4 rounded-2xl">
+              <i data-lucide="qr-code" class="w-5 h-5"></i>
+              <span>Lanjut ke Pembayaran QR</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 2B: PAYMENT CHECKOUT WITH YOUR JPG QR & WHATSAPP CONFIRMATION    -->
+  <!-- ===================================================================== -->
+  <template id="tpl-payment">
+    <div class="max-w-2xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 animate-fade-in">
+      <button onclick="navigateTo('create')" class="inline-flex items-center gap-1.5 text-sm font-mono font-bold text-cocoa-800 hover:text-obsidian-950 mb-6 transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        UBAH DETAIL ACARA
+      </button>
+
+      <div class="neo-card rounded-3xl p-6 sm:p-8 space-y-6">
+        <!-- Header Status -->
+        <div class="pb-5 border-b-2 border-cream-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tangerine-300 border border-obsidian-900 text-[11px] font-mono font-bold uppercase text-obsidian-950">
+              <i data-lucide="wallet" class="w-3.5 h-3.5"></i>
+              Pembayaran Album Photobooth
+            </span>
+            <h1 id="pay-event-title" class="font-display font-extrabold text-2xl sm:text-3xl text-obsidian-950 mt-2">Judul Acara</h1>
+            <p class="text-xs font-mono text-cocoa-700 mt-0.5">Tautan Photobooth Tamu: <strong id="pay-event-slug" class="text-obsidian-950">rafqa.id/e/slug</strong></p>
+          </div>
+          <div class="bg-cocoa-900 text-cream-50 px-4 py-3 rounded-2xl border-2 border-obsidian-900 text-left sm:text-right shrink-0">
+            <span class="block text-[10px] font-mono uppercase text-tangerine-300">Total Pembayaran</span>
+            <span class="font-grotesk font-extrabold text-xl sm:text-2xl text-cream-50">Rp 99.000</span>
+          </div>
+        </div>
+
+        <!-- Payment Methods: QR Bayar JPG & Rekening -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 items-stretch">
+          <!-- QRIS JPG Card -->
+          <div class="rounded-2xl bg-cream-100 border-2 border-obsidian-900 p-4 flex flex-col items-center text-center justify-between">
+            <div class="w-full flex items-center justify-between text-xs font-mono font-bold text-obsidian-950 mb-3">
+              <span>QRIS RAFQA PRODUCTION</span>
+              <span class="px-2 py-0.5 rounded bg-tangerine-400 border border-obsidian-900 text-[10px]">SCAN QR</span>
+            </div>
+
+            <!-- Container Gambar QR JPG Anda (Otomatis memuat file qris-rafqa.jpg atau fallback jika belum diletakkan di folder yang sama) -->
+            <div class="w-48 h-48 bg-white rounded-2xl border-2 border-obsidian-900 p-2 flex flex-col items-center justify-center shadow-xs relative overflow-hidden">
+              <img id="personal-qris-img" src="./qris-rafqa.jpg" alt="QR Pembayaran Rafqa Production" 
+                onerror="this.classList.add('hidden'); document.getElementById('qris-fallback-notice').classList.remove('hidden');"
+                class="w-full h-full object-contain rounded-xl" />
+              
+              <!-- Fallback jika file qris-rafqa.jpg belum ditaruh di folder -->
+              <div id="qris-fallback-notice" class="hidden flex flex-col items-center justify-center text-center p-2">
+                <div id="dynamic-qris-fallback"></div>
+                <span class="text-[9px] font-mono font-bold text-cocoa-800 mt-1.5 leading-tight">
+                  Letakkan file <strong class="text-obsidian-950">qris-rafqa.jpg</strong> di folder HTML
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-3 flex flex-col items-center gap-1.5 w-full">
+              <p class="text-[11px] text-cocoa-800 leading-snug">
+                Scan QR menggunakan GoPay, OVO, DANA, ShopeePay, atau Mobile Banking.
+              </p>
+              <!-- Tombol Uji Coba Upload Preview QR JPG Anda langsung di browser -->
+              <label class="cursor-pointer text-[10px] font-mono font-bold text-tangerine-600 hover:underline inline-flex items-center gap-1">
+                <i data-lucide="upload" class="w-3 h-3"></i>
+                <span>Muat File QR (.JPG) Lokal</span>
+                <input type="file" accept="image/jpeg,image/jpg,image/png" class="hidden" onchange="previewLocalQrJpg(event)" />
+              </label>
+            </div>
+          </div>
+
+          <!-- Bank Transfer Card -->
+          <div class="rounded-2xl bg-cream-50 border-2 border-obsidian-900 p-4 flex flex-col justify-between space-y-4">
+            <div>
+              <span class="inline-block text-xs font-mono font-bold uppercase text-cocoa-700 mb-3">Alternatif Transfer Bank</span>
+              
+              <!-- Rekening 1 -->
+              <div class="p-3.5 rounded-xl bg-cream-100 border border-obsidian-900/30 space-y-1 mb-3">
+                <div class="flex items-center justify-between">
+                  <span class="font-grotesk font-extrabold text-sm text-obsidian-950">BANK BCA</span>
+                  <button type="button" onclick="copyTextValue('1234567890', 'Nomor rekening BCA')" class="text-[11px] font-mono font-bold text-tangerine-600 hover:underline flex items-center gap-1">
+                    <i data-lucide="copy" class="w-3 h-3"></i> Salin
+                  </button>
+                </div>
+                <p class="font-mono font-bold text-base text-obsidian-950 tracking-wider">1234 5678 90</p>
+                <p class="text-xs text-cocoa-800">a.n. <strong class="text-obsidian-950">Rafqa Production</strong></p>
+              </div>
+
+              <!-- Rekening 2 -->
+              <div class="p-3.5 rounded-xl bg-cream-100 border border-obsidian-900/30 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-grotesk font-extrabold text-sm text-obsidian-950">BANK MANDIRI</span>
+                  <button type="button" onclick="copyTextValue('1310098765432', 'Nomor rekening Mandiri')" class="text-[11px] font-mono font-bold text-tangerine-600 hover:underline flex items-center gap-1">
+                    <i data-lucide="copy" class="w-3 h-3"></i> Salin
+                  </button>
+                </div>
+                <p class="font-mono font-bold text-base text-obsidian-950 tracking-wider">1310 0987 6543 2</p>
+                <p class="text-xs text-cocoa-800">a.n. <strong class="text-obsidian-950">Rafqa Production</strong></p>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-tangerine-300/40 border border-obsidian-900/20 text-[11px] text-cocoa-900 leading-relaxed">
+              Setelah transfer / scan QR, kirim bukti pembayaran ke WhatsApp Rafqa Production lalu klik tombol aktivasi di bawah.
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons: Konfirmasi WhatsApp & Selesai Bayar -->
+        <div class="pt-2 space-y-3">
+          <button type="button" onclick="confirmPaymentViaWhatsApp()" class="neo-btn-wa w-full inline-flex items-center justify-center gap-2.5 font-display font-extrabold text-sm sm:text-base py-3.5 px-5 rounded-2xl">
+            <i data-lucide="message-circle" class="w-5 h-5"></i>
+            <span>Kirim Bukti Bayar ke WhatsApp</span>
+          </button>
+
+          <button type="button" onclick="completePaymentAndUnlockQr()" class="neo-btn-orange w-full inline-flex items-center justify-center gap-2 font-display font-extrabold text-sm sm:text-base py-4 px-5 rounded-2xl">
+            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+            <span>Saya Sudah Bayar • Buka Kartu QR Tamu</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 3: PUBLIC GUEST GALLERY (/e/[slug])                              -->
+  <!-- ===================================================================== -->
+  <template id="tpl-gallery">
+    <div class="pb-28 animate-fade-in">
+      <!-- Event Cover Banner -->
+      <div class="relative h-56 sm:h-72 md:h-80 w-full bg-obsidian-950 overflow-hidden border-b-2 border-obsidian-900">
+        <img id="gal-cover" src="" alt="Sampul Acara" class="w-full h-full object-cover opacity-80" />
+        <div class="absolute inset-0 bg-gradient-to-t from-obsidian-950 via-obsidian-950/40 to-transparent"></div>
+
+        <!-- Top Controls Overlay -->
+        <div class="absolute top-4 inset-x-4 max-w-6xl mx-auto flex items-center justify-between gap-2">
+          <button onclick="navigateTo('landing')" class="px-3.5 py-2 rounded-xl bg-cream-50/90 hover:bg-cream-50 text-obsidian-950 border-2 border-obsidian-900 text-xs font-mono font-bold inline-flex items-center gap-1.5">
+            <i data-lucide="home" class="w-3.5 h-3.5"></i>
+            <span>Beranda</span>
+          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="showEventQrModal()" class="px-3.5 py-2 rounded-xl bg-cream-50/90 hover:bg-cream-50 text-obsidian-950 border-2 border-obsidian-900 text-xs font-mono font-bold inline-flex items-center gap-1.5">
+              <i data-lucide="qr-code" class="w-3.5 h-3.5"></i>
+              <span>QR Acara</span>
+            </button>
+            <button onclick="openSlideshowMode()" class="px-3.5 py-2 rounded-xl bg-tangerine-500 hover:bg-tangerine-400 text-obsidian-950 border-2 border-obsidian-900 text-xs font-mono font-bold inline-flex items-center gap-1.5">
+              <i data-lucide="monitor-play" class="w-3.5 h-3.5"></i>
+              <span class="hidden sm:inline">Live Slideshow</span>
+            </button>
+            <button onclick="openAdminFromGallery()" class="px-3 py-2 rounded-xl bg-obsidian-950/90 hover:bg-obsidian-900 text-cream-50 border-2 border-cream-50/30 text-xs font-mono font-bold inline-flex items-center gap-1.5">
+              <i data-lucide="settings" class="w-3.5 h-3.5 text-tangerine-400"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Event Header Text -->
+        <div class="absolute bottom-5 inset-x-4 max-w-6xl mx-auto text-cream-50">
+          <div class="flex flex-wrap items-center gap-2 mb-1.5">
+            <span id="gal-date" class="px-2.5 py-0.5 rounded-md bg-tangerine-500 text-obsidian-950 font-mono text-[11px] font-bold uppercase">Tanggal Acara</span>
+            <span class="px-2.5 py-0.5 rounded-md bg-obsidian-950/80 text-cream-100 font-mono text-[11px] font-bold">
+              <span id="gal-count-total">0</span> Kenangan
+            </span>
+          </div>
+          <h1 id="gal-title" class="font-display font-extrabold text-2xl sm:text-4xl text-cream-50 tracking-tight">Judul Acara</h1>
+          <p id="gal-welcome" class="text-xs sm:text-sm text-cream-200/90 max-w-2xl mt-1 line-clamp-2"></p>
+        </div>
+      </div>
+
+      <!-- Locked Upload Warning -->
+      <div id="gal-locked-banner" class="hidden max-w-6xl mx-auto px-4 sm:px-6 mt-5">
+        <div class="p-3.5 rounded-2xl bg-cocoa-900 text-cream-50 border-2 border-obsidian-900 text-xs sm:text-sm font-medium flex items-center gap-2.5">
+          <i data-lucide="lock" class="w-4 h-4 text-tangerine-400 shrink-0"></i>
+          <span>Unggahan baru telah dikunci oleh tuan rumah. Anda tetap dapat melihat dan mengunduh foto yang ada.</span>
+        </div>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 mt-6 mb-5 flex items-center justify-between gap-3">
+        <div class="inline-flex items-center p-1 rounded-xl bg-cream-200 border border-obsidian-900/20 gap-1">
+          <button id="tab-all" onclick="setGalleryFilter('all')" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-obsidian-950 text-cream-50 shadow-xs transition-all">
+            Semua (<span id="count-all">0</span>)
+          </button>
+          <button id="tab-image" onclick="setGalleryFilter('image')" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-cocoa-800 hover:text-obsidian-950 transition-all">
+            Foto (<span id="count-image">0</span>)
+          </button>
+          <button id="tab-video" onclick="setGalleryFilter('video')" class="px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-cocoa-800 hover:text-obsidian-950 transition-all">
+            Video (<span id="count-video">0</span>)
+          </button>
+        </div>
+      </div>
+
+      <!-- Gallery Masonry Feed -->
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div id="gallery-grid" class="masonry-grid"></div>
+
+        <!-- Empty State -->
+        <div id="gallery-empty" class="hidden neo-card rounded-3xl p-10 text-center max-w-md mx-auto my-8">
+          <div class="w-14 h-14 rounded-2xl bg-tangerine-400 border-2 border-obsidian-900 flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="camera" class="w-7 h-7 text-obsidian-950"></i>
+          </div>
+          <h3 class="font-display font-extrabold text-lg text-obsidian-950">Belum Ada Foto di Kategori Ini</h3>
+          <p class="text-xs sm:text-sm text-cocoa-800 mt-1">Jadilah yang pertama mengabadikan dan mengunggah momen spesial acara ini!</p>
+        </div>
+      </div>
+
+      <!-- Sticky Floating Upload Button -->
+      <div class="fixed bottom-6 inset-x-0 z-30 flex justify-center px-4 pointer-events-none">
+        <button id="fab-upload-btn" onclick="openUploadDrawer()" class="pointer-events-auto neo-btn-orange inline-flex items-center gap-2.5 font-display font-extrabold text-sm sm:text-base px-7 py-4 rounded-full">
+          <i data-lucide="camera" class="w-5 h-5"></i>
+          <span>Upload Foto / Video</span>
+        </button>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 4: LIVE SLIDESHOW MODE (/e/[slug]/slideshow)                     -->
+  <!-- ===================================================================== -->
+  <template id="tpl-slideshow">
+    <div class="fixed inset-0 z-50 bg-obsidian-950 text-cream-50 flex flex-col justify-between p-5 sm:p-8 select-none">
+      <!-- Top Bar -->
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tangerine-500 text-obsidian-950 font-mono text-xs font-bold uppercase">
+            <span class="w-2 h-2 rounded-full bg-obsidian-950 animate-ping"></span>
+            Live Wall • <span id="ss-counter">1 / 1</span>
+          </span>
+          <h2 id="ss-event-title" class="font-display font-extrabold text-xl sm:text-3xl text-cream-50 mt-2">Judul Acara</h2>
+        </div>
+
+        <button onclick="exitSlideshowMode()" class="px-4 py-2.5 rounded-xl bg-cream-100/10 hover:bg-cream-100/20 border border-cream-300/20 text-xs sm:text-sm font-mono font-bold text-cream-50 inline-flex items-center gap-2">
+          <i data-lucide="x" class="w-4 h-4"></i>
+          <span>Keluar</span>
+        </button>
+      </div>
+
+      <!-- Center Media Stage -->
+      <div class="flex-1 flex items-center justify-center my-4 overflow-hidden">
+        <div id="ss-frame-wrapper" class="rounded-2xl overflow-hidden">
+          <img id="ss-image" src="" alt="Live Photo" class="max-h-[70vh] max-w-full object-contain rounded-xl shadow-2xl" />
+        </div>
+        <video id="ss-video" src="" autoplay muted loop playsinline class="hidden max-h-[70vh] max-w-full object-contain rounded-xl shadow-2xl"></video>
+      </div>
+
+      <!-- Bottom Caption & Persistent QR Corner -->
+      <div class="flex items-end justify-between gap-6">
+        <div class="max-w-xl">
+          <p class="text-xs font-mono text-tangerine-400 font-bold uppercase">
+            Oleh <span id="ss-guest-name">Tamu</span> • <span id="ss-time">Baru saja</span>
+          </p>
+          <p id="ss-caption" class="font-display font-bold text-lg sm:text-2xl text-cream-50 mt-1 line-clamp-2"></p>
+        </div>
+
+        <div class="hidden sm:flex items-center gap-3.5 bg-cream-50 text-obsidian-950 p-3 rounded-2xl border-2 border-tangerine-500 shrink-0">
+          <div id="ss-qrcode" class="bg-white p-1.5 rounded-xl"></div>
+          <div class="pr-2">
+            <p class="font-display font-extrabold text-xs uppercase text-obsidian-950">Ikut Berbagi Foto!</p>
+            <p class="text-[11px] text-cocoa-800 mt-0.5 leading-snug">Pindai QR untuk tampil<br>di layar ini seketika.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 5: HOST MODERATION & QR DASHBOARD (/e/[slug]/admin)              -->
+  <!-- ===================================================================== -->
+  <template id="tpl-admin">
+    <div class="max-w-5xl mx-auto w-full px-4 sm:px-6 py-8 animate-fade-in">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-cocoa-800 bg-cream-200 px-3 py-1 rounded-full mb-2">
+            <i data-lucide="key-round" class="w-3.5 h-3.5"></i>
+            Ruang Kendali Tuan Rumah • Rafqa Production
+          </div>
+          <h1 id="adm-title" class="font-display font-extrabold text-2xl sm:text-3xl text-obsidian-950">Kelola Acara</h1>
+          <p class="text-xs sm:text-sm text-cocoa-700 mt-0.5">Tautan Publik: <span id="adm-public-url" class="font-mono font-semibold text-obsidian-950">rafqa.id/e/slug</span></p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button onclick="openPublicGalleryFromAdmin()" class="inline-flex items-center gap-2 bg-cream-100 hover:bg-cream-200 text-obsidian-950 border border-cream-300 font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-colors">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+            Lihat Tampilan Tamu
+          </button>
+          <button onclick="openSlideshowMode()" class="inline-flex items-center gap-2 surface-espresso text-cream-50 font-semibold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-colors">
+            <i data-lucide="monitor-play" class="w-4 h-4 text-cream-300"></i>
+            Mode Slideshow
+          </button>
+        </div>
+      </div>
+
+      <!-- Payment Verified & Custom Photobooth Link Ready Banner -->
+      <div class="rounded-2xl bg-tangerine-300/45 border-2 border-obsidian-900 p-4 mb-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div class="flex items-start gap-3">
+          <div class="w-9 h-9 rounded-xl bg-tangerine-500 border-2 border-obsidian-900 flex items-center justify-center shrink-0 text-obsidian-950">
+            <i data-lucide="qr-code" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <p class="text-xs sm:text-sm font-extrabold text-obsidian-950">Album Aktif • QR Photobooth Tamu Siap Digunakan</p>
+            <p class="text-xs text-cocoa-900 mt-0.5">Ketika tamu memindai QR di bawah, mereka langsung diarahkan ke halaman photobooth khusus acara <strong id="adm-banner-event-name">Anda</strong>.</p>
+          </div>
+        </div>
+        <button onclick="copyPublicPhotoboothLink()" class="shrink-0 text-xs font-mono font-bold bg-obsidian-950 text-cream-50 px-3.5 py-2 rounded-xl hover:bg-cocoa-900 transition-colors">
+          Salin Link Photobooth
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+        <!-- Printable QR Code Card dengan Motion Sliding Tanpa Tombol Teks -->
+        <div class="lg:col-span-5 surface-paper rounded-3xl border border-cream-300 p-5 sm:p-6 flex flex-col items-center overflow-hidden">
+          <div class="text-center w-full mb-2">
+            <h2 class="font-display font-bold text-lg text-obsidian-950">Desain Kartu QR Meja Tamu</h2>
+            <p class="text-xs text-cocoa-700 mt-0.5">Geser kartu ke samping untuk memilih motif & warna favorit Anda.</p>
+          </div>
+
+          <!-- Horizontal Sliding Carousel Langsung Berupa Desain Kartu -->
+          <div class="w-full relative">
+            <div id="qr-sliding-carousel" class="qr-carousel-viewport"></div>
+          </div>
+
+          <!-- Dot Indicator Minimalis -->
+          <div id="qr-carousel-dots" class="flex items-center justify-center gap-1.5 mb-4"></div>
+
+          <button onclick="downloadPrintableQrPng()" class="w-full inline-flex items-center justify-center gap-2 surface-espresso text-cream-50 font-semibold text-sm py-3.5 px-4 rounded-xl transition-all active:scale-98">
+            <i data-lucide="download" class="w-4 h-4 text-cream-300"></i>
+            <span>Unduh Kartu QR Terpilih (PNG)</span>
+          </button>
+        </div>
+
+        <!-- Event Controls & Bulk Download -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          <div class="surface-paper rounded-3xl border border-cream-300 p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h2 class="font-display font-bold text-lg text-obsidian-950">Unduh Semua Kenangan (.ZIP)</h2>
+                <p class="text-xs sm:text-sm text-cocoa-800/85 mt-1">Kemas seluruh foto dan video beresolusi penuh dalam satu arsip.</p>
+              </div>
+              <div class="w-11 h-11 rounded-2xl bg-cream-200 text-cocoa-800 flex items-center justify-center shrink-0">
+                <i data-lucide="folder-archive" class="w-6 h-6"></i>
+              </div>
+            </div>
+
+            <div class="mt-5 flex flex-col sm:flex-row items-center gap-3">
+              <button id="btn-bulk-zip" onclick="downloadAllMediaZip()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 surface-espresso text-cream-50 font-semibold text-sm px-5 py-3.5 rounded-xl transition-all">
+                <i data-lucide="archive" class="w-4 h-4 text-cream-300"></i>
+                <span>Download Semua (.ZIP)</span>
+              </button>
+              <span id="zip-status-text" class="text-xs text-cocoa-700">Siap mengemas media resolusi asli</span>
+            </div>
+          </div>
+
+          <div class="surface-paper rounded-3xl border border-cream-300 p-6 space-y-4">
+            <h2 class="font-display font-bold text-lg text-obsidian-950">Pengaturan Acara</h2>
+
+            <div class="flex items-center justify-between p-4 rounded-2xl bg-cream-100 border border-cream-300/80">
+              <div>
+                <p class="text-sm font-bold text-obsidian-950">Kunci Unggahan Tamu</p>
+                <p class="text-xs text-cocoa-700 mt-0.5">Hentikan unggahan baru setelah acara usai.</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="adm-lock-toggle" onchange="toggleEventLock(this.checked)" class="sr-only peer">
+                <div class="w-11 h-6 bg-cream-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-cream-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cocoa-800"></div>
+              </label>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-semibold text-obsidian-950 mb-1">Pesan Sambutan</label>
+                <input type="text" id="adm-welcome-input" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-cream-300 text-sm outline-none focus:border-cocoa-700" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-obsidian-950 mb-1">PIN Tamu</label>
+                <input type="text" id="adm-pin-input" maxlength="6" placeholder="Tanpa PIN" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-cream-300 text-sm outline-none focus:border-cocoa-700" />
+              </div>
+            </div>
+
+            <div class="flex justify-end">
+              <button onclick="saveAdminSettings()" class="inline-flex items-center gap-1.5 bg-cocoa-800 hover:bg-cocoa-900 text-cream-50 font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors">
+                <i data-lucide="save" class="w-4 h-4"></i>
+                <span>Simpan</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Moderation Grid -->
+      <div class="surface-paper rounded-3xl border border-cream-300 p-6">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h2 class="font-display font-bold text-lg text-obsidian-950">Kurasi Galeri</h2>
+            <p class="text-xs text-cocoa-700">Sembunyikan atau hapus foto dari tampilan publik.</p>
+          </div>
+          <span id="adm-media-count" class="text-xs font-bold bg-cream-200 text-obsidian-950 px-3 py-1.5 rounded-full">0 Item</span>
+        </div>
+
+        <div id="adm-moderation-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"></div>
+      </div>
+    </div>
+  </template>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 1: PIN GATE MODAL                                               -->
+  <!-- ===================================================================== -->
+  <div id="modal-pin" class="hidden fixed inset-0 z-50 bg-obsidian-950/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="surface-paper rounded-3xl max-w-sm w-full p-6 sm:p-7 text-center shadow-2xl border border-cream-300 animate-fade-in">
+      <div class="w-14 h-14 rounded-2xl bg-cream-200 text-cocoa-800 flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="lock-keyhole" class="w-7 h-7"></i>
+      </div>
+      <h3 class="font-display font-bold text-xl text-obsidian-950">Galeri Privat</h3>
+      <p class="text-xs sm:text-sm text-cocoa-800/85 mt-1.5 mb-5">Masukkan PIN undangan untuk membuka galeri.</p>
+      
+      <form onsubmit="verifyEventPin(event)" class="space-y-4">
+        <input type="text" id="pin-entry-input" inputmode="numeric" maxlength="6" required placeholder="••••"
+          class="w-full text-center tracking-[0.5em] font-display font-bold text-2xl py-3.5 rounded-2xl bg-white border border-cream-300 focus:border-cocoa-700 outline-none" />
+        <button type="submit" class="w-full surface-espresso text-cream-50 font-semibold py-3.5 rounded-xl">
+          Masuk ke Galeri
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 2: UPLOAD DRAWER WITH PHOTOBOOTH FRAME & CAMERA FILTER          -->
+  <!-- ===================================================================== -->
+  <div id="drawer-upload" class="hidden fixed inset-0 z-50 bg-obsidian-950/75 backdrop-blur-xs flex items-end sm:items-center justify-center">
+    <div class="surface-paper w-full sm:max-w-xl rounded-t-3xl sm:rounded-3xl max-h-[92vh] flex flex-col shadow-2xl border border-cream-300 animate-fade-in">
+      <!-- Drawer Header -->
+      <div class="px-6 py-4 border-b border-cream-200 flex items-center justify-between">
+        <div>
+          <h3 class="font-display font-bold text-lg text-obsidian-950">Bagikan Momen</h3>
+          <p class="text-xs text-cocoa-700">Pilih filter kamera & bingkai photobooth sebelum unggah</p>
+        </div>
+        <button onclick="closeUploadDrawer()" class="w-9 h-9 rounded-full bg-cream-200 hover:bg-cream-300 flex items-center justify-center text-obsidian-950">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Drawer Body -->
+      <div class="p-6 overflow-y-auto space-y-4 flex-1">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-obsidian-950 mb-1">Nama Anda</label>
+            <input type="text" id="up-guest-name" placeholder="Contoh: Rina & Keluarga"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-cream-300 focus:border-cocoa-700 outline-none text-sm font-medium" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-obsidian-950 mb-1">Ucapan Singkat <span class="text-cocoa-600 font-normal">(Opsional)</span></label>
+            <input type="text" id="up-caption" placeholder="Bahagia selalu..."
+              class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-cream-300 focus:border-cocoa-700 outline-none text-sm" />
+          </div>
+        </div>
+
+        <!-- 20 Camera Analog & Disposable Preset Panel -->
+        <div>
+          <label class="block text-xs font-bold text-obsidian-950 mb-1">Efek Kamera Analog & Disposable (20 Preset)</label>
+          <div class="rfq-preset-panel" id="rfq-preset-panel">
+            <div class="rfq-cat-tabs" id="rfq-cat-tabs">
+              <button type="button" class="rfq-cat-btn active" data-cat="all">Semua (20)</button>
+              <button type="button" class="rfq-cat-btn" data-cat="disposable">Disposable</button>
+              <button type="button" class="rfq-cat-btn" data-cat="analog">Analog Film</button>
+              <button type="button" class="rfq-cat-btn" data-cat="vintage">Vintage</button>
+              <button type="button" class="rfq-cat-btn" data-cat="digital">Digital CCD</button>
+              <button type="button" class="rfq-cat-btn" data-cat="photobooth">Special Booth</button>
+            </div>
+
+            <div class="rfq-preset-strip no-scrollbar" id="rfq-preset-strip"></div>
+
+            <div class="rfq-intensity-row">
+              <span>Intensitas: <strong id="rfq-int-label">100%</strong></span>
+              <input type="range" id="rfq-int-slider" min="0" max="100" value="100" />
+              <button type="button" class="rfq-cat-btn" id="rfq-random-preset">🎲 Acak</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Preview Foto Terpilih dengan Filter & Frame -->
+        <div id="up-live-preview-box" class="hidden rounded-2xl bg-cream-100 border-2 border-obsidian-900 p-3 flex flex-col items-center">
+          <span class="text-[10px] font-mono font-bold uppercase text-cocoa-700 mb-2">Live Preview Hasil Filter & Bingkai</span>
+          <div id="up-live-frame" class="rounded-xl overflow-hidden max-w-[230px]">
+            <canvas id="up-preview-canvas" class="w-full h-auto block rounded-lg"></canvas>
+          </div>
+        </div>
+
+        <!-- Photobooth Frame Selector -->
+        <div>
+          <label class="block text-xs font-bold text-obsidian-950 mb-1.5">Bingkai Photobooth</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button type="button" onclick="selectUploadFrame('none', this)" class="frame-pill px-3 py-2 rounded-xl text-xs font-semibold bg-obsidian-950 text-cream-50 border border-obsidian-950 text-center">
+              Tanpa Bingkai
+            </button>
+            <button type="button" onclick="selectUploadFrame('frame-classic-cream', this)" class="frame-pill px-3 py-2 rounded-xl text-xs font-semibold bg-cream-100 text-cocoa-800 border border-cream-300 text-center">
+              Polaroid Krem
+            </button>
+            <button type="button" onclick="selectUploadFrame('frame-espresso-gold', this)" class="frame-pill px-3 py-2 rounded-xl text-xs font-semibold bg-cream-100 text-cocoa-800 border border-cream-300 text-center">
+              Espresso Gold
+            </button>
+            <button type="button" onclick="selectUploadFrame('frame-editorial-strip', this)" class="frame-pill px-3 py-2 rounded-xl text-xs font-semibold bg-cream-100 text-cocoa-800 border border-cream-300 text-center">
+              Editorial Strip
+            </button>
+          </div>
+        </div>
+
+        <!-- Multi-file Dropzone -->
+        <div>
+          <label class="flex flex-col items-center justify-center w-full py-6 px-4 border-2 border-dashed border-cocoa-600/40 hover:border-cocoa-800 rounded-2xl bg-cream-100/70 hover:bg-cream-100 cursor-pointer transition-colors text-center">
+            <div class="w-11 h-11 rounded-2xl surface-espresso text-cream-100 flex items-center justify-center mb-2">
+              <i data-lucide="images" class="w-5 h-5"></i>
+            </div>
+            <p class="text-sm font-bold text-obsidian-950">Pilih Foto atau Video</p>
+            <p class="text-xs text-cocoa-700 mt-0.5">Mendukung banyak file sekaligus (Maks. 50MB/file)</p>
+            <input type="file" id="up-file-input" multiple accept="image/*,video/mp4,video/quicktime" class="hidden" onchange="handleFilesSelected(event)" />
+          </label>
+        </div>
+
+        <!-- Upload Queue List -->
+        <div id="up-queue-container" class="hidden space-y-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-obsidian-950">Antrean (<span id="up-queue-count">0</span> file)</span>
+            <button id="btn-retry-failed" onclick="retryFailedUploads()" class="hidden text-xs font-semibold text-red-700 hover:underline">
+              Coba Ulang
+            </button>
+          </div>
+          <div id="up-queue-list" class="space-y-2 max-h-44 overflow-y-auto pr-1"></div>
+        </div>
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="p-4 sm:px-6 border-t border-cream-200 bg-cream-100/80 rounded-b-3xl flex items-center justify-between gap-3">
+        <button onclick="closeUploadDrawer()" class="px-5 py-3 rounded-xl text-sm font-semibold text-cocoa-800 hover:bg-cream-200 transition-colors">
+          Tutup
+        </button>
+        <button id="btn-start-upload" onclick="processUploadQueue()" disabled class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 surface-espresso disabled:opacity-40 text-cream-50 font-semibold text-sm px-6 py-3 rounded-xl transition-all">
+          <i data-lucide="upload-cloud" class="w-4 h-4 text-cream-300"></i>
+          <span>Kirim ke Galeri</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 3: LIGHTBOX FULL-RES PREVIEW & DOWNLOAD                         -->
+  <!-- ===================================================================== -->
+  <div id="modal-lightbox" class="hidden fixed inset-0 z-50 bg-obsidian-950/95 backdrop-blur-md flex flex-col justify-between text-cream-50">
+    <div class="p-4 sm:px-6 flex items-center justify-between border-b border-cream-300/15">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-cocoa-700 flex items-center justify-center font-display font-bold text-sm text-cream-50" id="lb-avatar">T</div>
+        <div>
+          <p id="lb-guest-name" class="text-sm font-bold text-cream-50 leading-tight">Nama Tamu</p>
+          <p id="lb-meta" class="text-xs text-cream-400">Waktu unggah</p>
+        </div>
+      </div>
+
+      <button onclick="closeLightbox()" class="w-10 h-10 rounded-full bg-cream-100/10 hover:bg-cream-100/20 flex items-center justify-center text-cream-50 transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <div class="flex-1 flex items-center justify-center p-4 overflow-hidden relative">
+      <div id="lb-frame-box" class="rounded-2xl overflow-hidden max-h-full max-w-full flex flex-col items-center">
+        <img id="lb-image" src="" alt="Preview Penuh" class="max-h-[68vh] max-w-full object-contain rounded-xl shadow-2xl" />
+        <p id="lb-frame-stamp" class="hidden text-xs sm:text-sm mt-2 tracking-wide"></p>
+      </div>
+      <video id="lb-video" src="" controls playsinline class="hidden max-h-[72vh] max-w-full object-contain rounded-xl shadow-2xl"></video>
+    </div>
+
+    <div class="p-4 sm:px-6 pb-6 bg-gradient-to-t from-black to-transparent border-t border-cream-300/15">
+      <div class="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <p id="lb-caption" class="text-sm text-cream-200 line-clamp-2"></p>
+
+        <div class="flex items-center gap-3 shrink-0">
+          <button id="lb-like-btn" onclick="toggleLikeCurrentMedia()" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-cream-100/10 hover:bg-cream-100/15 border border-cream-300/20 text-sm font-semibold transition-all active:scale-95">
+            <i data-lucide="heart" id="lb-like-icon" class="w-4 h-4"></i>
+            <span id="lb-like-count">0</span>
+          </button>
+
+          <button onclick="downloadOriginalCurrentMedia()" class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-cream-100 hover:bg-white text-obsidian-950 text-sm font-bold shadow-lg transition-all active:scale-95">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>Download Kualitas Asli</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL 4: QUICK GUEST QR MODAL                                         -->
+  <!-- ===================================================================== -->
+  <div id="modal-guest-qr" class="hidden fixed inset-0 z-50 bg-obsidian-950/75 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="surface-paper rounded-3xl max-w-xs w-full p-6 text-center shadow-2xl border border-cream-300 animate-fade-in">
+      <div class="flex justify-between items-center mb-3">
+        <span class="text-xs font-bold text-cocoa-700 uppercase tracking-wider">QR Galeri</span>
+        <button onclick="document.getElementById('modal-guest-qr').classList.add('hidden')" class="p-1.5 rounded-full hover:bg-cream-200 text-cocoa-800">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="p-4 bg-white rounded-2xl border border-cream-300 inline-flex items-center justify-center mb-3">
+        <div id="guest-modal-qrcode"></div>
+      </div>
+      <h4 id="guest-modal-qr-title" class="font-display font-bold text-base text-obsidian-950">Judul Acara</h4>
+      <p class="text-xs text-cocoa-700 mt-1">Pindai untuk bergabung ke album acara.</p>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT APPLICATION LOGIC                                          -->
+  <!-- ===================================================================== -->
+  <script>
+    // =========================================================================
+    // STATE MANAGEMENT & LOCAL STORAGE PERSISTENCE
+    // =========================================================================
+    const STORAGE_KEY_EVENTS = 'rafqa_prod_events_v1';
+    const STORAGE_KEY_MEDIA = 'rafqa_prod_media_v1';
+    const STORAGE_KEY_GUEST_NAME = 'rafqa_prod_guest_name';
+    const STORAGE_KEY_LIKED = 'rafqa_prod_liked_media_ids';
+
+    let appState = {
+      currentRoute: 'landing',
+      currentSlug: null,
+      pendingOrderEvent: null,
+      currentFilter: 'all',
+      uploadQueue: [],
+      selectedFilter: 'filter-original',
+      selectedFrame: 'none',
+      qrCardTheme: 'editorial-ivory',
+      activeLightboxMediaId: null,
+      slideshowTimer: null,
+      slideshowIndex: 0
+    };
+
+    // ============================================================
+    // RAFQA PRODUCTION - 20 ANALOG & DISPOSABLE CAMERA ENGINE
+    // ============================================================
+    const RFQ_PRESETS = [
+      {
+        id: 'original', category: 'all', name: 'Original', badge: 'RAW',
+        thumbGradient: 'linear-gradient(135deg, #e7e5e4 0%, #a8a29e 100%)',
+        params: null
+      },
+      // A. Disposable Camera
+      {
+        id: 'flashback-2000', category: 'disposable', name: 'Flashback 2000', badge: 'ISO 400',
+        thumbGradient: 'linear-gradient(135deg, #2d5a4c 0%, #e09f5a 100%)',
+        params: { exposure: 0.05, brightness: 4, contrast: 1.18, saturation: 1.12, temperature: 12, tint: -8, grain: 0.28, vignette: 0.42, fade: 0.14, halation: 0.22, lightLeak: { enabled: true, color: 'rgba(255, 94, 26, 0.38)', position: 'right' }, flashSim: { enabled: true, intensity: 0.25 }, colorGrading: { r: 1.04, g: 1.03, b: 0.92, shadowTint: [5, 18, 12] } }
+      },
+      {
+        id: 'summer-roll', category: 'disposable', name: 'Summer Roll', badge: 'ISO 200',
+        thumbGradient: 'linear-gradient(135deg, #f59e0b 0%, #fef08a 100%)',
+        params: { exposure: 0.12, brightness: 8, contrast: 1.08, saturation: 1.24, temperature: 26, tint: 4, grain: 0.20, vignette: 0.28, fade: 0.10, halation: 0.30, lightLeak: { enabled: true, color: 'rgba(255, 175, 45, 0.35)', position: 'top-left' }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.10, g: 1.02, b: 0.86, shadowTint: [18, 10, 2] } }
+      },
+      {
+        id: 'party-flash', category: 'disposable', name: 'Party Flash', badge: 'ISO 800',
+        thumbGradient: 'linear-gradient(135deg, #18181b 0%, #f43f5e 100%)',
+        params: { exposure: 0.18, brightness: 10, contrast: 1.28, saturation: 1.15, temperature: -6, tint: 6, grain: 0.36, vignette: 0.62, fade: 0.08, halation: 0.35, lightLeak: { enabled: true, color: 'rgba(255, 45, 85, 0.30)', position: 'left' }, flashSim: { enabled: true, intensity: 0.48 }, colorGrading: { r: 1.06, g: 0.98, b: 1.02, shadowTint: [8, 12, 16] } }
+      },
+      {
+        id: 'nostalgia-400', category: 'disposable', name: 'Nostalgia 400', badge: 'ISO 400',
+        thumbGradient: 'linear-gradient(135deg, #92400e 0%, #d6d3d1 100%)',
+        params: { exposure: 0.0, brightness: 2, contrast: 0.96, saturation: 0.88, temperature: 18, tint: -4, grain: 0.32, vignette: 0.38, fade: 0.24, halation: 0.18, lightLeak: { enabled: true, color: 'rgba(235, 120, 50, 0.32)', position: 'bottom-right' }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.05, g: 1.00, b: 0.90, shadowTint: [20, 16, 12] } }
+      },
+      // B. Analog Film
+      {
+        id: 'portra-mood', category: 'analog', name: 'Portra Mood', badge: '400NC',
+        thumbGradient: 'linear-gradient(135deg, #d97706 0%, #fbcfe8 100%)',
+        params: { exposure: 0.08, brightness: 6, contrast: 0.95, saturation: 0.94, temperature: 14, tint: 8, grain: 0.16, vignette: 0.20, fade: 0.15, halation: 0.20, lightLeak: { enabled: false }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.05, g: 1.01, b: 0.95, shadowTint: [14, 10, 12] } }
+      },
+      {
+        id: 'fuji-summer', category: 'analog', name: 'Fuji Summer', badge: 'SUPERIA',
+        thumbGradient: 'linear-gradient(135deg, #059669 0%, #38bdf8 100%)',
+        params: { exposure: 0.06, brightness: 5, contrast: 1.12, saturation: 1.18, temperature: -8, tint: -12, grain: 0.22, vignette: 0.25, fade: 0.12, halation: 0.15, lightLeak: { enabled: false }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 0.95, g: 1.06, b: 1.04, shadowTint: [4, 16, 14] } }
+      },
+      {
+        id: 'golden-hour', category: 'analog', name: 'Golden Hour', badge: 'GOLD 200',
+        thumbGradient: 'linear-gradient(135deg, #b45309 0%, #fde047 100%)',
+        params: { exposure: 0.10, brightness: 6, contrast: 1.10, saturation: 1.22, temperature: 32, tint: 6, grain: 0.20, vignette: 0.30, fade: 0.11, halation: 0.42, lightLeak: { enabled: true, color: 'rgba(255, 140, 20, 0.36)', position: 'left' }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.12, g: 1.01, b: 0.82, shadowTint: [22, 12, 4] } }
+      },
+      {
+        id: 'neon-nights', category: 'analog', name: 'Neon Nights', badge: '800T',
+        thumbGradient: 'linear-gradient(135deg, #0f172a 0%, #06b6d4 50%, #ef4444 100%)',
+        params: { exposure: 0.04, brightness: 0, contrast: 1.22, saturation: 1.16, temperature: -24, tint: -6, grain: 0.30, vignette: 0.40, fade: 0.09, halation: 0.55, lightLeak: { enabled: false }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 0.94, g: 1.02, b: 1.14, shadowTint: [4, 14, 24] } }
+      },
+      // C. Vintage Camera
+      {
+        id: 'retro-70s', category: 'vintage', name: 'Retro 70s', badge: '1974',
+        thumbGradient: 'linear-gradient(135deg, #78350f 0%, #fbbf24 100%)',
+        params: { exposure: 0.02, brightness: 4, contrast: 0.90, saturation: 0.85, temperature: 28, tint: 5, grain: 0.34, vignette: 0.48, fade: 0.28, halation: 0.28, lightLeak: { enabled: true, color: 'rgba(217, 119, 6, 0.40)', position: 'top-left' }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.08, g: 0.99, b: 0.80, shadowTint: [28, 18, 8] } }
+      },
+      {
+        id: 'retro-90s', category: 'vintage', name: 'Retro 90s', badge: '1996',
+        thumbGradient: 'linear-gradient(135deg, #4f46e5 0%, #ec4899 100%)',
+        params: { exposure: 0.04, brightness: 3, contrast: 1.06, saturation: 1.05, temperature: -4, tint: 10, grain: 0.26, vignette: 0.35, fade: 0.18, halation: 0.20, lightLeak: { enabled: true, color: 'rgba(236, 72, 153, 0.28)', position: 'right' }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.02, g: 0.97, b: 1.05, shadowTint: [12, 10, 20] } }
+      },
+      {
+        id: 'lomo-dream', category: 'vintage', name: 'Lomo Dream', badge: 'LC-A',
+        thumbGradient: 'linear-gradient(135deg, #be123c 0%, #1d4ed8 100%)',
+        params: { exposure: 0.05, brightness: 0, contrast: 1.32, saturation: 1.38, temperature: 10, tint: -6, grain: 0.28, vignette: 0.68, fade: 0.06, halation: 0.32, lightLeak: { enabled: true, color: 'rgba(255, 60, 0, 0.42)', position: 'left' }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.08, g: 1.02, b: 0.94, shadowTint: [6, 16, 14] } }
+      },
+      {
+        id: 'instant-memory', category: 'vintage', name: 'Instant Memory', badge: 'INSTANT',
+        thumbGradient: 'linear-gradient(135deg, #0d9488 0%, #fef3c7 100%)',
+        params: { exposure: 0.10, brightness: 8, contrast: 0.94, saturation: 0.90, temperature: 8, tint: -10, grain: 0.22, vignette: 0.32, fade: 0.25, halation: 0.25, lightLeak: { enabled: false }, flashSim: { enabled: true, intensity: 0.22 }, colorGrading: { r: 1.00, g: 1.03, b: 0.98, shadowTint: [10, 22, 22] } }
+      },
+      // D. Digital Camera
+      {
+        id: 'cyber-shot', category: 'digital', name: 'Cyber Shot', badge: 'CCD 2004',
+        thumbGradient: 'linear-gradient(135deg, #0284c7 0%, #e2e8f0 100%)',
+        params: { exposure: 0.06, brightness: 5, contrast: 1.16, saturation: 1.15, temperature: -10, tint: 2, grain: 0.12, vignette: 0.18, fade: 0.04, halation: 0.28, lightLeak: { enabled: false }, flashSim: { enabled: true, intensity: 0.20 }, colorGrading: { r: 0.97, g: 1.01, b: 1.06, shadowTint: [4, 8, 14] } }
+      },
+      {
+        id: 'cool-ccd', category: 'digital', name: 'Cool CCD', badge: 'Y2K CCD',
+        thumbGradient: 'linear-gradient(135deg, #1e3a8a 0%, #93c5fd 100%)',
+        params: { exposure: 0.04, brightness: 4, contrast: 1.14, saturation: 1.04, temperature: -20, tint: -4, grain: 0.14, vignette: 0.22, fade: 0.08, halation: 0.22, lightLeak: { enabled: false }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 0.93, g: 1.00, b: 1.10, shadowTint: [6, 12, 22] } }
+      },
+      {
+        id: 'digicam-party', category: 'digital', name: 'Digicam Party', badge: 'FLASH ON',
+        thumbGradient: 'linear-gradient(135deg, #312e81 0%, #f472b6 100%)',
+        params: { exposure: 0.16, brightness: 9, contrast: 1.24, saturation: 1.20, temperature: -4, tint: 8, grain: 0.16, vignette: 0.45, fade: 0.05, halation: 0.34, lightLeak: { enabled: false }, flashSim: { enabled: true, intensity: 0.42 }, colorGrading: { r: 1.03, g: 0.98, b: 1.04, shadowTint: [8, 6, 16] } }
+      },
+      {
+        id: 'digital-diary', category: 'digital', name: 'Digital Diary', badge: '2007 DIGI',
+        thumbGradient: 'linear-gradient(135deg, #65a30d 0%, #fef08a 100%)',
+        params: { exposure: 0.08, brightness: 6, contrast: 1.04, saturation: 1.08, temperature: 10, tint: -2, grain: 0.15, vignette: 0.20, fade: 0.12, halation: 0.24, lightLeak: { enabled: false }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.03, g: 1.02, b: 0.94, shadowTint: [10, 12, 8] } }
+      },
+      // E. Special Photobooth
+      {
+        id: 'wedding-film', category: 'photobooth', name: 'Wedding Film', badge: 'SIGNATURE',
+        thumbGradient: 'linear-gradient(135deg, #d6ccc2 0%, #f5ebe0 50%, #e3d5ca 100%)',
+        params: { exposure: 0.10, brightness: 8, contrast: 1.02, saturation: 0.96, temperature: 12, tint: 5, grain: 0.12, vignette: 0.16, fade: 0.12, halation: 0.25, lightLeak: { enabled: false }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.04, g: 1.01, b: 0.96, shadowTint: [14, 11, 10] } }
+      },
+      {
+        id: 'seoul-mood', category: 'photobooth', name: 'Seoul Mood', badge: 'K-BOOTH',
+        thumbGradient: 'linear-gradient(135deg, #fbcfe8 0%, #e0e7ff 100%)',
+        params: { exposure: 0.14, brightness: 10, contrast: 1.05, saturation: 0.92, temperature: -6, tint: 7, grain: 0.10, vignette: 0.12, fade: 0.10, halation: 0.20, lightLeak: { enabled: false }, flashSim: { enabled: true, intensity: 0.18 }, colorGrading: { r: 1.01, g: 1.00, b: 1.03, shadowTint: [10, 10, 14] } }
+      },
+      {
+        id: 'mono-classic', category: 'photobooth', name: 'Mono Classic', badge: 'B&W 400',
+        thumbGradient: 'linear-gradient(135deg, #18181b 0%, #a1a1aa 100%)',
+        params: { exposure: 0.04, brightness: 4, contrast: 1.26, saturation: 0.0, temperature: 0, tint: 0, grain: 0.28, vignette: 0.34, fade: 0.14, halation: 0.18, lightLeak: { enabled: false }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.0, g: 1.0, b: 1.0, shadowTint: [8, 8, 8] } }
+      },
+      {
+        id: 'midnight-film', category: 'photobooth', name: 'Midnight Film', badge: 'CINEMA',
+        thumbGradient: 'linear-gradient(135deg, #090d16 0%, #b45309 100%)',
+        params: { exposure: -0.02, brightness: -2, contrast: 1.24, saturation: 1.08, temperature: 6, tint: -4, grain: 0.26, vignette: 0.52, fade: 0.12, halation: 0.38, lightLeak: { enabled: true, color: 'rgba(245, 158, 11, 0.26)', position: 'bottom-right' }, flashSim: { enabled: false, intensity: 0 }, colorGrading: { r: 1.04, g: 0.99, b: 0.96, shadowTint: [6, 10, 14] } }
+      }
+    ];
+
+    window.rfqActivePresetId = 'wedding-film';
+    window.rfqPresetIntensity = 1.0;
+    let rfqActiveCategory = 'all';
+
+    const _rfqGrainTile = (() => {
+      const c = document.createElement('canvas');
+      c.width = 256; c.height = 256;
+      const ctx = c.getContext('2d');
+      const img = ctx.createImageData(256, 256);
+      for (let i = 0; i < img.data.length; i += 4) {
+        const n = ((Math.random() + Math.random() + Math.random()) / 3) * 255;
+        img.data[i] = img.data[i + 1] = img.data[i + 2] = n;
+        img.data[i + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      return c;
+    })();
+    const _rfqHalationBuf = document.createElement('canvas');
+
+    window.renderRafqaPreset = function(canvas) {
+      const preset = RFQ_PRESETS.find((p) => p.id === window.rfqActivePresetId);
+      const intensity = window.rfqPresetIntensity;
+      if (!preset || !preset.params || intensity <= 0.001) return;
+
+      const p = preset.params;
+      const w = canvas.width;
+      const h = canvas.height;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      const lerp = (a, b) => a + (b - a) * intensity;
+
+      const imgData = ctx.getImageData(0, 0, w, h);
+      const d = imgData.data;
+
+      const expMult = Math.pow(2, lerp(0, p.exposure));
+      const brightAdd = lerp(0, p.brightness);
+      const contrast = lerp(1, p.contrast);
+      const sat = lerp(1, p.saturation);
+      const temp = lerp(0, p.temperature);
+      const tint = lerp(0, p.tint);
+      const fade = lerp(0, p.fade);
+
+      const cgR = lerp(1, p.colorGrading.r);
+      const cgG = lerp(1, p.colorGrading.g);
+      const cgB = lerp(1, p.colorGrading.b);
+      const [shR, shG, shB] = p.colorGrading.shadowTint.map((v) => v * intensity);
+      const flashBoost = p.flashSim?.enabled ? p.flashSim.intensity * intensity : 0;
+
+      const blackFloor = fade * 38;
+      const rangeScale = (255 - fade * 14 - blackFloor) / 255;
+
+      for (let i = 0; i < d.length; i += 4) {
+        let r = d[i] * expMult + brightAdd;
+        let g = d[i + 1] * expMult + brightAdd;
+        let b = d[i + 2] * expMult + brightAdd;
+
+        if (flashBoost > 0) {
+          const lumPre = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+          const gain = 1 + flashBoost * (0.45 + 0.55 * lumPre);
+          r *= gain; g *= gain; b *= gain;
+        }
+
+        r += temp * 0.85 + tint * 0.35;
+        g -= tint * 0.65;
+        b -= temp * 0.85 - tint * 0.35;
+
+        r = (r * cgR - 128) * contrast + 128;
+        g = (g * cgG - 128) * contrast + 128;
+        b = (b * cgB - 128) * contrast + 128;
+
+        const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+        r = lum + (r - lum) * sat;
+        g = lum + (g - lum) * sat;
+        b = lum + (b - lum) * sat;
+
+        const shW = Math.max(0, 1 - lum / 140);
+        r = blackFloor + (r + shR * shW) * rangeScale;
+        g = blackFloor + (g + shG * shW) * rangeScale;
+        b = blackFloor + (b + shB * shW) * rangeScale;
+
+        d[i] = r < 0 ? 0 : r > 255 ? 255 : r;
+        d[i + 1] = g < 0 ? 0 : g > 255 ? 255 : g;
+        d[i + 2] = b < 0 ? 0 : b > 255 ? 255 : b;
+      }
+      ctx.putImageData(imgData, 0, 0);
+
+      const halAmt = p.halation * intensity;
+      if (halAmt > 0.02) {
+        const sw = Math.max(1, Math.round(w * 0.25));
+        const sh = Math.max(1, Math.round(h * 0.25));
+        _rfqHalationBuf.width = sw; _rfqHalationBuf.height = sh;
+        const hCtx = _rfqHalationBuf.getContext('2d', { willReadFrequently: true });
+        hCtx.drawImage(canvas, 0, 0, sw, sh);
+        const hd = hCtx.getImageData(0, 0, sw, sh);
+        for (let i = 0; i < hd.data.length; i += 4) {
+          const lum = 0.299 * hd.data[i] + 0.587 * hd.data[i + 1] + 0.114 * hd.data[i + 2];
+          if (lum > 205) {
+            const s = (lum - 205) / 50;
+            hd.data[i] = 255 * s; hd.data[i + 1] = 75 * s; hd.data[i + 2] = 25 * s; hd.data[i + 3] = 255 * s;
+          } else { hd.data[i + 3] = 0; }
+        }
+        hCtx.putImageData(hd, 0, 0);
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        ctx.globalAlpha = Math.min(0.65, halAmt * 0.85);
+        ctx.filter = `blur(${Math.max(4, Math.round(w * 0.018))}px)`;
+        ctx.drawImage(_rfqHalationBuf, 0, 0, w, h);
+        ctx.restore();
+      }
+
+      if (p.lightLeak?.enabled) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        ctx.globalAlpha = intensity;
+        const pos = p.lightLeak.position;
+        const grad = pos === 'left'
+          ? ctx.createLinearGradient(0, 0, w * 0.45, h * 0.2)
+          : pos === 'top-left'
+          ? ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(w, h) * 0.65)
+          : pos === 'bottom-right'
+          ? ctx.createRadialGradient(w, h, 0, w, h, Math.max(w, h) * 0.65)
+          : ctx.createLinearGradient(w, h * 0.1, w * 0.55, h * 0.9);
+        grad.addColorStop(0, p.lightLeak.color);
+        grad.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+        ctx.restore();
+      }
+
+      const vigAmt = p.vignette * intensity;
+      if (vigAmt > 0.02) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'multiply';
+        const cx = w / 2, cy = h / 2;
+        const outer = Math.sqrt(cx * cx + cy * cy);
+        const grad = ctx.createRadialGradient(cx, cy, outer * (0.48 - vigAmt * 0.18), cx, cy, outer);
+        grad.addColorStop(0, 'rgba(255,255,255,1)');
+        grad.addColorStop(1, `rgba(18,14,12,${Math.min(0.92, vigAmt * 1.15)})`);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+        ctx.restore();
+      }
+
+      const grainAmt = p.grain * intensity;
+      if (grainAmt > 0.02) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'overlay';
+        ctx.globalAlpha = Math.min(0.45, grainAmt * 0.72);
+        ctx.fillStyle = ctx.createPattern(_rfqGrainTile, 'repeat');
+        ctx.fillRect(0, 0, w, h);
+        ctx.restore();
+      }
+    };
+
+    function initRafqaPresetUI() {
+      const strip = document.getElementById('rfq-preset-strip');
+      const tabs = document.getElementById('rfq-cat-tabs');
+      const slider = document.getElementById('rfq-int-slider');
+      const label = document.getElementById('rfq-int-label');
+      const randomBtn = document.getElementById('rfq-random-preset');
+      if (!strip) return;
+
+      function renderCards() {
+        const filtered = rfqActiveCategory === 'all'
+          ? RFQ_PRESETS
+          : RFQ_PRESETS.filter((p) => p.id === 'original' || p.category === rfqActiveCategory);
+
+        strip.innerHTML = filtered.map((p) => `
+          <button type="button" class="rfq-p-card ${p.id === window.rfqActivePresetId ? 'active' : ''}" data-id="${p.id}" title="${p.name}">
+            <div class="rfq-p-thumb" style="background: ${p.thumbGradient};">
+              <span class="rfq-p-badge">${p.badge}</span>
+            </div>
+            <div class="rfq-p-name">${p.name}</div>
+          </button>
+        `).join('');
+      }
+
+      tabs.addEventListener('click', (e) => {
+        const btn = e.target.closest('.rfq-cat-btn');
+        if (!btn) return;
+        rfqActiveCategory = btn.dataset.cat;
+        tabs.querySelectorAll('.rfq-cat-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCards();
+      });
+
+      strip.addEventListener('click', (e) => {
+        const card = e.target.closest('.rfq-p-card');
+        if (!card) return;
+        window.rfqActivePresetId = card.dataset.id;
+        renderCards();
+        updateLiveUploadPreview();
+      });
+
+      slider.addEventListener('input', (e) => {
+        const val = Number(e.target.value);
+        window.rfqPresetIntensity = val / 100;
+        label.textContent = `${val}%`;
+        updateLiveUploadPreview();
+      });
+
+      randomBtn.addEventListener('click', () => {
+        const pool = RFQ_PRESETS.filter((p) => p.id !== 'original' && p.id !== window.rfqActivePresetId);
+        const pick = pool[Math.floor(Math.random() * pool.length)];
+        window.rfqActivePresetId = pick.id;
+        renderCards();
+        updateLiveUploadPreview();
+      });
+
+      renderCards();
+    }
+
+    // Apply Preset Pixel Engine to DataURL Image
+    function applyRafqaPresetToDataUrl(dataUrl, maxDimension = null) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          let w = img.width;
+          let h = img.height;
+          if (maxDimension && Math.max(w, h) > maxDimension) {
+            const scale = maxDimension / Math.max(w, h);
+            w = Math.round(w * scale);
+            h = Math.round(h * scale);
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+
+          if (typeof window.renderRafqaPreset === 'function') {
+            window.renderRafqaPreset(canvas);
+          }
+          resolve(canvas.toDataURL('image/jpeg', 0.92));
+        };
+        img.onerror = () => resolve(dataUrl);
+        img.src = dataUrl;
+      });
+    }
+
+    async function updateLiveUploadPreview() {
+      const previewBox = document.getElementById('up-live-preview-box');
+      const liveFrame = document.getElementById('up-live-frame');
+      const canvas = document.getElementById('up-preview-canvas');
+      if (!previewBox || !canvas) return;
+
+      const firstImgItem = appState.uploadQueue.find(q => q.file && q.file.type.startsWith('image/'));
+      if (!firstImgItem) {
+        previewBox.classList.add('hidden');
+        return;
+      }
+
+      previewBox.classList.remove('hidden');
+      const activeFrame = appState.selectedFrame && appState.selectedFrame !== 'none' ? appState.selectedFrame : 'bg-white p-1.5 border border-cream-300';
+      liveFrame.className = `rounded-xl overflow-hidden max-w-[230px] transition-all ${activeFrame}`;
+
+      const rawUrl = await readFileAsDataUrl(firstImgItem.file);
+      const img = new Image();
+      img.onload = () => {
+        const scale = Math.min(1, 420 / img.width);
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        if (typeof window.renderRafqaPreset === 'function') {
+          window.renderRafqaPreset(canvas);
+        }
+      };
+      img.src = rawUrl;
+    }
+
+    // Nomor WhatsApp Admin Rafqa Production
+    const ADMIN_WHATSAPP_NUMBER = '6281288007237';
+
+    // Helper Direct WhatsApp untuk Pemesanan Produk Non-Album
+    function orderViaWhatsApp(productName, customMessage = null) {
+      const defaultMsg = `Halo *Rafqa Production*, saya tertarik untuk memesan layanan *${productName}*. Boleh minta informasi detail dan katalognya?`;
+      const text = encodeURIComponent(customMessage || defaultMsg);
+      window.open(`https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${text}`, '_blank');
+    }
+
+    function initSeedData() {
+      const existingEvents = JSON.parse(localStorage.getItem(STORAGE_KEY_EVENTS) || '[]');
+      if (existingEvents.length === 0) {
+        const defaultEvent = {
+          id: 'evt-default-01',
+          slug: 'resepsi-nadia-fajar',
+          title: 'Resepsi Nadia & Fajar',
+          event_date: '2026-11-22',
+          welcome_message: 'Terima kasih atas doa restu dan kehadiran Anda. Silakan abadikan dan bagikan momen hangat bersama kami.',
+          cover_image_url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=85',
+          pin_code: '',
+          is_upload_locked: false,
+          host_secret_key: 'sk_rafqa_2026',
+          created_at: new Date().toISOString()
+        };
+        localStorage.setItem(STORAGE_KEY_EVENTS, JSON.stringify([defaultEvent]));
+
+        const seedMedia = [
+          {
+            id: 'med-01',
+            event_id: 'evt-default-01',
+            guest_name: 'Keluarga Besar Bandung',
+            caption: 'Selamat menempuh hidup baru Nadia & Fajar!',
+            original_url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=90',
+            thumbnail_url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80',
+            media_type: 'image',
+            filter_class: 'filter-warm-film',
+            frame_class: 'frame-classic-cream',
+            file_size_bytes: 2450000,
+            likes_count: 14,
+            is_hidden: false,
+            created_at: new Date(Date.now() - 3600000).toISOString()
+          },
+          {
+            id: 'med-02',
+            event_id: 'evt-default-01',
+            guest_name: 'Raka & Sahabat',
+            caption: 'Suasana sore yang sangat syahdu.',
+            original_url: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1200&q=90',
+            thumbnail_url: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=80',
+            media_type: 'image',
+            filter_class: 'filter-vintage-cream',
+            frame_class: 'frame-espresso-gold',
+            file_size_bytes: 3120000,
+            likes_count: 9,
+            is_hidden: false,
+            created_at: new Date(Date.now() - 1800000).toISOString()
+          }
+        ];
+        localStorage.setItem(STORAGE_KEY_MEDIA, JSON.stringify(seedMedia));
+      }
+    }
+
+    function getEvents() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY_EVENTS) || '[]');
+    }
+
+    function saveEvents(events) {
+      localStorage.setItem(STORAGE_KEY_EVENTS, JSON.stringify(events));
+    }
+
+    function getEventBySlug(slug) {
+      return getEvents().find(e => e.slug === slug) || null;
+    }
+
+    function getMediaList() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY_MEDIA) || '[]');
+    }
+
+    function saveMediaList(list) {
+      localStorage.setItem(STORAGE_KEY_MEDIA, JSON.stringify(list));
+    }
+
+    function getEventMedia(eventId, includeHidden = false) {
+      return getMediaList()
+        .filter(m => m.event_id === eventId && (includeHidden || !m.is_hidden))
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    }
+
+    // =========================================================================
+    // TOAST NOTIFICATIONS
+    // =========================================================================
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      const bgStyle = type === 'error'
+        ? 'bg-red-600 text-white border-obsidian-900'
+        : type === 'success'
+        ? 'bg-cocoa-900 text-cream-50 border-tangerine-500'
+        : 'bg-cream-50 text-obsidian-950 border-obsidian-900';
+
+      toast.className = `pointer-events-auto px-4 py-3 rounded-2xl border-2 shadow-[4px_4px_0px_#1A1614] text-xs sm:text-sm font-semibold flex items-center justify-between gap-3 animate-fade-in ${bgStyle}`;
+      toast.innerHTML = `<span>${message}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    // =========================================================================
+    // CLIENT-SIDE ROUTER
+    // =========================================================================
+    function navigateTo(route, slug = null) {
+      if (appState.slideshowTimer) {
+        clearInterval(appState.slideshowTimer);
+        appState.slideshowTimer = null;
+      }
+
+      appState.currentRoute = route;
+      appState.currentSlug = slug;
+
+      const root = document.getElementById('app-root');
+      const navbar = document.getElementById('main-navbar');
+
+      if (route === 'slideshow') {
+        navbar.classList.add('hidden');
+      } else {
+        navbar.classList.remove('hidden');
+      }
+
+      const tplMap = {
+        landing: 'tpl-landing',
+        create: 'tpl-create',
+        payment: 'tpl-payment',
+        gallery: 'tpl-gallery',
+        slideshow: 'tpl-slideshow',
+        admin: 'tpl-admin'
+      };
+
+      const tpl = document.getElementById(tplMap[route] || 'tpl-landing');
+      root.innerHTML = '';
+      root.appendChild(tpl.content.cloneNode(true));
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (route === 'landing') {
+        initLandingMotion();
+      } else if (route === 'create') {
+        initCreateView();
+      } else if (route === 'payment') {
+        initPaymentView();
+      } else if (route === 'gallery') {
+        initGalleryView(slug);
+      } else if (route === 'admin') {
+        initAdminView(slug);
+      } else if (route === 'slideshow') {
+        initSlideshowView(slug);
+      }
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    // Scroll Reveal Observer & Interactive Hero Card Motion + Parallax
+    function initLandingMotion() {
+      const revealEls = document.querySelectorAll('.reveal-on-scroll');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealEls.forEach(el => observer.observe(el));
+
+      // Smooth Scroll & Mouse Parallax Engine
+      const parallaxLayers = document.querySelectorAll('.parallax-layer');
+      let mouseX = 0;
+      let mouseY = 0;
+
+      const updateParallax = () => {
+        if (appState.currentRoute !== 'landing') return;
+        const scrollY = window.scrollY || 0;
+        parallaxLayers.forEach(layer => {
+          const speed = parseFloat(layer.dataset.parallax || '0.1');
+          const yOffset = scrollY * speed;
+          const xOffset = mouseX * speed * 45;
+          const yMouseOffset = mouseY * speed * 30;
+          layer.style.transform = `translate3d(${xOffset.toFixed(1)}px, ${(yOffset + yMouseOffset).toFixed(1)}px, 0)`;
+        });
+      };
+
+      window.addEventListener('scroll', updateParallax, { passive: true });
+      window.addEventListener('mousemove', (e) => {
+        if (appState.currentRoute !== 'landing') return;
+        mouseX = (e.clientX / window.innerWidth) - 0.5;
+        mouseY = (e.clientY / window.innerHeight) - 0.5;
+        requestAnimationFrame(updateParallax);
+      }, { passive: true });
+
+      // Subtle 3D Hover Tilt on Hero Studio Card
+      const heroCard = document.getElementById('hero-tilt-card');
+      if (heroCard) {
+        heroCard.addEventListener('mousemove', (e) => {
+          const rect = heroCard.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          heroCard.style.transform = `perspective(700px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) rotate(-1deg)`;
+        });
+        heroCard.addEventListener('mouseleave', () => {
+          heroCard.style.transform = '';
+        });
+      }
+    }
+
+    function handleAnchorNav(event, sectionId) {
+      event.preventDefault();
+      if (appState.currentRoute !== 'landing') {
+        navigateTo('landing');
+        setTimeout(() => {
+          const el = document.getElementById(sectionId);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 120);
+      } else {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // =========================================================================
+    // VIEW 2: CREATE EVENT LOGIC
+    // =========================================================================
+    let uploadedCoverDataUrl = '';
+
+    function initCreateView() {
+      uploadedCoverDataUrl = '';
+      const dateInput = document.getElementById('inp-date');
+      if (dateInput) {
+        dateInput.value = new Date().toISOString().split('T')[0];
+      }
+    }
+
+    function autoGenerateSlug(title) {
+      const slugInput = document.getElementById('inp-slug');
+      if (!slugInput) return;
+      const slug = title
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-');
+      slugInput.value = slug;
+      validateSlugInput(slugInput);
+    }
+
+    function validateSlugInput(inputEl) {
+      const val = inputEl.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
+      inputEl.value = val;
+      const feedback = document.getElementById('slug-feedback');
+      if (!feedback) return;
+
+      const exists = getEvents().some(e => e.slug === val);
+      if (!val) {
+        feedback.textContent = 'Huruf kecil, angka, dan tanda hubung (-).';
+        feedback.className = 'text-xs text-cocoa-700 mt-1.5';
+      } else if (exists) {
+        feedback.textContent = 'Tautan ini sudah digunakan, silakan pilih nama lain.';
+        feedback.className = 'text-xs font-semibold text-red-600 mt-1.5';
+      } else {
+        feedback.textContent = `Tersedia: rafqa.id/e/${val}`;
+        feedback.className = 'text-xs font-semibold text-emerald-700 mt-1.5';
+      }
+    }
+
+    function previewCoverImage(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        uploadedCoverDataUrl = e.target.result;
+        const img = document.getElementById('cover-preview-img');
+        const placeholder = document.getElementById('cover-preview-placeholder');
+        if (img && placeholder) {
+          img.src = uploadedCoverDataUrl;
+          img.classList.remove('hidden');
+          placeholder.classList.add('hidden');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleCreateEvent(event) {
+      event.preventDefault();
+      const title = document.getElementById('inp-title').value.trim();
+      const slug = document.getElementById('inp-slug').value.trim();
+      const eventDate = document.getElementById('inp-date').value;
+      const pinCode = document.getElementById('inp-pin').value.trim();
+      const welcomeMessage = document.getElementById('inp-welcome').value.trim() ||
+        'Terima kasih telah hadir. Silakan abadikan dan bagikan momen terbaik di sini.';
+
+      if (getEvents().some(e => e.slug === slug)) {
+        showToast('Tautan album sudah dipakai, silakan ubah.', 'error');
+        return;
+      }
+
+      const secretKey = 'sk_rafqa_' + Math.random().toString(36).substring(2, 8);
+      const newEvent = {
+        id: 'evt-' + Date.now(),
+        slug,
+        title,
+        event_date: eventDate,
+        welcome_message: welcomeMessage,
+        cover_image_url: uploadedCoverDataUrl || 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=85',
+        pin_code: pinCode,
+        is_upload_locked: false,
+        is_paid: false,
+        host_secret_key: secretKey,
+        created_at: new Date().toISOString()
+      };
+
+      appState.pendingOrderEvent = newEvent;
+      showToast('Detail pesanan tersimpan. Silakan scan QR pembayaran.', 'info');
+      navigateTo('payment', slug);
+    }
+
+    // =========================================================================
+    // VIEW 2B: PAYMENT WITH YOUR JPG QR & WHATSAPP CONFIRMATION LOGIC
+    // =========================================================================
+    function initPaymentView() {
+      const ev = appState.pendingOrderEvent;
+      if (!ev) {
+        navigateTo('create');
+        return;
+      }
+
+      document.getElementById('pay-event-title').textContent = ev.title;
+      document.getElementById('pay-event-slug').textContent = `rafqa.id/e/${ev.slug}`;
+
+      // Jika pengguna sebelumnya sudah memilih file QR JPG lokal, muat ulang dari sessionStorage
+      const cachedQrJpg = sessionStorage.getItem('rafqa_custom_qris_jpg');
+      const qrisImg = document.getElementById('personal-qris-img');
+      const fallbackNotice = document.getElementById('qris-fallback-notice');
+
+      if (cachedQrJpg && qrisImg) {
+        qrisImg.src = cachedQrJpg;
+        qrisImg.classList.remove('hidden');
+        if (fallbackNotice) fallbackNotice.classList.add('hidden');
+      }
+
+      // Generate fallback QR jika ./qris-rafqa.jpg belum ditaruh di folder
+      const qrisFallbackContainer = document.getElementById('dynamic-qris-fallback');
+      if (qrisFallbackContainer) {
+        qrisFallbackContainer.innerHTML = '';
+        new QRCode(qrisFallbackContainer, {
+          text: `QRIS-RAFQA-PRODUCTION-${ev.slug.toUpperCase()}`,
+          width: 112,
+          height: 112,
+          colorDark: '#1A1614',
+          colorLight: '#FFFFFF'
+        });
+      }
+    }
+
+    function previewLocalQrJpg(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUrl = e.target.result;
+        sessionStorage.setItem('rafqa_custom_qris_jpg', dataUrl);
+        const qrisImg = document.getElementById('personal-qris-img');
+        const fallbackNotice = document.getElementById('qris-fallback-notice');
+        if (qrisImg) {
+          qrisImg.src = dataUrl;
+          qrisImg.classList.remove('hidden');
+        }
+        if (fallbackNotice) fallbackNotice.classList.add('hidden');
+        showToast('Gambar QR bayar JPG berhasil ditampilkan!', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function copyTextValue(text, label = 'Teks') {
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      tempInput.remove();
+      showToast(`${label} berhasil disalin!`, 'success');
+    }
+
+    function confirmPaymentViaWhatsApp() {
+      const ev = appState.pendingOrderEvent;
+      if (!ev) return;
+
+      const message = encodeURIComponent(
+        `Halo *Rafqa Production*,\n\nSaya ingin konfirmasi pembayaran pembuatan *Album Photobooth QR*:\n` +
+        `• Nama Acara: *${ev.title}*\n` +
+        `• Tanggal Acara: ${formatIndonesianDate(ev.event_date)}\n` +
+        `• Link Album: rafqa.id/e/${ev.slug}\n\n` +
+        `Berikut saya lampirkan bukti pembayarannya. Terima kasih!`
+      );
+
+      window.open(`https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${message}`, '_blank');
+    }
+
+    function completePaymentAndUnlockQr() {
+      const ev = appState.pendingOrderEvent;
+      if (!ev) return;
+
+      ev.is_paid = true;
+      const events = getEvents();
+      const existingIdx = events.findIndex(item => item.slug === ev.slug);
+      if (existingIdx >= 0) {
+        events[existingIdx] = ev;
+      } else {
+        events.push(ev);
+      }
+      saveEvents(events);
+      localStorage.setItem(`rafqa_host_key_${ev.slug}`, ev.host_secret_key);
+      appState.pendingOrderEvent = null;
+
+      showToast('Album aktif! Kartu QR Photobooth tamu siap digunakan.', 'success');
+      navigateTo('admin', ev.slug);
+    }
+
+    // =========================================================================
+    // VIEW 3: PUBLIC GUEST GALLERY LOGIC
+    // =========================================================================
+    function initGalleryView(slug) {
+      const ev = getEventBySlug(slug) || getEvents()[0];
+      if (!ev) {
+        navigateTo('create');
+        return;
+      }
+      appState.currentSlug = ev.slug;
+      appState.currentFilter = 'all';
+
+      // Check PIN Gate
+      if (ev.pin_code && sessionStorage.getItem(`rafqa_pin_ok_${ev.slug}`) !== '1') {
+        document.getElementById('modal-pin').classList.remove('hidden');
+      }
+
+      document.getElementById('gal-cover').src = ev.cover_image_url;
+      document.getElementById('gal-title').textContent = ev.title;
+      document.getElementById('gal-welcome').textContent = ev.welcome_message || '';
+      document.getElementById('gal-date').textContent = formatIndonesianDate(ev.event_date);
+
+      const lockedBanner = document.getElementById('gal-locked-banner');
+      const fabBtn = document.getElementById('fab-upload-btn');
+      if (ev.is_upload_locked) {
+        lockedBanner.classList.remove('hidden');
+        fabBtn.disabled = true;
+        fabBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+
+      renderGalleryGrid();
+    }
+
+    function verifyEventPin(event) {
+      event.preventDefault();
+      const ev = getEventBySlug(appState.currentSlug);
+      const entered = document.getElementById('pin-entry-input').value.trim();
+      if (ev && entered === ev.pin_code) {
+        sessionStorage.setItem(`rafqa_pin_ok_${ev.slug}`, '1');
+        document.getElementById('modal-pin').classList.add('hidden');
+        showToast('PIN berhasil diverifikasi.', 'success');
+      } else {
+        showToast('PIN tidak sesuai, silakan coba lagi.', 'error');
+      }
+    }
+
+    function setGalleryFilter(filter) {
+      appState.currentFilter = filter;
+      ['all', 'image', 'video'].forEach(tab => {
+        const btn = document.getElementById(`tab-${tab}`);
+        if (!btn) return;
+        if (tab === filter) {
+          btn.className = 'px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-obsidian-950 text-cream-50 shadow-xs transition-all';
+        } else {
+          btn.className = 'px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-cocoa-800 hover:text-obsidian-950 transition-all';
+        }
+      });
+      renderGalleryGrid();
+    }
+
+    function renderGalleryGrid() {
+      const ev = getEventBySlug(appState.currentSlug);
+      if (!ev) return;
+
+      const allMedia = getEventMedia(ev.id, false);
+      const images = allMedia.filter(m => m.media_type === 'image');
+      const videos = allMedia.filter(m => m.media_type === 'video');
+
+      document.getElementById('gal-count-total').textContent = allMedia.length;
+      document.getElementById('count-all').textContent = allMedia.length;
+      document.getElementById('count-image').textContent = images.length;
+      document.getElementById('count-video').textContent = videos.length;
+
+      const filtered = appState.currentFilter === 'all'
+        ? allMedia
+        : allMedia.filter(m => m.media_type === appState.currentFilter);
+
+      const grid = document.getElementById('gallery-grid');
+      const empty = document.getElementById('gallery-empty');
+      grid.innerHTML = '';
+
+      if (filtered.length === 0) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        const frameClass = item.frame_class && item.frame_class !== 'none' ? item.frame_class : 'bg-cream-50 border border-cream-300 p-1.5';
+        const isDarkFrame = item.frame_class === 'frame-espresso-gold';
+
+        card.className = `masonry-item rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all cursor-pointer group ${frameClass}`;
+        card.onclick = () => openLightbox(item.id);
+
+        const mediaHtml = item.media_type === 'video'
+          ? `<div class="relative rounded-xl overflow-hidden bg-obsidian-950">
+               <video src="${item.thumbnail_url}" class="w-full h-auto object-cover" muted playsinline></video>
+               <span class="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/70 text-white flex items-center justify-center">
+                 <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+               </span>
+             </div>`
+          : `<div class="relative rounded-xl overflow-hidden">
+               <img src="${item.thumbnail_url}" alt="${escapeHtml(item.guest_name)}" loading="lazy" class="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500 ${item.filter_class || ''}" />
+             </div>`;
+
+        card.innerHTML = `
+          ${mediaHtml}
+          <div class="pt-2 px-1 flex items-center justify-between gap-2 ${isDarkFrame ? 'text-cream-100' : 'text-obsidian-950'}">
+            <div class="min-w-0">
+              <p class="text-xs font-bold truncate">${escapeHtml(item.guest_name)}</p>
+              ${item.caption ? `<p class="text-[11px] opacity-75 truncate">${escapeHtml(item.caption)}</p>` : ''}
+            </div>
+            <span class="shrink-0 inline-flex items-center gap-1 text-[11px] font-semibold ${isDarkFrame ? 'text-tangerine-300' : 'text-cocoa-700'}">
+              <i data-lucide="heart" class="w-3 h-3"></i>
+              ${item.likes_count || 0}
+            </span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function showEventQrModal() {
+      const ev = getEventBySlug(appState.currentSlug);
+      if (!ev) return;
+      document.getElementById('guest-modal-qr-title').textContent = ev.title;
+      const qrBox = document.getElementById('guest-modal-qrcode');
+      qrBox.innerHTML = '';
+      new QRCode(qrBox, {
+        text: `${window.location.origin}/e/${ev.slug}`,
+        width: 170,
+        height: 170,
+        colorDark: '#1A1614',
+        colorLight: '#FFFFFF'
+      });
+      document.getElementById('modal-guest-qr').classList.remove('hidden');
+    }
+
+    // =========================================================================
+    // UPLOAD DRAWER, CAMERA FILTERS & PHOTOBOOTH FRAMES
+    // =========================================================================
+    function openUploadDrawer() {
+      const ev = getEventBySlug(appState.currentSlug);
+      if (ev && ev.is_upload_locked) {
+        showToast('Unggahan sedang dikunci oleh tuan rumah.', 'error');
+        return;
+      }
+      const savedGuest = localStorage.getItem(STORAGE_KEY_GUEST_NAME) || '';
+      document.getElementById('up-guest-name').value = savedGuest;
+      document.getElementById('up-caption').value = '';
+      appState.uploadQueue = [];
+      renderUploadQueue();
+      document.getElementById('drawer-upload').classList.remove('hidden');
+      initRafqaPresetUI();
+      updateLiveUploadPreview();
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function closeUploadDrawer() {
+      document.getElementById('drawer-upload').classList.add('hidden');
+    }
+
+    function selectUploadFrame(frameClass, btnEl) {
+      appState.selectedFrame = frameClass;
+      document.querySelectorAll('.frame-pill').forEach(b => {
+        b.className = 'frame-pill px-3 py-2 rounded-xl text-xs font-semibold bg-cream-100 text-cocoa-800 border border-cream-300 text-center';
+      });
+      btnEl.className = 'frame-pill px-3 py-2 rounded-xl text-xs font-semibold bg-obsidian-950 text-cream-50 border border-obsidian-950 text-center';
+      updateLiveUploadPreview();
+    }
+
+    function handleFilesSelected(event) {
+      const files = Array.from(event.target.files || []);
+      const maxBytes = 50 * 1024 * 1024;
+
+      files.forEach(file => {
+        if (file.size > maxBytes) {
+          showToast(`File "${file.name}" melebihi batas 50MB.`, 'error');
+          return;
+        }
+        appState.uploadQueue.push({
+          id: 'q-' + Math.random().toString(36).slice(2, 9),
+          file,
+          status: 'pending',
+          progress: 0
+        });
+      });
+
+      event.target.value = '';
+      renderUploadQueue();
+      updateLiveUploadPreview();
+    }
+
+    function renderUploadQueue() {
+      const container = document.getElementById('up-queue-container');
+      const list = document.getElementById('up-queue-list');
+      const countEl = document.getElementById('up-queue-count');
+      const startBtn = document.getElementById('btn-start-upload');
+      const retryBtn = document.getElementById('btn-retry-failed');
+
+      if (appState.uploadQueue.length === 0) {
+        container.classList.add('hidden');
+        startBtn.disabled = true;
+        return;
+      }
+
+      container.classList.remove('hidden');
+      countEl.textContent = appState.uploadQueue.length;
+      startBtn.disabled = !appState.uploadQueue.some(q => q.status === 'pending');
+
+      const hasFailed = appState.uploadQueue.some(q => q.status === 'error');
+      retryBtn.classList.toggle('hidden', !hasFailed);
+
+      list.innerHTML = appState.uploadQueue.map(item => `
+        <div class="p-2.5 rounded-xl bg-white border border-cream-300 flex items-center justify-between gap-3">
+          <div class="min-w-0 flex-1">
+            <p class="text-xs font-semibold text-obsidian-950 truncate">${escapeHtml(item.file.name)}</p>
+            <div class="w-full h-1.5 bg-cream-200 rounded-full overflow-hidden mt-1.5">
+              <div class="h-full bg-tangerine-500 transition-all duration-300" style="width: ${item.progress}%"></div>
+            </div>
+          </div>
+          <span class="text-[11px] font-mono font-bold ${item.status === 'done' ? 'text-emerald-700' : item.status === 'error' ? 'text-red-600' : 'text-cocoa-700'}">
+            ${item.status === 'done' ? 'Selesai' : item.status === 'error' ? 'Gagal' : item.progress + '%'}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    async function processUploadQueue() {
+      const ev = getEventBySlug(appState.currentSlug);
+      if (!ev) return;
+
+      const guestName = document.getElementById('up-guest-name').value.trim() || 'Tamu Undangan';
+      const caption = document.getElementById('up-caption').value.trim();
+      localStorage.setItem(STORAGE_KEY_GUEST_NAME, guestName);
+
+      const mediaList = getMediaList();
+
+      for (const item of appState.uploadQueue) {
+        if (item.status !== 'pending') continue;
+        try {
+          item.progress = 35;
+          renderUploadQueue();
+
+          const rawDataUrl = await readFileAsDataUrl(item.file);
+          const isVideo = item.file.type.startsWith('video/');
+          const processedDataUrl = isVideo ? rawDataUrl : await applyRafqaPresetToDataUrl(rawDataUrl, 1800);
+          const thumbUrl = isVideo ? rawDataUrl : await generateClientThumbnail(processedDataUrl, 600, 0.80);
+
+          item.progress = 85;
+          renderUploadQueue();
+
+          mediaList.push({
+            id: 'med-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
+            event_id: ev.id,
+            guest_name: guestName,
+            caption,
+            original_url: processedDataUrl,
+            thumbnail_url: thumbUrl,
+            media_type: isVideo ? 'video' : 'image',
+            filter_class: 'filter-original',
+            frame_class: isVideo ? 'none' : appState.selectedFrame,
+            file_size_bytes: item.file.size,
+            likes_count: 0,
+            is_hidden: false,
+            created_at: new Date().toISOString()
+          });
+
+          item.status = 'done';
+          item.progress = 100;
+          renderUploadQueue();
+        } catch (err) {
+          item.status = 'error';
+          renderUploadQueue();
+        }
+      }
+
+      saveMediaList(mediaList);
+      renderGalleryGrid();
+      showToast('Foto & video berhasil ditambahkan ke galeri!', 'success');
+      setTimeout(() => closeUploadDrawer(), 650);
+    }
+
+    function retryFailedUploads() {
+      appState.uploadQueue.forEach(item => {
+        if (item.status === 'error') {
+          item.status = 'pending';
+          item.progress = 0;
+        }
+      });
+      processUploadQueue();
+    }
+
+    function readFileAsDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function generateClientThumbnail(dataUrl, maxWidth = 600, quality = 0.75) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          const scale = Math.min(1, maxWidth / img.width);
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = () => resolve(dataUrl);
+        img.src = dataUrl;
+      });
+    }
+
+    // =========================================================================
+    // LIGHTBOX PREVIEW, LIKE & ORIGINAL DOWNLOAD
+    // =========================================================================
+    function openLightbox(mediaId) {
+      const item = getMediaList().find(m => m.id === mediaId);
+      const ev = getEventBySlug(appState.currentSlug);
+      if (!item) return;
+
+      appState.activeLightboxMediaId = mediaId;
+      document.getElementById('lb-avatar').textContent = (item.guest_name || 'T').charAt(0).toUpperCase();
+      document.getElementById('lb-guest-name').textContent = item.guest_name;
+      document.getElementById('lb-meta').textContent = formatRelativeTime(item.created_at);
+      document.getElementById('lb-caption').textContent = item.caption || 'Tanpa keterangan tambahan.';
+      document.getElementById('lb-like-count').textContent = item.likes_count || 0;
+
+      const likedIds = JSON.parse(localStorage.getItem(STORAGE_KEY_LIKED) || '[]');
+      const isLiked = likedIds.includes(mediaId);
+      const likeIcon = document.getElementById('lb-like-icon');
+      if (isLiked) {
+        likeIcon.classList.add('fill-tangerine-500', 'text-tangerine-500');
+      } else {
+        likeIcon.classList.remove('fill-tangerine-500', 'text-tangerine-500');
+      }
+
+      const frameBox = document.getElementById('lb-frame-box');
+      const lbImage = document.getElementById('lb-image');
+      const lbVideo = document.getElementById('lb-video');
+      const frameStamp = document.getElementById('lb-frame-stamp');
+
+      if (item.media_type === 'video') {
+        frameBox.classList.add('hidden');
+        lbVideo.classList.remove('hidden');
+        lbVideo.src = item.original_url;
+      } else {
+        lbVideo.classList.add('hidden');
+        lbVideo.pause();
+        frameBox.classList.remove('hidden');
+
+        const activeFrame = item.frame_class && item.frame_class !== 'none' ? item.frame_class : '';
+        frameBox.className = `rounded-2xl overflow-hidden max-h-full max-w-full flex flex-col items-center ${activeFrame}`;
+        lbImage.className = `max-h-[65vh] max-w-full object-contain rounded-xl shadow-2xl ${item.filter_class || ''}`;
+        lbImage.src = item.original_url;
+
+        if (activeFrame) {
+          frameStamp.classList.remove('hidden');
+          frameStamp.textContent = `${ev ? ev.title : 'Rafqa Production'} • Rafqa Production`;
+          frameStamp.className = `text-xs font-mono font-bold mt-2 tracking-wide ${activeFrame === 'frame-espresso-gold' ? 'text-tangerine-300' : 'text-cocoa-800'}`;
+        } else {
+          frameStamp.classList.add('hidden');
+        }
+      }
+
+      document.getElementById('modal-lightbox').classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+      const lbVideo = document.getElementById('lb-video');
+      if (lbVideo) lbVideo.pause();
+      document.getElementById('modal-lightbox').classList.add('hidden');
+    }
+
+    function toggleLikeCurrentMedia() {
+      const mediaId = appState.activeLightboxMediaId;
+      if (!mediaId) return;
+
+      const list = getMediaList();
+      const idx = list.findIndex(m => m.id === mediaId);
+      if (idx === -1) return;
+
+      const likedIds = JSON.parse(localStorage.getItem(STORAGE_KEY_LIKED) || '[]');
+      const alreadyLiked = likedIds.includes(mediaId);
+
+      if (alreadyLiked) {
+        list[idx].likes_count = Math.max(0, (list[idx].likes_count || 1) - 1);
+        localStorage.setItem(STORAGE_KEY_LIKED, JSON.stringify(likedIds.filter(id => id !== mediaId)));
+      } else {
+        list[idx].likes_count = (list[idx].likes_count || 0) + 1;
+        likedIds.push(mediaId);
+        localStorage.setItem(STORAGE_KEY_LIKED, JSON.stringify(likedIds));
+      }
+
+      saveMediaList(list);
+      openLightbox(mediaId);
+      renderGalleryGrid();
+    }
+
+    function downloadOriginalCurrentMedia() {
+      const item = getMediaList().find(m => m.id === appState.activeLightboxMediaId);
+      if (!item) return;
+
+      const ext = item.media_type === 'video' ? 'mp4' : 'jpg';
+      const filename = `rafqa-production-${slugify(item.guest_name)}-${item.id}.${ext}`;
+      saveAs(item.original_url, filename);
+      showToast('Mengunduh file kualitas asli...', 'success');
+    }
+
+    // =========================================================================
+    // VIEW 4: LIVE SLIDESHOW MODE
+    // =========================================================================
+    function openSlideshowMode() {
+      navigateTo('slideshow', appState.currentSlug);
+    }
+
+    function exitSlideshowMode() {
+      navigateTo('gallery', appState.currentSlug);
+    }
+
+    function initSlideshowView(slug) {
+      const ev = getEventBySlug(slug);
+      if (!ev) return;
+
+      document.getElementById('ss-event-title').textContent = ev.title;
+      const qrBox = document.getElementById('ss-qrcode');
+      qrBox.innerHTML = '';
+      new QRCode(qrBox, {
+        text: `${window.location.origin}/e/${ev.slug}`,
+        width: 84,
+        height: 84,
+        colorDark: '#1A1614',
+        colorLight: '#FFFFFF'
+      });
+
+      appState.slideshowIndex = 0;
+      renderSlideshowSlide();
+
+      appState.slideshowTimer = setInterval(() => {
+        const items = getEventMedia(ev.id, false);
+        if (items.length > 0) {
+          appState.slideshowIndex = (appState.slideshowIndex + 1) % items.length;
+          renderSlideshowSlide();
+        }
+      }, 5000);
+    }
+
+    function renderSlideshowSlide() {
+      const ev = getEventBySlug(appState.currentSlug);
+      if (!ev) return;
+      const items = getEventMedia(ev.id, false);
+      if (items.length === 0) return;
+
+      const current = items[appState.slideshowIndex % items.length];
+      document.getElementById('ss-counter').textContent = `${(appState.slideshowIndex % items.length) + 1} / ${items.length}`;
+      document.getElementById('ss-guest-name').textContent = current.guest_name;
+      document.getElementById('ss-time').textContent = formatRelativeTime(current.created_at);
+      document.getElementById('ss-caption').textContent = current.caption || 'Momen hangat bersama!';
+
+      const frameWrapper = document.getElementById('ss-frame-wrapper');
+      const imgEl = document.getElementById('ss-image');
+      const vidEl = document.getElementById('ss-video');
+
+      if (current.media_type === 'video') {
+        frameWrapper.classList.add('hidden');
+        vidEl.classList.remove('hidden');
+        vidEl.src = current.original_url;
+      } else {
+        vidEl.classList.add('hidden');
+        frameWrapper.classList.remove('hidden');
+        const activeFrame = current.frame_class && current.frame_class !== 'none' ? current.frame_class : '';
+        frameWrapper.className = `rounded-2xl overflow-hidden transition-all duration-700 ${activeFrame}`;
+        imgEl.className = `max-h-[70vh] max-w-full object-contain rounded-xl shadow-2xl ${current.filter_class || ''}`;
+        imgEl.src = current.original_url;
+      }
+    }
+
+    // =========================================================================
+    // VIEW 5: HOST MODERATION & QR DASHBOARD
+    // =========================================================================
+    function openAdminFromGallery() {
+      navigateTo('admin', appState.currentSlug);
+    }
+
+    function openPublicGalleryFromAdmin() {
+      navigateTo('gallery', appState.currentSlug);
+    }
+
+    function initAdminView(slug) {
+      const ev = getEventBySlug(slug);
+      if (!ev) {
+        navigateTo('create');
+        return;
+      }
+
+      document.getElementById('adm-title').textContent = ev.title;
+      const bannerName = document.getElementById('adm-banner-event-name');
+      if (bannerName) bannerName.textContent = ev.title;
+      document.getElementById('adm-public-url').textContent = `rafqa.id/e/${ev.slug}`;
+      document.getElementById('adm-lock-toggle').checked = !!ev.is_upload_locked;
+      document.getElementById('adm-welcome-input').value = ev.welcome_message || '';
+      document.getElementById('adm-pin-input').value = ev.pin_code || '';
+
+      appState.qrCardTheme = 'editorial-ivory';
+      renderQrCardPreview();
+      renderAdminModerationGrid();
+    }
+
+    const QR_CARD_THEMES = {
+      'editorial-ivory': {
+        label: 'Editorial Ivory',
+        pattern: 'sparkles',
+        bg: '#FBF9F5',
+        border: '#E5DFD5',
+        borderWidth: 2,
+        subColor: '#9E8454',
+        titleColor: '#2A2623',
+        dateColor: '#7D756D',
+        descColor: '#2A2623',
+        footerColor: '#2A2623',
+        accentColor: '#C5A975',
+        qrDark: '#1A1614',
+        qrLight: '#FFFFFF',
+        qrBoxBg: '#FFFFFF',
+        qrBoxBorder: 'transparent',
+        titleFont: 'font-editorial font-extrabold',
+        cardPatternClass: 'bg-[#FBF9F5] border-2 border-[#E5DFD5]'
+      },
+      'polkadot-pop': {
+        label: 'Polkadot Retro',
+        pattern: 'polkadot',
+        bg: '#FFFDF7',
+        border: '#1A1614',
+        borderWidth: 3,
+        subColor: '#EA580C',
+        titleColor: '#1A1614',
+        dateColor: '#54351A',
+        descColor: '#241305',
+        footerColor: '#EA580C',
+        accentColor: '#FDBA74',
+        qrDark: '#1A1614',
+        qrLight: '#FFFFFF',
+        qrBoxBg: '#FFFFFF',
+        qrBoxBorder: '#1A1614',
+        titleFont: 'font-grotesk font-extrabold',
+        cardPatternClass: 'qr-pat-polkadot border-2 border-[#1A1614]'
+      },
+      'floral-bloom': {
+        label: 'Bunga Floral',
+        pattern: 'floral',
+        bg: '#FDF4F5',
+        border: '#E5B4BE',
+        borderWidth: 2,
+        subColor: '#BE4B66',
+        titleColor: '#3B1D26',
+        dateColor: '#875563',
+        descColor: '#4A2530',
+        footerColor: '#BE4B66',
+        accentColor: '#F472B6',
+        qrDark: '#3B1D26',
+        qrLight: '#FFFFFF',
+        qrBoxBg: '#FFFFFF',
+        qrBoxBorder: '#E5B4BE',
+        titleFont: 'font-editorial font-extrabold',
+        cardPatternClass: 'qr-pat-floral border-2 border-[#E5B4BE]'
+      },
+      'classic-stripe': {
+        label: 'Classic Stripe',
+        pattern: 'stripe',
+        bg: '#F4EDE0',
+        border: '#54351A',
+        borderWidth: 2,
+        subColor: '#8C6239',
+        titleColor: '#241305',
+        dateColor: '#6E4A28',
+        descColor: '#3B230E',
+        footerColor: '#241305',
+        accentColor: '#E8DEC8',
+        qrDark: '#241305',
+        qrLight: '#FFFFFF',
+        qrBoxBg: '#FFFFFF',
+        qrBoxBorder: '#54351A',
+        titleFont: 'font-editorial font-extrabold',
+        cardPatternClass: 'qr-pat-stripe border-2 border-[#54351A]'
+      },
+      'noir-gold': {
+        label: 'Noir Gold Luxe',
+        pattern: 'sparkles',
+        bg: '#161412',
+        border: '#C89D54',
+        borderWidth: 3,
+        subColor: '#E2B96F',
+        titleColor: '#FAF6EE',
+        dateColor: '#B8AFA4',
+        descColor: '#EFEAE1',
+        footerColor: '#E2B96F',
+        accentColor: '#E2B96F',
+        qrDark: '#161412',
+        qrLight: '#FFFFFF',
+        qrBoxBg: '#FFFFFF',
+        qrBoxBorder: '#C89D54',
+        titleFont: 'font-editorial font-extrabold',
+        cardPatternClass: 'bg-[#161412] border-2 border-[#C89D54]'
+      },
+      'sage-botanical': {
+        label: 'Sage Botanical',
+        pattern: 'floral',
+        bg: '#F2F6F2',
+        border: '#B8CBB9',
+        borderWidth: 2,
+        subColor: '#4E7354',
+        titleColor: '#1E3022',
+        dateColor: '#5B735E',
+        descColor: '#263B2A',
+        footerColor: '#3B5E41',
+        accentColor: '#7EA384',
+        qrDark: '#1E3022',
+        qrLight: '#FFFFFF',
+        qrBoxBg: '#FFFFFF',
+        qrBoxBorder: '#B8CBB9',
+        titleFont: 'font-editorial font-extrabold',
+        cardPatternClass: 'bg-[#F2F6F2] border-2 border-[#B8CBB9]'
+      }
+    };
+
+    function formatFullIndonesianCardDate(dateStr) {
+      if (!dateStr) return 'HARI ACARA SPESIAL';
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('id-ID', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).toUpperCase();
+    }
+
+    function getQrOrnamentHtml(pattern, accentColor) {
+      if (pattern === 'floral') {
+        return `
+          <div class="pointer-events-none select-none">
+            <span class="absolute top-3 right-4 text-lg opacity-55" style="color:${accentColor}">✿</span>
+            <span class="absolute top-12 right-11 text-xs opacity-45" style="color:${accentColor}">❀</span>
+            <span class="absolute bottom-24 right-5 text-xl opacity-50" style="color:${accentColor}">✿</span>
+            <span class="absolute top-28 left-4 text-xs opacity-40" style="color:${accentColor}">❀</span>
+          </div>
+        `;
+      }
+      if (pattern === 'polkadot') {
+        return `
+          <div class="pointer-events-none select-none">
+            <span class="absolute top-3 right-4 w-3.5 h-3.5 rounded-full opacity-75" style="background:${accentColor}"></span>
+            <span class="absolute bottom-24 right-6 w-2.5 h-2.5 rounded-full opacity-65" style="background:${accentColor}"></span>
+          </div>
+        `;
+      }
+      if (pattern === 'stripe') {
+        return `
+          <div class="pointer-events-none select-none">
+            <span class="absolute top-3 right-4 text-[10px] font-mono font-bold opacity-55" style="color:${accentColor}">///</span>
+          </div>
+        `;
+      }
+      return `
+        <div class="pointer-events-none select-none">
+          <span class="absolute top-4 right-8 text-xs opacity-65" style="color:${accentColor}">✦</span>
+          <span class="absolute top-12 right-4 text-[10px] opacity-50" style="color:${accentColor}">✧</span>
+          <span class="absolute top-28 left-24 text-sm opacity-75" style="color:${accentColor}">✦</span>
+          <span class="absolute bottom-24 right-6 text-xs opacity-65" style="color:${accentColor}">✦</span>
+        </div>
+      `;
+    }
+
+    function renderQrCardPreview() {
+      const ev = getEventBySlug(appState.currentSlug);
+      const carousel = document.getElementById('qr-sliding-carousel');
+      const dotsContainer = document.getElementById('qr-carousel-dots');
+      if (!ev || !carousel) return;
+
+      const themeKeys = Object.keys(QR_CARD_THEMES);
+      const formattedDate = formatFullIndonesianCardDate(ev.event_date);
+      const customPrompt = (ev.welcome_message && ev.welcome_message.length <= 68)
+        ? ev.welcome_message
+        : 'Scan QR-nya, jepret momenmu versi kamu.';
+
+      carousel.innerHTML = themeKeys.map((key) => {
+        const theme = QR_CARD_THEMES[key];
+        const isActive = key === appState.qrCardTheme;
+        return `
+          <div data-theme="${key}" onclick="activateQrSlide('${key}', true)"
+            class="qr-slide-item ${isActive ? 'is-active' : ''} ${theme.cardPatternClass} rounded-[26px] p-5 relative overflow-hidden text-left select-none flex flex-col justify-between min-h-[365px]">
+            ${getQrOrnamentHtml(theme.pattern, theme.accentColor)}
+
+            <div class="relative z-10">
+              <p class="text-[9px] font-mono font-bold uppercase tracking-[0.22em] mb-1.5" style="color:${theme.subColor}">
+                SCAN &amp; JEPRET
+              </p>
+              <h3 class="${theme.titleFont} text-[19px] leading-[1.15] tracking-wide uppercase mb-2 break-words" style="color:${theme.titleColor}">
+                ${escapeHtml(ev.title)}
+              </h3>
+              <p class="text-[9px] font-mono font-semibold uppercase tracking-[0.14em] mb-3" style="color:${theme.dateColor}">
+                ${formattedDate}
+              </p>
+              <p class="text-[11px] font-medium leading-relaxed mb-4" style="color:${theme.descColor}">
+                ${escapeHtml(customPrompt)}
+              </p>
+            </div>
+
+            <div class="flex items-end justify-between gap-2 relative z-10 pt-1">
+              <div class="bg-white p-2 rounded-xl shadow-xs inline-flex items-center justify-center"
+                style="background:${theme.qrBoxBg}; ${theme.qrBoxBorder !== 'transparent' ? `border: 1.5px solid ${theme.qrBoxBorder};` : ''}">
+                <div id="qr-canvas-${key}"></div>
+              </div>
+              <div class="text-right pb-0.5 leading-none" style="color:${theme.footerColor}">
+                <span class="font-grotesk font-extrabold text-xs tracking-tight block">Rafqa</span>
+                <span class="font-mono text-[7.5px] font-bold uppercase tracking-widest opacity-80">Production</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render QR Code ke dalam setiap slide kartu
+      themeKeys.forEach((key) => {
+        const theme = QR_CARD_THEMES[key];
+        const targetEl = document.getElementById(`qr-canvas-${key}`);
+        if (targetEl) {
+          targetEl.innerHTML = '';
+          new QRCode(targetEl, {
+            text: `${window.location.origin}/e/${ev.slug}?mode=photobooth`,
+            width: 112,
+            height: 112,
+            colorDark: theme.qrDark,
+            colorLight: theme.qrLight
+          });
+        }
+      });
+
+      // Render Dot Indicators
+      if (dotsContainer) {
+        dotsContainer.innerHTML = themeKeys.map((key) => `
+          <button type="button" onclick="activateQrSlide('${key}', true)" aria-label="${QR_CARD_THEMES[key].label}"
+            class="h-2 rounded-full transition-all ${key === appState.qrCardTheme ? 'w-6 bg-obsidian-950' : 'w-2 bg-cream-300 hover:bg-cocoa-500'}">
+          </button>
+        `).join('');
+      }
+
+      // Sinkronkan slide aktif saat user menggeser (swipe/scroll) carousel secara manual
+      let scrollDebounce = null;
+      carousel.onscroll = () => {
+        clearTimeout(scrollDebounce);
+        scrollDebounce = setTimeout(() => {
+          const center = carousel.scrollLeft + carousel.clientWidth / 2;
+          let closestKey = appState.qrCardTheme;
+          let minDistance = Infinity;
+          carousel.querySelectorAll('.qr-slide-item').forEach(slide => {
+            const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+            const dist = Math.abs(center - slideCenter);
+            if (dist < minDistance) {
+              minDistance = dist;
+              closestKey = slide.dataset.theme;
+            }
+          });
+          if (closestKey !== appState.qrCardTheme) {
+            activateQrSlide(closestKey, false);
+          }
+        }, 70);
+      };
+    }
+
+    function activateQrSlide(themeKey, shouldScroll = true) {
+      appState.qrCardTheme = themeKey;
+      const carousel = document.getElementById('qr-sliding-carousel');
+      const dotsContainer = document.getElementById('qr-carousel-dots');
+      if (!carousel) return;
+
+      carousel.querySelectorAll('.qr-slide-item').forEach(slide => {
+        slide.classList.toggle('is-active', slide.dataset.theme === themeKey);
+      });
+
+      if (shouldScroll) {
+        const activeSlide = carousel.querySelector(`.qr-slide-item[data-theme="${themeKey}"]`);
+        if (activeSlide) {
+          const targetLeft = activeSlide.offsetLeft - (carousel.clientWidth - activeSlide.offsetWidth) / 2;
+          carousel.scrollTo({ left: targetLeft, behavior: 'smooth' });
+        }
+      }
+
+      if (dotsContainer) {
+        const themeKeys = Object.keys(QR_CARD_THEMES);
+        dotsContainer.innerHTML = themeKeys.map((key) => `
+          <button type="button" onclick="activateQrSlide('${key}', true)" aria-label="${QR_CARD_THEMES[key].label}"
+            class="h-2 rounded-full transition-all ${key === appState.qrCardTheme ? 'w-6 bg-obsidian-950' : 'w-2 bg-cream-300 hover:bg-cocoa-500'}">
+          </button>
+        `).join('');
+      }
+    }
+
+    function copyPublicPhotoboothLink() {
+      const ev = getEventBySlug(appState.currentSlug);
+      if (!ev) return;
+      copyTextValue(`${window.location.origin}/e/${ev.slug}?mode=photobooth`, 'Link Photobooth Tamu');
+    }
+
+    function drawRoundedRectPath(ctx, x, y, width, height, radius) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+    }
+
+    function drawSparkleStar(ctx, cx, cy, size, color) {
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - size);
+      ctx.quadraticCurveTo(cx, cy, cx + size, cy);
+      ctx.quadraticCurveTo(cx, cy, cx, cy + size);
+      ctx.quadraticCurveTo(cx, cy, cx - size, cy);
+      ctx.quadraticCurveTo(cx, cy, cx, cy - size);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawFlowerMotif(ctx, cx, cy, petalRadius, color) {
+      ctx.save();
+      ctx.fillStyle = color;
+      for (let i = 0; i < 5; i++) {
+        const angle = (i * 2 * Math.PI) / 5;
+        const px = cx + Math.cos(angle) * (petalRadius * 0.9);
+        const py = cy + Math.sin(angle) * (petalRadius * 0.9);
+        ctx.beginPath();
+        ctx.arc(px, py, petalRadius * 0.65, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.fillStyle = '#FFFDF9';
+      ctx.beginPath();
+      ctx.arc(cx, cy, petalRadius * 0.35, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawCardPatternOverlay(ctx, pattern, accentColor, width, height) {
+      ctx.save();
+      drawRoundedRectPath(ctx, 12, 12, width - 24, height - 24, 48);
+      ctx.clip();
+
+      if (pattern === 'polkadot') {
+        ctx.fillStyle = accentColor;
+        ctx.globalAlpha = 0.42;
+        const step = 46;
+        for (let y = 24; y < height; y += step) {
+          const offset = (Math.floor(y / step) % 2) * (step / 2);
+          for (let x = 24 + offset; x < width; x += step) {
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      } else if (pattern === 'stripe') {
+        ctx.strokeStyle = accentColor;
+        ctx.lineWidth = 18;
+        ctx.globalAlpha = 0.55;
+        for (let i = -height; i < width + height; i += 44) {
+          ctx.beginPath();
+          ctx.moveTo(i, 0);
+          ctx.lineTo(i + height, height);
+          ctx.stroke();
+        }
+      } else if (pattern === 'floral') {
+        ctx.globalAlpha = 0.32;
+        drawFlowerMotif(ctx, 520, 95, 22, accentColor);
+        drawFlowerMotif(ctx, 455, 210, 14, accentColor);
+        drawFlowerMotif(ctx, 545, 430, 26, accentColor);
+        drawFlowerMotif(ctx, 460, 620, 18, accentColor);
+        drawFlowerMotif(ctx, 90, 470, 15, accentColor);
+      } else {
+        // Default Sparkles
+        drawSparkleStar(ctx, 435, 78, 9, accentColor);
+        drawSparkleStar(ctx, 535, 195, 7, accentColor);
+        drawSparkleStar(ctx, 290, 385, 12, accentColor);
+        drawSparkleStar(ctx, 470, 540, 10, accentColor);
+        drawSparkleStar(ctx, 520, 665, 8, accentColor);
+
+        ctx.fillStyle = accentColor;
+        [[330, 58], [555, 310], [490, 445], [565, 580]].forEach(([dx, dy]) => {
+          ctx.beginPath();
+          ctx.arc(dx, dy, 3, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+      ctx.restore();
+    }
+
+    function wrapCanvasLines(ctx, text, maxWidth) {
+      const words = text.split(' ');
+      const lines = [];
+      let currentLine = words[0] || '';
+      for (let i = 1; i < words.length; i++) {
+        const testLine = currentLine + ' ' + words[i];
+        if (ctx.measureText(testLine).width <= maxWidth) {
+          currentLine = testLine;
+        } else {
+          lines.push(currentLine);
+          currentLine = words[i];
+        }
+      }
+      if (currentLine) lines.push(currentLine);
+      return lines;
+    }
+
+    function downloadPrintableQrPng() {
+      const ev = getEventBySlug(appState.currentSlug);
+      const qrCanvas = document.querySelector(`#qr-canvas-${appState.qrCardTheme} canvas`) || document.querySelector('#qr-sliding-carousel canvas');
+      if (!ev || !qrCanvas) return;
+
+      const theme = QR_CARD_THEMES[appState.qrCardTheme] || QR_CARD_THEMES['editorial-ivory'];
+
+      const cardCanvas = document.createElement('canvas');
+      cardCanvas.width = 640;
+      cardCanvas.height = 900;
+      const ctx = cardCanvas.getContext('2d');
+
+      // Rounded Card Background
+      drawRoundedRectPath(ctx, 12, 12, 616, 876, 48);
+      ctx.fillStyle = theme.bg;
+      ctx.fill();
+
+      // Gambar Motif Pattern (Polkadot / Floral / Stripe / Sparkles)
+      drawCardPatternOverlay(ctx, theme.pattern, theme.accentColor, 640, 900);
+
+      // Border Luar Kartu
+      drawRoundedRectPath(ctx, 12, 12, 616, 876, 48);
+      ctx.strokeStyle = theme.border;
+      ctx.lineWidth = theme.borderWidth * 2;
+      ctx.stroke();
+
+      // 1. Subjudul Kicker ("SCAN & JEPRET")
+      ctx.fillStyle = theme.subColor;
+      ctx.font = 'bold 19px monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText('SCAN & JEPRET', 64, 102);
+
+      // 2. Judul Acara Customer (Multi-line Editorial Uppercase)
+      ctx.fillStyle = theme.titleColor;
+      ctx.font = '800 50px Georgia, serif';
+      const titleLines = wrapCanvasLines(ctx, ev.title.toUpperCase(), 500).slice(0, 3);
+      let cursorY = 165;
+      titleLines.forEach(line => {
+        ctx.fillText(line, 64, cursorY);
+        cursorY += 58;
+      });
+
+      // 3. Tanggal Acara Customer (Hari, Tanggal Bulan Tahun)
+      cursorY += 8;
+      ctx.fillStyle = theme.dateColor;
+      ctx.font = '600 19px monospace';
+      ctx.fillText(formatFullIndonesianCardDate(ev.event_date), 64, cursorY);
+
+      // 4. Kalimat Ajakan Customer
+      cursorY += 48;
+      ctx.fillStyle = theme.descColor;
+      ctx.font = '600 24px sans-serif';
+      const descText = (ev.welcome_message && ev.welcome_message.length <= 68)
+        ? ev.welcome_message
+        : 'Scan QR-nya, jepret momenmu versi kamu.';
+      const descLines = wrapCanvasLines(ctx, descText, 460).slice(0, 2);
+      descLines.forEach(line => {
+        ctx.fillText(line, 64, cursorY);
+        cursorY += 34;
+      });
+
+      // 5. Kotak QR Code di Kiri Bawah
+      const qrBoxSize = 290;
+      const qrBoxX = 64;
+      const qrBoxY = 535;
+      drawRoundedRectPath(ctx, qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 22);
+      ctx.fillStyle = theme.qrBoxBg;
+      ctx.fill();
+      if (theme.qrBoxBorder !== 'transparent') {
+        ctx.strokeStyle = theme.qrBoxBorder;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
+      ctx.drawImage(qrCanvas, qrBoxX + 18, qrBoxY + 18, qrBoxSize - 36, qrBoxSize - 36);
+
+      // 6. Brand Mark Rafqa Production di Kanan Bawah
+      ctx.fillStyle = theme.footerColor;
+      ctx.textAlign = 'right';
+      ctx.font = '800 32px sans-serif';
+      ctx.fillText('Rafqa', 572, 795);
+      ctx.font = '700 14px monospace';
+      ctx.fillText('PRODUCTION', 572, 818);
+
+      cardCanvas.toBlob(blob => {
+        if (blob) {
+          saveAs(blob, `kartu-qr-${appState.qrCardTheme}-${ev.slug}.png`);
+          showToast(`Kartu QR (${theme.label}) siap cetak berhasil diunduh!`, 'success');
+        }
+      });
+    }
+
+    function toggleEventLock(isLocked) {
+      const events = getEvents();
+      const idx = events.findIndex(e => e.slug === appState.currentSlug);
+      if (idx === -1) return;
+      events[idx].is_upload_locked = isLocked;
+      saveEvents(events);
+      showToast(isLocked ? 'Unggahan tamu dikunci.' : 'Unggahan tamu dibuka kembali.', 'info');
+    }
+
+    function saveAdminSettings() {
+      const events = getEvents();
+      const idx = events.findIndex(e => e.slug === appState.currentSlug);
+      if (idx === -1) return;
+
+      events[idx].welcome_message = document.getElementById('adm-welcome-input').value.trim();
+      events[idx].pin_code = document.getElementById('adm-pin-input').value.trim();
+      saveEvents(events);
+      renderQrCardPreview();
+      showToast('Pengaturan & teks kartu QR berhasil diperbarui.', 'success');
+    }
+
+    async function downloadAllMediaZip() {
+      const ev = getEventBySlug(appState.currentSlug);
+      if (!ev) return;
+      const items = getEventMedia(ev.id, true);
+      if (items.length === 0) {
+        showToast('Belum ada media untuk diunduh.', 'error');
+        return;
+      }
+
+      const statusEl = document.getElementById('zip-status-text');
+      statusEl.textContent = `Mengemas ${items.length} file...`;
+
+      const zip = new JSZip();
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        try {
+          const response = await fetch(item.original_url);
+          const blob = await response.blob();
+          const ext = item.media_type === 'video' ? 'mp4' : 'jpg';
+          zip.file(`${String(i + 1).padStart(3, '0')}-${slugify(item.guest_name)}.${ext}`, blob);
+        } catch (e) {
+          // Skip unreachable remote sample asset gracefully
+        }
+      }
+
+      const content = await zip.generateAsync({ type: 'blob' });
+      saveAs(content, `rafqa-production-${ev.slug}-arsip.zip`);
+      statusEl.textContent = 'Arsip ZIP selesai diunduh!';
+      showToast('Seluruh media berhasil dikemas ke ZIP.', 'success');
+    }
+
+    function renderAdminModerationGrid() {
+      const ev = getEventBySlug(appState.currentSlug);
+      if (!ev) return;
+      const items = getEventMedia(ev.id, true);
+      document.getElementById('adm-media-count').textContent = `${items.length} Item`;
+
+      const grid = document.getElementById('adm-moderation-grid');
+      grid.innerHTML = items.map(item => `
+        <div class="rounded-2xl overflow-hidden bg-white border border-cream-300 flex flex-col ${item.is_hidden ? 'opacity-50' : ''}">
+          <div class="aspect-square bg-cream-200 relative overflow-hidden">
+            <img src="${item.thumbnail_url}" alt="${escapeHtml(item.guest_name)}" class="w-full h-full object-cover ${item.filter_class || ''}" />
+            ${item.is_hidden ? '<span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-obsidian-950 text-cream-50 text-[10px] font-bold">Disembunyikan</span>' : ''}
+          </div>
+          <div class="p-2.5 flex-1 flex flex-col justify-between gap-2">
+            <p class="text-xs font-bold text-obsidian-950 truncate">${escapeHtml(item.guest_name)}</p>
+            <div class="flex items-center gap-1.5">
+              <button onclick="toggleHideMedia('${item.id}')" class="flex-1 py-1.5 px-2 rounded-lg bg-cream-100 hover:bg-cream-200 text-[11px] font-semibold text-obsidian-950">
+                ${item.is_hidden ? 'Tampilkan' : 'Sembunyikan'}
+              </button>
+              <button onclick="deleteMediaItem('${item.id}')" class="py-1.5 px-2 rounded-lg bg-red-50 hover:bg-red-100 text-[11px] font-semibold text-red-700">
+                Hapus
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleHideMedia(mediaId) {
+      const list = getMediaList();
+      const idx = list.findIndex(m => m.id === mediaId);
+      if (idx === -1) return;
+      list[idx].is_hidden = !list[idx].is_hidden;
+      saveMediaList(list);
+      renderAdminModerationGrid();
+      showToast(list[idx].is_hidden ? 'Foto disembunyikan dari publik.' : 'Foto ditampilkan kembali.', 'info');
+    }
+
+    function deleteMediaItem(mediaId) {
+      const updated = getMediaList().filter(m => m.id !== mediaId);
+      saveMediaList(updated);
+      renderAdminModerationGrid();
+      showToast('Item dihapus permanen.', 'info');
+    }
+
+    // =========================================================================
+    // HELPERS
+    // =========================================================================
+    function formatIndonesianDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function formatRelativeTime(isoStr) {
+      const diffSec = Math.max(1, Math.floor((Date.now() - new Date(isoStr).getTime()) / 1000));
+      if (diffSec < 60) return 'Baru saja';
+      if (diffSec < 3600) return `${Math.floor(diffSec / 60)} menit lalu`;
+      if (diffSec < 86400) return `${Math.floor(diffSec / 3600)} jam lalu`;
+      return `${Math.floor(diffSec / 86400)} hari lalu`;
+    }
+
+    function slugify(str) {
+      return (str || 'tamu').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Boot Application
+    window.addEventListener('DOMContentLoaded', () => {
+      initSeedData();
+      navigateTo('landing');
+    });
+  </script>
+</body>
+</html>
