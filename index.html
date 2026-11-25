@@ -21,6 +21,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
     tailwind.config = {
@@ -1030,113 +1031,51 @@
         </div>
       </section>
 
-      <!-- SECTION: TESTIMONI KLIEN RAFQA PRODUCTION -->
-      <section id="testimoni" class="py-16 sm:py-20 px-4 sm:px-6 bg-cream-100/80 border-y-2 border-obsidian-900/15">
-        <div class="max-w-6xl mx-auto">
-          <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 reveal-on-scroll">
-            <div>
-              <span class="inline-block px-3.5 py-1 rounded-full bg-tangerine-400 border-2 border-obsidian-900 font-mono text-[10px] font-bold uppercase tracking-wider text-obsidian-950 mb-2">
-                Cerita & Review Klien
-              </span>
-              <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-obsidian-950 tracking-tight">
-                Dipercaya Acara & <span class="text-tangerine-600">Brand Lokal</span>
-              </h2>
-            </div>
-            <p class="text-xs sm:text-sm text-cocoa-800 max-w-sm leading-relaxed">
-              Pengalaman nyata para pengantin, penyelenggara acara, dan pemilik bisnis yang berkolaborasi dengan Rafqa Production.
-            </p>
+      <!-- SECTION: ULASAN PELANGGAN -->
+      <section id="ulasan" class="py-16 sm:py-20 px-4 sm:px-6 bg-cream-100/80 border-y-2 border-obsidian-900/15">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-8 reveal-on-scroll">
+            <span class="inline-block px-3.5 py-1 rounded-full bg-tangerine-400 border-2 border-obsidian-900 font-mono text-[10px] font-bold uppercase tracking-wider text-obsidian-950 mb-2">Ulasan Pelanggan</span>
+            <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-obsidian-950 tracking-tight">Bagikan Pengalaman Anda</h2>
+            <p class="text-xs sm:text-sm text-cocoa-800 max-w-xl mx-auto mt-2 leading-relaxed">Pernah menggunakan layanan Rafqa Production? Kami senang mendengar cerita dan masukan dari Anda.</p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 reveal-on-scroll">
-            <!-- Testimoni 1: Album Photobooth QR -->
-            <div class="neo-card rounded-3xl p-6 flex flex-col justify-between bg-cream-50">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <div class="flex items-center gap-1 text-tangerine-500">
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                  </div>
-                  <span class="px-2.5 py-0.5 rounded-full bg-tangerine-300/60 border border-obsidian-900 font-mono text-[9px] font-bold uppercase text-obsidian-950">
-                    Album Photobooth
-                  </span>
-                </div>
-                <p class="text-xs sm:text-sm text-cocoa-900 leading-relaxed italic">
-                  "Kartu QR di meja tamu gampang banget di-scan! Tamu-tamu antusias foto pakai filter analognya, dan semua file asli langsung terkumpul rapi tanpa pecah."
-                </p>
-              </div>
-              <div class="mt-5 pt-4 border-t border-cream-200 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-tangerine-500 border-2 border-obsidian-900 flex items-center justify-center font-grotesk font-extrabold text-sm text-obsidian-950">
-                  DF
+          <div class="neo-card rounded-3xl p-6 sm:p-8 bg-cream-50 reveal-on-scroll">
+            <form id="customer-review-form" onsubmit="submitCustomerReview(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="review-name" class="block text-xs font-bold text-obsidian-950 mb-1.5">Nama</label>
+                  <input id="review-name" required maxlength="80" type="text" placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl bg-white border border-cream-300 text-sm outline-none focus:border-cocoa-700" />
                 </div>
                 <div>
-                  <p class="font-display font-extrabold text-xs sm:text-sm text-obsidian-950">Dinda & Fajar</p>
-                  <p class="text-[11px] font-mono text-cocoa-700">Resepsi Pernikahan • Bandung</p>
+                  <label for="review-service" class="block text-xs font-bold text-obsidian-950 mb-1.5">Layanan yang digunakan</label>
+                  <select id="review-service" required class="w-full px-4 py-3 rounded-xl bg-white border border-cream-300 text-sm outline-none focus:border-cocoa-700">
+                    <option value="">Pilih layanan</option>
+                    <option>Photobooth QR</option><option>Undangan Digital</option><option>Website Custom</option><option>Lainnya</option>
+                  </select>
                 </div>
               </div>
-            </div>
+              <div>
+                <label for="review-rating" class="block text-xs font-bold text-obsidian-950 mb-1.5">Rating</label>
+                <select id="review-rating" required class="w-full px-4 py-3 rounded-xl bg-white border border-cream-300 text-sm outline-none focus:border-cocoa-700">
+                  <option value="5">★★★★★ - Sangat puas</option><option value="4">★★★★ - Puas</option><option value="3">★★★ - Cukup</option><option value="2">★★ - Kurang puas</option><option value="1">★ - Tidak puas</option>
+                </select>
+              </div>
+              <div>
+                <label for="review-message" class="block text-xs font-bold text-obsidian-950 mb-1.5">Ulasan Anda</label>
+                <textarea id="review-message" required maxlength="1000" rows="4" placeholder="Ceritakan pengalaman Anda menggunakan layanan kami..." class="w-full px-4 py-3 rounded-xl bg-white border border-cream-300 text-sm outline-none focus:border-cocoa-700 resize-y"></textarea>
+              </div>
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <p class="text-[11px] text-cocoa-700">Ulasan akan tersimpan di browser ini. Untuk menerima ulasan dari semua pengunjung, perlu dihubungkan ke database/backend.</p>
+                <button type="submit" class="neo-btn-dark inline-flex items-center justify-center gap-2 font-display font-bold text-sm px-6 py-3 rounded-xl"><i data-lucide="send" class="w-4 h-4 text-tangerine-400"></i>Kirim Ulasan</button>
+              </div>
+              <p id="review-submit-status" class="hidden text-xs font-semibold text-cocoa-800" role="status"></p>
+            </form>
+          </div>
 
-            <!-- Testimoni 2: Website Coffeeshop -->
-            <div class="neo-card-cocoa rounded-3xl p-6 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <div class="flex items-center gap-1 text-tangerine-600">
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                  </div>
-                  <span class="px-2.5 py-0.5 rounded-full bg-cream-50 border border-obsidian-900 font-mono text-[9px] font-bold uppercase text-obsidian-950">
-                    Web Coffeeshop
-                  </span>
-                </div>
-                <p class="text-xs sm:text-sm text-cocoa-900 leading-relaxed italic">
-                  "Website coffeeshop kami dibikin super estetik dan ringan dibuka dari HP. Menu seasonal & reservasi meja sekarang jauh lebih profesional."
-                </p>
-              </div>
-              <div class="mt-5 pt-4 border-t border-cocoa-300/60 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-cocoa-800 border-2 border-obsidian-900 flex items-center justify-center font-grotesk font-extrabold text-sm text-cream-50">
-                  AR
-                </div>
-                <div>
-                  <p class="font-display font-extrabold text-xs sm:text-sm text-obsidian-950">Arif Rahman</p>
-                  <p class="text-[11px] font-mono text-cocoa-700">Owner Seduh Senja Coffee</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Testimoni 3: Undangan Digital -->
-            <div class="neo-card rounded-3xl p-6 flex flex-col justify-between bg-cream-50">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <div class="flex items-center gap-1 text-tangerine-500">
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                    <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                  </div>
-                  <span class="px-2.5 py-0.5 rounded-full bg-obsidian-950 font-mono text-[9px] font-bold uppercase text-tangerine-300">
-                    Undangan Digital
-                  </span>
-                </div>
-                <p class="text-xs sm:text-sm text-cocoa-900 leading-relaxed italic">
-                  "Ambil paket bundling Undangan Digital + QR Photobooth di Rafqa Production. Desainnya senada, pengerjaan cepat, dan adminnya sangat responsif."
-                </p>
-              </div>
-              <div class="mt-5 pt-4 border-t border-cream-200 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-obsidian-950 border-2 border-obsidian-900 flex items-center justify-center font-grotesk font-extrabold text-sm text-tangerine-400">
-                  NM
-                </div>
-                <div>
-                  <p class="font-display font-extrabold text-xs sm:text-sm text-obsidian-950">Nadia & Malik</p>
-                  <p class="text-[11px] font-mono text-cocoa-700">Engagement & Wedding • Jakarta</p>
-                </div>
-              </div>
-            </div>
+          <div class="mt-6 flex flex-col sm:flex-row justify-center gap-3 text-center">
+            <a href="https://rafqaphotobooth.vercel.app/" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-obsidian-950 text-cream-50 px-5 py-3 rounded-xl text-xs font-bold"><i data-lucide="images" class="w-4 h-4 text-tangerine-400"></i>Lihat Demo Galeri Wedding Dea &amp; Dona</a>
+            <a href="https://drive.google.com/drive/folders/1Pcuta7um94ld4bRui15Vk3zVg2_GvchD?usp=sharing" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-cream-200 text-obsidian-950 border border-cream-300 px-5 py-3 rounded-xl text-xs font-bold"><i data-lucide="folder-open" class="w-4 h-4"></i>Folder Foto Demo</a>
           </div>
         </div>
       </section>
@@ -1191,13 +1130,13 @@
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 text-xs sm:text-sm font-mono text-cream-200">
-              <a href="mailto:halo@rafqaproduction.id" class="inline-flex items-center gap-2 hover:text-tangerine-400 transition-colors">
+              <a href="mailto:rafqaproduction@gmail.com" class="inline-flex items-center gap-2 hover:text-tangerine-400 transition-colors">
                 <i data-lucide="mail" class="w-4 h-4 text-tangerine-400"></i>
-                <span>halo@rafqaproduction.id</span>
+                <span>rafqaproduction@gmail.com</span>
               </a>
               <button onclick="orderViaWhatsApp('Tanya Layanan Rafqa Production')" class="inline-flex items-center gap-2 hover:text-tangerine-400 transition-colors text-left">
                 <i data-lucide="phone" class="w-4 h-4 text-tangerine-400"></i>
-                <span>+62 812-8800-7237</span>
+                <span>+62 813-1205-7089</span>
               </button>
               <span class="inline-flex items-center gap-2">
                 <i data-lucide="map-pin" class="w-4 h-4 text-tangerine-400"></i>
@@ -1258,6 +1197,19 @@
             <div>
               <label class="block text-sm font-bold text-obsidian-950 mb-1.5">PIN Tamu <span class="text-xs font-normal text-cocoa-600">(Opsional)</span></label>
               <input type="text" id="inp-pin" inputmode="numeric" maxlength="6" pattern="[0-9]{4,6}" placeholder="4-6 digit angka"
+                class="w-full px-4 py-3 rounded-xl bg-white border-2 border-obsidian-900 focus:border-tangerine-500 outline-none text-sm sm:text-base" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-bold text-obsidian-950 mb-1.5">Nomor WhatsApp Pemesan <span class="text-tangerine-600">*</span></label>
+              <input type="tel" id="inp-whatsapp" required maxlength="25" placeholder="08xxxxxxxxxx"
+                class="w-full px-4 py-3 rounded-xl bg-white border-2 border-obsidian-900 focus:border-tangerine-500 outline-none text-sm sm:text-base" />
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-obsidian-950 mb-1.5">Email <span class="text-xs font-normal text-cocoa-600">(Opsional)</span></label>
+              <input type="email" id="inp-email" maxlength="254" placeholder="nama@email.com"
                 class="w-full px-4 py-3 rounded-xl bg-white border-2 border-obsidian-900 focus:border-tangerine-500 outline-none text-sm sm:text-base" />
             </div>
           </div>
@@ -1386,22 +1338,23 @@
             </div>
 
             <div class="p-3 rounded-xl bg-tangerine-300/40 border border-obsidian-900/20 text-[11px] text-cocoa-900 leading-relaxed">
-              Setelah transfer / scan QR, kirim bukti pembayaran ke WhatsApp Rafqa Production lalu klik tombol aktivasi di bawah.
+              Setelah transfer / scan QR, kirim bukti pembayaran melalui WhatsApp. Album akan aktif setelah admin memeriksa dana masuk.
             </div>
           </div>
         </div>
 
-        <!-- Action Buttons: Konfirmasi WhatsApp & Selesai Bayar -->
+        <!-- Customer submits proof; admin still verifies funds manually -->
         <div class="pt-2 space-y-3">
           <button type="button" onclick="confirmPaymentViaWhatsApp()" class="neo-btn-wa w-full inline-flex items-center justify-center gap-2.5 font-display font-extrabold text-sm sm:text-base py-3.5 px-5 rounded-2xl">
             <i data-lucide="message-circle" class="w-5 h-5"></i>
             <span>Kirim Bukti Bayar ke WhatsApp</span>
           </button>
 
-          <button type="button" onclick="completePaymentAndUnlockQr()" class="neo-btn-orange w-full inline-flex items-center justify-center gap-2 font-display font-extrabold text-sm sm:text-base py-4 px-5 rounded-2xl">
-            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-            <span>Saya Sudah Bayar • Buka Kartu QR Tamu</span>
+          <button type="button" id="btn-payment-submitted" onclick="markPaymentSubmitted()" class="neo-btn-orange w-full inline-flex items-center justify-center gap-2 font-display font-extrabold text-sm sm:text-base py-4 px-5 rounded-2xl">
+            <i data-lucide="send" class="w-5 h-5"></i>
+            <span>Saya Sudah Mengirim Bukti Pembayaran</span>
           </button>
+          <p id="payment-submit-status" class="hidden rounded-xl bg-cream-100 border border-cream-300 p-3 text-xs text-cocoa-800" role="status"></p>
         </div>
       </div>
     </div>
@@ -1554,12 +1507,7 @@
     <div class="max-w-5xl mx-auto w-full px-4 sm:px-6 py-8 animate-fade-in">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-cocoa-800 bg-cream-200 px-3 py-1 rounded-full mb-2">
-            <i data-lucide="key-round" class="w-3.5 h-3.5"></i>
-            Ruang Kendali Tuan Rumah • Rafqa Production
-          </div>
-          <h1 id="adm-title" class="font-display font-extrabold text-2xl sm:text-3xl text-obsidian-950">Kelola Acara</h1>
-          <p class="text-xs sm:text-sm text-cocoa-700 mt-0.5">Tautan Publik: <span id="adm-public-url" class="font-mono font-semibold text-obsidian-950">rafqa.id/e/slug</span></p>
+          <p class="text-sm text-cocoa-700">Kelola galeri dan kartu QR acara Anda.</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2.5">
@@ -1634,38 +1582,6 @@
             </div>
           </div>
 
-          <div class="surface-paper rounded-3xl border border-cream-300 p-6 space-y-4">
-            <h2 class="font-display font-bold text-lg text-obsidian-950">Pengaturan Acara</h2>
-
-            <div class="flex items-center justify-between p-4 rounded-2xl bg-cream-100 border border-cream-300/80">
-              <div>
-                <p class="text-sm font-bold text-obsidian-950">Kunci Unggahan Tamu</p>
-                <p class="text-xs text-cocoa-700 mt-0.5">Hentikan unggahan baru setelah acara usai.</p>
-              </div>
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" id="adm-lock-toggle" onchange="toggleEventLock(this.checked)" class="sr-only peer">
-                <div class="w-11 h-6 bg-cream-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-cream-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cocoa-800"></div>
-              </label>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div class="sm:col-span-2">
-                <label class="block text-xs font-semibold text-obsidian-950 mb-1">Pesan Sambutan</label>
-                <input type="text" id="adm-welcome-input" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-cream-300 text-sm outline-none focus:border-cocoa-700" />
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-obsidian-950 mb-1">PIN Tamu</label>
-                <input type="text" id="adm-pin-input" maxlength="6" placeholder="Tanpa PIN" class="w-full px-3.5 py-2.5 rounded-xl bg-white border border-cream-300 text-sm outline-none focus:border-cocoa-700" />
-              </div>
-            </div>
-
-            <div class="flex justify-end">
-              <button onclick="saveAdminSettings()" class="inline-flex items-center gap-1.5 bg-cocoa-800 hover:bg-cocoa-900 text-cream-50 font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors">
-                <i data-lucide="save" class="w-4 h-4"></i>
-                <span>Simpan</span>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -2299,8 +2215,43 @@
       img.src = rawUrl;
     }
 
+    // Ulasan pelanggan (tersimpan lokal pada browser; backend diperlukan untuk sinkronisasi lintas pengunjung).
+    function submitCustomerReview(event) {
+      event.preventDefault();
+      const review = {
+        id: `review-${Date.now()}`,
+        name: document.getElementById('review-name').value.trim(),
+        service: document.getElementById('review-service').value,
+        rating: Number(document.getElementById('review-rating').value),
+        message: document.getElementById('review-message').value.trim(),
+        created_at: new Date().toISOString()
+      };
+      if (!review.name || !review.service || !review.message) return;
+      const reviews = JSON.parse(localStorage.getItem('rafqa_customer_reviews') || '[]');
+      reviews.unshift(review);
+      localStorage.setItem('rafqa_customer_reviews', JSON.stringify(reviews));
+      const status = document.getElementById('review-submit-status');
+      status.textContent = 'Terima kasih! Ulasan berhasil disimpan pada browser ini.';
+      status.classList.remove('hidden');
+      document.getElementById('customer-review-form').reset();
+    }
+
+    // Supabase public client. Isi anon key project Rafqa pada konfigurasi ini.
+    const RAFQA_SUPABASE_URL = 'https://ldxcmqhwijovuuqkbzwo.supabase.co';
+    const RAFQA_SUPABASE_ANON_KEY = 'sb_publishable_xakaK9qsivSxPBoGF3DjtA_dSQeyYBJ';
+    let rafqaSupabaseClient = null;
+    function getRafqaSupabase() {
+      if (!window.supabase?.createClient) throw new Error('Library Supabase belum termuat. Muat ulang halaman.');
+      if (!RAFQA_SUPABASE_ANON_KEY || RAFQA_SUPABASE_ANON_KEY.includes('PASTE_')) {
+        throw new Error('Anon public key Supabase belum dipasang pada konfigurasi website.');
+      }
+      if (!rafqaSupabaseClient) rafqaSupabaseClient = window.supabase.createClient(RAFQA_SUPABASE_URL, RAFQA_SUPABASE_ANON_KEY);
+      return rafqaSupabaseClient;
+    }
+
     // Nomor WhatsApp Admin Rafqa Production
-    const ADMIN_WHATSAPP_NUMBER = '6281288007237';
+    const ADMIN_WHATSAPP_NUMBER = '6281312057089';
+    const PHOTOBOOTH_BASE_URL = 'https://rafqaphotobooth-pi.vercel.app';
 
     // Helper Direct WhatsApp untuk Pemesanan Produk Non-Album
     function orderViaWhatsApp(productName, customMessage = null) {
@@ -2598,44 +2549,78 @@
       reader.readAsDataURL(file);
     }
 
-    function handleCreateEvent(event) {
+    async function handleCreateEvent(event) {
       event.preventDefault();
+      const submitButton = event.submitter || document.querySelector('#create-event-form button[type="submit"]');
       const title = document.getElementById('inp-title').value.trim();
       const slug = document.getElementById('inp-slug').value.trim();
       const eventDate = document.getElementById('inp-date').value;
       const pinCode = document.getElementById('inp-pin').value.trim();
+      const customerWhatsapp = document.getElementById('inp-whatsapp').value.trim();
+      const customerEmail = document.getElementById('inp-email').value.trim();
       const welcomeMessage = document.getElementById('inp-welcome').value.trim() ||
         'Terima kasih telah hadir. Silakan abadikan dan bagikan momen terbaik di sini.';
 
-      if (getEvents().some(e => e.slug === slug)) {
-        showToast('Tautan album sudah dipakai, silakan ubah.', 'error');
+      if (!title || !slug || !customerWhatsapp) {
+        showToast('Nama acara, tautan album, dan WhatsApp wajib diisi.', 'error');
+        return;
+      }
+      if (pinCode && !/^\d{4,6}$/.test(pinCode)) {
+        showToast('PIN tamu harus terdiri dari 4–6 digit angka.', 'error');
         return;
       }
 
-      const secretKey = 'sk_rafqa_' + Math.random().toString(36).substring(2, 8);
-      const newEvent = {
-        id: 'evt-' + Date.now(),
-        slug,
-        title,
-        event_date: eventDate,
-        welcome_message: welcomeMessage,
-        cover_image_url: uploadedCoverDataUrl || 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=85',
-        pin_code: pinCode,
-        is_upload_locked: false,
-        is_paid: false,
-        host_secret_key: secretKey,
-        created_at: new Date().toISOString()
-      };
+      try {
+        if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.innerHTML; submitButton.innerHTML = 'Menyimpan pesanan...'; }
+        const sb = getRafqaSupabase();
+        // Data URL foto lokal belum dikirim ke database. Cover storage akan dihubungkan pada tahap berikutnya.
+        const coverUrl = uploadedCoverDataUrl && /^https?:\/\//i.test(uploadedCoverDataUrl) ? uploadedCoverDataUrl : null;
+        const { data, error } = await sb.functions.invoke('submit-order', {
+          body: {
+            event_name: title,
+            slug,
+            event_date: eventDate || null,
+            welcome_message: welcomeMessage,
+            cover_image_url: coverUrl,
+            customer_whatsapp: customerWhatsapp,
+            customer_email: customerEmail || null,
+            pin_code: pinCode || null
+          }
+        });
+        if (error) throw error;
+        if (!data?.ok || !data?.order?.id) throw new Error(data?.error || 'Pesanan belum berhasil disimpan.');
 
-      appState.pendingOrderEvent = newEvent;
-      showToast('Detail pesanan tersimpan. Silakan scan QR pembayaran.', 'info');
-      navigateTo('payment', slug);
+        appState.pendingOrderEvent = {
+          id: data.order.id,
+          slug: data.order.slug,
+          title: data.order.event_name || title,
+          event_date: data.order.event_date || eventDate,
+          welcome_message: welcomeMessage,
+          cover_image_url: data.order.cover_image_url || 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=85',
+          customer_whatsapp: customerWhatsapp,
+          customer_email: customerEmail,
+          pin_code: pinCode,
+          payment_status: data.order.payment_status,
+          status: data.order.status
+        };
+        sessionStorage.setItem('rafqa_pending_supabase_order', JSON.stringify(appState.pendingOrderEvent));
+        showToast('Pesanan berhasil disimpan. Silakan lanjutkan pembayaran.', 'success');
+        navigateTo('payment', data.order.slug);
+      } catch (err) {
+        console.error('Submit order failed:', err);
+        showToast(err?.message || 'Pesanan gagal disimpan. Periksa koneksi dan konfigurasi Supabase.', 'error');
+      } finally {
+        if (submitButton) { submitButton.disabled = false; if (submitButton.dataset.originalText) submitButton.innerHTML = submitButton.dataset.originalText; }
+      }
     }
 
     // =========================================================================
     // VIEW 2B: PAYMENT WITH YOUR JPG QR & WHATSAPP CONFIRMATION LOGIC
     // =========================================================================
     function initPaymentView() {
+      if (!appState.pendingOrderEvent) {
+        try { appState.pendingOrderEvent = JSON.parse(sessionStorage.getItem('rafqa_pending_supabase_order') || 'null'); } catch (_) { appState.pendingOrderEvent = null; }
+      }
       const ev = appState.pendingOrderEvent;
       if (!ev) {
         navigateTo('create');
@@ -2644,6 +2629,12 @@
 
       document.getElementById('pay-event-title').textContent = ev.title;
       document.getElementById('pay-event-slug').textContent = `rafqa.id/e/${ev.slug}`;
+      if (ev.payment_status === 'waiting_verification') {
+        const status = document.getElementById('payment-submit-status');
+        const button = document.getElementById('btn-payment-submitted');
+        if (status) { status.textContent = 'Pesanan sedang menunggu admin memeriksa pembayaran. Album belum aktif.'; status.classList.remove('hidden'); }
+        if (button) { button.disabled = true; button.innerHTML = '<i data-lucide="clock" class="w-5 h-5"></i><span>Menunggu Verifikasi Admin</span>'; }
+      }
 
       // Jika pengguna sebelumnya sudah memilih file QR JPG lokal, muat ulang dari sessionStorage
       const cachedQrJpg = sessionStorage.getItem('rafqa_custom_qris_jpg');
@@ -2702,36 +2693,46 @@
     function confirmPaymentViaWhatsApp() {
       const ev = appState.pendingOrderEvent;
       if (!ev) return;
-
       const message = encodeURIComponent(
-        `Halo *Rafqa Production*,\n\nSaya ingin konfirmasi pembayaran pembuatan *Album Photobooth QR*:\n` +
+        `Halo *Rafqa Production*, saya ingin mengirim bukti pembayaran pembuatan *Album Photobooth QR*.\n\n` +
+        `• ID Pesanan: *${ev.id}*\n` +
         `• Nama Acara: *${ev.title}*\n` +
         `• Tanggal Acara: ${formatIndonesianDate(ev.event_date)}\n` +
-        `• Link Album: rafqa.id/e/${ev.slug}\n\n` +
-        `Berikut saya lampirkan bukti pembayarannya. Terima kasih!`
+        `• Link Album: rafqa.id/e/${ev.slug}\n` +
+        `• WhatsApp Pemesan: ${ev.customer_whatsapp || '-'}\n\n` +
+        `Saya lampirkan bukti pembayaran pada chat ini. Mohon konfirmasi setelah dana diterima. Terima kasih!`
       );
-
-      window.open(`https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${message}`, '_blank');
+      window.open(`https://wa.me/${ADMIN_WHATSAPP_NUMBER}?text=${message}`, '_blank', 'noopener');
     }
 
-    function completePaymentAndUnlockQr() {
+    async function markPaymentSubmitted() {
       const ev = appState.pendingOrderEvent;
-      if (!ev) return;
-
-      ev.is_paid = true;
-      const events = getEvents();
-      const existingIdx = events.findIndex(item => item.slug === ev.slug);
-      if (existingIdx >= 0) {
-        events[existingIdx] = ev;
-      } else {
-        events.push(ev);
+      if (!ev?.id || !ev?.slug) return;
+      const button = document.getElementById('btn-payment-submitted');
+      const status = document.getElementById('payment-submit-status');
+      try {
+        if (button) { button.disabled = true; button.dataset.originalText = button.innerHTML; button.innerHTML = 'Mengirim status...'; }
+        const sb = getRafqaSupabase();
+        const { data, error } = await sb.functions.invoke('mark-payment-submitted', {
+          body: { event_id: ev.id, slug: ev.slug }
+        });
+        if (error) throw error;
+        if (!data?.ok) throw new Error(data?.error || 'Status pembayaran gagal dikirim.');
+        ev.payment_status = 'waiting_verification';
+        ev.status = 'waiting_verification';
+        sessionStorage.setItem('rafqa_pending_supabase_order', JSON.stringify(ev));
+        if (status) {
+          status.textContent = 'Bukti pembayaran telah dilaporkan. Pesanan menunggu admin memeriksa dana masuk. Album dan QR belum aktif sampai admin menyetujui pembayaran.';
+          status.classList.remove('hidden');
+        }
+        if (button) { button.innerHTML = '<i data-lucide="clock" class="w-5 h-5"></i><span>Menunggu Verifikasi Admin</span>'; button.disabled = true; }
+        if (window.lucide) lucide.createIcons();
+        showToast('Status pembayaran berhasil dikirim untuk verifikasi.', 'success');
+      } catch (err) {
+        console.error('Mark payment submitted failed:', err);
+        showToast(err?.message || 'Gagal mengirim status pembayaran.', 'error');
+        if (button) { button.disabled = false; if (button.dataset.originalText) button.innerHTML = button.dataset.originalText; }
       }
-      saveEvents(events);
-      localStorage.setItem(`rafqa_host_key_${ev.slug}`, ev.host_secret_key);
-      appState.pendingOrderEvent = null;
-
-      showToast('Album aktif! Kartu QR Photobooth tamu siap digunakan.', 'success');
-      navigateTo('admin', ev.slug);
     }
 
     // =========================================================================
@@ -2866,7 +2867,7 @@
       const qrBox = document.getElementById('guest-modal-qrcode');
       qrBox.innerHTML = '';
       new QRCode(qrBox, {
-        text: `${window.location.origin}/e/${ev.slug}`,
+        text: `${PHOTOBOOTH_BASE_URL}/`,
         width: 170,
         height: 170,
         colorDark: '#1A1614',
@@ -3171,7 +3172,7 @@
       const qrBox = document.getElementById('ss-qrcode');
       qrBox.innerHTML = '';
       new QRCode(qrBox, {
-        text: `${window.location.origin}/e/${ev.slug}`,
+        text: `${PHOTOBOOTH_BASE_URL}/`,
         width: 84,
         height: 84,
         colorDark: '#1A1614',
@@ -3238,13 +3239,8 @@
         return;
       }
 
-      document.getElementById('adm-title').textContent = ev.title;
       const bannerName = document.getElementById('adm-banner-event-name');
-      if (bannerName) bannerName.textContent = ev.title;
-      document.getElementById('adm-public-url').textContent = `rafqa.id/e/${ev.slug}`;
-      document.getElementById('adm-lock-toggle').checked = !!ev.is_upload_locked;
-      document.getElementById('adm-welcome-input').value = ev.welcome_message || '';
-      document.getElementById('adm-pin-input').value = ev.pin_code || '';
+      if (bannerName) bannerName.textContent = 'acara ini';
 
       appState.qrCardTheme = 'editorial-ivory';
       renderQrCardPreview();
@@ -3471,7 +3467,7 @@
         if (targetEl) {
           targetEl.innerHTML = '';
           new QRCode(targetEl, {
-            text: `${window.location.origin}/e/${ev.slug}?mode=photobooth`,
+            text: `${PHOTOBOOTH_BASE_URL}/`,
             width: 112,
             height: 112,
             colorDark: theme.qrDark,
@@ -3543,7 +3539,7 @@
     function copyPublicPhotoboothLink() {
       const ev = getEventBySlug(appState.currentSlug);
       if (!ev) return;
-      copyTextValue(`${window.location.origin}/e/${ev.slug}?mode=photobooth`, 'Link Photobooth Tamu');
+      copyTextValue(`${PHOTOBOOTH_BASE_URL}/`, 'Link Photobooth Tamu');
     }
 
     function drawRoundedRectPath(ctx, x, y, width, height, radius) {

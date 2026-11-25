@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rafqa Production — Verifikasi Pembayaran</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{font-family:Inter,system-ui,sans-serif;color:#211a16;background:#f7f2e9}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1100px;margin:auto;padding:28px 18px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.brand{font-weight:900;letter-spacing:.02em}.brand span{color:#d97736}.panel{background:#fffdf8;border:1px solid #e6d8c5;border-radius:20px;padding:22px;margin-top:22px;box-shadow:0 8px 30px #39220e0b}.muted{color:#75675c;font-size:13px}.field{display:grid;gap:7px;margin:12px 0}.field input{padding:12px 14px;border:1.5px solid #d7c8b5;border-radius:11px;font:inherit}.btn{border:0;border-radius:11px;padding:11px 15px;background:#211a16;color:white;font-weight:750;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.btn.primary{background:#e68a3d;color:#211a16}.btn:disabled{opacity:.5;cursor:wait}.hidden{display:none!important}.status{font-size:11px;font-weight:800;padding:5px 9px;border-radius:30px;background:#fff0d9;color:#925315;display:inline-block}.orders{display:grid;gap:12px}.order{border:1px solid #e9dfd2;border-radius:15px;padding:16px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}.order h3{margin:0 0 7px;font-size:16px}.order p{margin:4px 0;font-size:13px;color:#74685d}.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.notice{padding:12px 14px;border-radius:12px;background:#f5ead9;color:#5d4631;font-size:13px;margin-top:14px}.error{background:#ffe7e4;color:#9d2c22}.success{background:#e8f5e9;color:#28633a}.queue-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}@media(max-width:650px){.order{grid-template-columns:1fr}.actions{justify-content:flex-start}}
+</style>
+</head>
+<body><main class="wrap">
+ <header class="top"><div class="brand">RAFQA <span>PRODUCTION</span><div class="muted">Verifikasi pembayaran & aktivasi album</div></div><button id="logout" class="btn hidden">Keluar</button></header>
+ <section id="login-panel" class="panel" style="max-width:440px;margin:42px auto"><h2>Login Admin</h2><p class="muted">Masuk menggunakan akun admin Rafqa Production.</p>
+  <form id="login-form"><label class="field">Email<input id="email" type="email" required autocomplete="username"></label><label class="field">Password<input id="password" type="password" required autocomplete="current-password"></label><button id="login-button" class="btn primary" style="width:100%">Masuk</button></form><div id="login-msg" class="notice hidden" role="status"></div>
+ </section>
+ <section id="queue-panel" class="panel hidden"><div class="queue-head"><div><h2 style="margin:0">Daftar Pesanan Album</h2><p class="muted">Periksa mutasi rekening dan bukti WhatsApp. Aktifkan hanya setelah dana benar-benar masuk.</p></div><button id="refresh" class="btn">Muat Ulang</button></div><div id="msg" class="notice hidden" role="status"></div><div id="orders" class="orders" style="margin-top:18px"></div></section>
+</main>
+<script>
+const CONFIG={url:'https://ldxcmqhwijovuuqkbzwo.supabase.co',anonKey:'sb_publishable_xakaK9qsivSxPBoGF3DjtA_dSQeyYBJ'};
+const sb=window.supabase.createClient(CONFIG.url,CONFIG.anonKey);
+const $=id=>document.getElementById(id);
+function message(el,text,type=''){el.textContent=text;el.className='notice '+type;el.classList.remove('hidden')}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function dateLabel(v){return v?new Date(v+'T00:00:00').toLocaleDateString('id-ID',{dateStyle:'long'}):'Tanggal belum diisi'}
+function waLink(order){const p=String(order.customer_whatsapp||'').replace(/\D/g,'');return p?`https://wa.me/${p}?text=${encodeURIComponent(`Halo, terkait pesanan album ${order.event_name} (${order.slug}). Kami sedang memeriksa pembayaran Anda.`)}`:'#'}
+async function showQueue(){
+ $('login-panel').classList.add('hidden');$('queue-panel').classList.remove('hidden');$('logout').classList.remove('hidden');$('orders').innerHTML='<p class="muted">Memuat pesanan...</p>';$('msg').classList.add('hidden');
+ try{
+  const {data,error}=await sb.functions.invoke('admin-orders',{method:'GET'});if(error)throw error;if(data?.error)throw Error(data.error);
+  const orders=data.orders||[];$('orders').innerHTML='';
+  if(!orders.length){$('orders').innerHTML='<p class="muted">Belum ada pesanan.</p>';return;}
+  orders.forEach(o=>{
+   const el=document.createElement('article');el.className='order';const info=document.createElement('div');
+   const state=o.payment_status==='waiting_verification'?'MENUNGGU VERIFIKASI PEMBAYARAN':'MENUNGGU PEMBAYARAN';
+   info.innerHTML=`<h3>${escapeHtml(o.event_name)}</h3><p>Link: <b>rafqa.id/e/${escapeHtml(o.slug)}</b></p><p>Tanggal: ${escapeHtml(dateLabel(o.event_date))}</p><p>WhatsApp: ${escapeHtml(o.customer_whatsapp||'-')}</p><p>Email: ${escapeHtml(o.customer_email||'-')}</p><p>Dibuat: ${escapeHtml(new Date(o.created_at).toLocaleString('id-ID'))}</p><p>Bukti dilaporkan: ${o.payment_submitted_at?escapeHtml(new Date(o.payment_submitted_at).toLocaleString('id-ID')):'Belum dilaporkan'}</p><span class="status">${state}</span>`;
+   const actions=document.createElement('div');actions.className='actions';
+   if(o.customer_whatsapp){const wa=document.createElement('a');wa.href=waLink(o);wa.target='_blank';wa.rel='noopener noreferrer';wa.className='btn';wa.textContent='WhatsApp Customer';actions.append(wa)}
+   if(o.payment_status==='waiting_verification'){
+    const activate=document.createElement('button');activate.className='btn primary';activate.textContent='Aktifkan Album';activate.onclick=()=>activateOrder(o,activate);actions.append(activate);
+   }
+   el.append(info,actions);$('orders').append(el);
+  });
+ }catch(e){$('orders').innerHTML='';message($('msg'),e.message||'Gagal memuat antrean admin.','error')}
+}
+async function activateOrder(order,button){
+ if(!confirm(`Pastikan dana pembayaran untuk ${order.event_name} sudah benar-benar masuk. Aktifkan album sekarang?`))return;
+ button.disabled=true;button.textContent='Mengaktifkan...';
+ try{const {data,error}=await sb.functions.invoke('activate-event',{body:{event_id:order.id}});if(error)throw error;if(data?.error)throw Error(data.error);message($('msg'),`Album ${order.event_name} berhasil diaktifkan. Link: ${data.photoboothUrl||('rafqa.id/e/'+order.slug)}`,'success');await showQueue();}
+ catch(e){message($('msg'),e.message||'Gagal mengaktifkan album.','error');button.disabled=false;button.textContent='Aktifkan Album'}
+}
+$('login-form').addEventListener('submit',async e=>{e.preventDefault();const b=$('login-button');b.disabled=true;try{const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)throw error;await showQueue()}catch(err){message($('login-msg'),err.message||'Login gagal.','error')}finally{b.disabled=false}});
+$('refresh').onclick=showQueue;
+$('logout').onclick=async()=>{await sb.auth.signOut();$('queue-panel').classList.add('hidden');$('logout').classList.add('hidden');$('login-panel').classList.remove('hidden')};
+sb.auth.getSession().then(({data})=>{if(data.session)showQueue()});
+</script></body></html>
