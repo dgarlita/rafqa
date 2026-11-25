@@ -1281,7 +1281,7 @@
 
             <!-- Container Gambar QR JPG Anda (Otomatis memuat file qris-rafqa.jpg atau fallback jika belum diletakkan di folder yang sama) -->
             <div class="w-48 h-48 bg-white rounded-2xl border-2 border-obsidian-900 p-2 flex flex-col items-center justify-center shadow-xs relative overflow-hidden">
-              <img id="personal-qris-img" src="./qris-rafqa.jpg" alt="QR Pembayaran Rafqa Production" 
+              <img id="personal-qris-img" src="./qris.jpeg" alt="QR Pembayaran Rafqa Production" 
                 onerror="this.classList.add('hidden'); document.getElementById('qris-fallback-notice').classList.remove('hidden');"
                 class="w-full h-full object-contain rounded-xl" />
               
@@ -1298,12 +1298,6 @@
               <p class="text-[11px] text-cocoa-800 leading-snug">
                 Scan QR menggunakan GoPay, OVO, DANA, ShopeePay, atau Mobile Banking.
               </p>
-              <!-- Tombol Uji Coba Upload Preview QR JPG Anda langsung di browser -->
-              <label class="cursor-pointer text-[10px] font-mono font-bold text-tangerine-600 hover:underline inline-flex items-center gap-1">
-                <i data-lucide="upload" class="w-3 h-3"></i>
-                <span>Muat File QR (.JPG) Lokal</span>
-                <input type="file" accept="image/jpeg,image/jpg,image/png" class="hidden" onchange="previewLocalQrJpg(event)" />
-              </label>
             </div>
           </div>
 
@@ -1320,19 +1314,19 @@
                     <i data-lucide="copy" class="w-3 h-3"></i> Salin
                   </button>
                 </div>
-                <p class="font-mono font-bold text-base text-obsidian-950 tracking-wider">1234 5678 90</p>
-                <p class="text-xs text-cocoa-800">a.n. <strong class="text-obsidian-950">Rafqa Production</strong></p>
+                <p class="font-mono font-bold text-base text-obsidian-950 tracking-wider">8465961356</p>
+                <p class="text-xs text-cocoa-800">a.n. <strong class="text-obsidian-950">Wildan Mushoffa</strong></p>
               </div>
 
               <!-- Rekening 2 -->
               <div class="p-3.5 rounded-xl bg-cream-100 border border-obsidian-900/30 space-y-1">
                 <div class="flex items-center justify-between">
-                  <span class="font-grotesk font-extrabold text-sm text-obsidian-950">BANK MANDIRI</span>
-                  <button type="button" onclick="copyTextValue('1310098765432', 'Nomor rekening Mandiri')" class="text-[11px] font-mono font-bold text-tangerine-600 hover:underline flex items-center gap-1">
+                  <span class="font-grotesk font-extrabold text-sm text-obsidian-950">BANK SEABANK</span>
+                  <button type="button" onclick="copyTextValue('901621529265', 'Nomor rekening Seabank')" class="text-[11px] font-mono font-bold text-tangerine-600 hover:underline flex items-center gap-1">
                     <i data-lucide="copy" class="w-3 h-3"></i> Salin
                   </button>
                 </div>
-                <p class="font-mono font-bold text-base text-obsidian-950 tracking-wider">1310 0987 6543 2</p>
+                <p class="font-mono font-bold text-base text-obsidian-950 tracking-wider">901621529265</p>
                 <p class="text-xs text-cocoa-800">a.n. <strong class="text-obsidian-950">Rafqa Production</strong></p>
               </div>
             </div>
